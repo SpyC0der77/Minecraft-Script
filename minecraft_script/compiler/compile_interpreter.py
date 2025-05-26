@@ -341,7 +341,10 @@ class CompileInterpreter:
         fnc: MCSFunction = self.visit(node.get_root(), context).get_value()
         arguments: tuple[mcs_type, ...] = tuple(map(lambda x: self.visit(x, context).get_value(), node.get_arguments()))
         commands, return_value = fnc.call(self, arguments, context)
-        is_builtin = hasattr(fnc.call, "__module__") and fnc.call.__module__ == "builtin_functions"
+        is_builtin = ( 
+            hasattr(fnc.call, "__module__") and 
+            fnc.call.__module__.endswith(".builtin_functions")
+        )
         if is_builtin:
             self.used_builtin_functions.add(fnc.call.__name__)
         if commands is not None:
