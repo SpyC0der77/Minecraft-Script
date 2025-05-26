@@ -1,6 +1,8 @@
 from os import system
+import platform
 
-system('color')  # enable colors
+if platform.system() == 'Windows':
+    system('color')  # enable colors on Windows
 
 colors = {
     'ok': '\033[92m',
