@@ -27,7 +27,7 @@ class Compiler:
             "\n"
             f"function {self.datapack_id}:user_functions/init\n"
         )
-        with open(f'{self.root_folder}/data/{self.datapack_id}/functions/init.mcfunction', 'xt') as init_file:
+        with open(f'{self.root_folder}/data/{self.datapack_id}/function/init.mcfunction', 'xt') as init_file:
             init_file.write(text)
     def make_main_file(self):
         text = (
@@ -41,7 +41,7 @@ class Compiler:
             "\n"
             f"function {self.datapack_id}:user_functions/main\n"
         )
-        with open(f'{self.root_folder}/data/{self.datapack_id}/functions/main.mcfunction', 'xt') as main_file:
+        with open(f'{self.root_folder}/data/{self.datapack_id}/function/main.mcfunction', 'xt') as main_file:
             main_file.write(text)
     def make_kill_file(self):
         text = (
@@ -59,7 +59,7 @@ class Compiler:
             "\n"
             f"datapack disable \"file/{self.datapack_name}\"\n"
         )
-        with open(f'{self.root_folder}/data/{self.datapack_id}/functions/kill.mcfunction', 'xt') as kill_file:
+        with open(f'{self.root_folder}/data/{self.datapack_id}/function/kill.mcfunction', 'xt') as kill_file:
             kill_file.write(text)
     def make_click_item_check_file(self):
         check_text = (
@@ -68,7 +68,7 @@ class Compiler:
             "data modify storage mcs_click id set from entity @s SelectedItem.components.\"minecraft:custom_data\".mcs_click\n"
             f"function {self.datapack_id}:clickable_items/run with storage mcs_click\n"
         )
-        click_path = f'{self.root_folder}/data/{self.datapack_id}/functions/clickable_items'
+        click_path = f'{self.root_folder}/data/{self.datapack_id}/function/clickable_items'
         mkdir(click_path)
         with open(f'{click_path}/check.mcfunction', 'xt') as check_file:
             check_file.write(check_text)
@@ -77,7 +77,7 @@ class Compiler:
     def import_math_files(self, used_math_ops):
         if not used_math_ops:
             return
-        math_folder = f'{self.root_folder}/data/{self.datapack_id}/functions/math'
+        math_folder = f'{self.root_folder}/data/{self.datapack_id}/function/math'
         mkdir(math_folder)
         source_folder = f'{module_folder}/compiler/build_templates/math'
         for filename in listdir(source_folder):
@@ -90,7 +90,7 @@ class Compiler:
     def import_builtins_files(self, used_builtins):
         if not used_builtins:
             return
-        builtins_folder = f'{self.root_folder}/data/{self.datapack_id}/functions/builtins'
+        builtins_folder = f'{self.root_folder}/data/{self.datapack_id}/function/builtins'
         mkdir(builtins_folder)
         source_folder = f'{module_folder}/compiler/build_templates/builtins'
         for filename in listdir(source_folder):
@@ -129,18 +129,18 @@ class Compiler:
         if self.verbose:
             print('\rBuilding built-in functions... 50%', end="")
         self.import_math_files(used_math_ops)
-        self.clean_empty_folder(f'{self.root_folder}/data/{self.datapack_id}/functions/math')
+        self.clean_empty_folder(f'{self.root_folder}/data/{self.datapack_id}/function/math')
         if self.verbose:
             print('\rBuilding built-in functions... 67%', end="")
         self.import_builtins_files(used_builtins)
-        self.clean_empty_folder(f'{self.root_folder}/data/{self.datapack_id}/functions/builtins')
+        self.clean_empty_folder(f'{self.root_folder}/data/{self.datapack_id}/function/builtins')
         if self.verbose:
             print('\rBuilding built-in functions... 83%', end="")
         self.make_click_item_check_file()
         if self.verbose:
             print('\rBuilding builtin-in functions... Done!')
     def clean_empty_code_blocks(self):
-        code_blocks_folder = f'{self.root_folder}/data/{self.datapack_id}/functions/code_blocks'
+        code_blocks_folder = f'{self.root_folder}/data/{self.datapack_id}/function/code_blocks'
         if os.path.exists(code_blocks_folder) and not os.listdir(code_blocks_folder):
             rmdir(code_blocks_folder)
     def build(self):
@@ -157,11 +157,11 @@ class Compiler:
             print('Creating default folders...', end=" ")
         mkdir(f'{self.root_folder}/data/minecraft')
         mkdir(f'{self.root_folder}/data/minecraft/tags')
-        mkdir(f'{self.root_folder}/data/minecraft/tags/functions')
+        mkdir(f'{self.root_folder}/data/minecraft/tags/function')
         mkdir(f'{self.root_folder}/data/{self.datapack_id}')
-        mkdir(f'{self.root_folder}/data/{self.datapack_id}/functions')
-        mkdir(f'{self.root_folder}/data/{self.datapack_id}/functions/code_blocks')
-        mkdir(f'{self.root_folder}/data/{self.datapack_id}/functions/user_functions')
+        mkdir(f'{self.root_folder}/data/{self.datapack_id}/function')
+        mkdir(f'{self.root_folder}/data/{self.datapack_id}/function/code_blocks')
+        mkdir(f'{self.root_folder}/data/{self.datapack_id}/function/user_functions')
         if self.verbose:
             print('Done!')
             print('Building Templates...', end=" ")
@@ -174,8 +174,8 @@ class Compiler:
         copyfile(f'{module_folder}/compiler/build_templates/pack.png', f'{self.root_folder}/pack.png')
         with (
             open(f'{module_folder}/compiler/build_templates/function_tags.json', 'rt') as template_file,
-            open(f'{self.root_folder}/data/minecraft/tags/functions/tick.json', 'xt') as tick_file,
-            open(f'{self.root_folder}/data/minecraft/tags/functions/load.json', 'xt') as load_file
+            open(f'{self.root_folder}/data/minecraft/tags/function/tick.json', 'xt') as tick_file,
+            open(f'{self.root_folder}/data/minecraft/tags/function/load.json', 'xt') as load_file
         ):
             template_content = template_file.read()
             tick_file.write(template_content.replace('NAME', self.datapack_id).replace('FILETYPE', 'main'))
@@ -184,7 +184,7 @@ class Compiler:
             print("Done!")
         used_math_ops, used_builtins = mcs_compile(
             self.ast,
-            f'{self.root_folder}/data/{self.datapack_id}/functions',
+            f'{self.root_folder}/data/{self.datapack_id}/function',
             self.datapack_id
         )
         self.generate_builtin_functions(used_math_ops, used_builtins)
