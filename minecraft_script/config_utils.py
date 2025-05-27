@@ -5,7 +5,7 @@ from .common import COMMON_CONFIG, module_folder
 
 def reset_config() -> None:
     default_config = {
-        "pack_format": "41",
+        "pack_format": "71",
         "debug_comments": True,
         "verbose": True,
         "default_output_path": "."

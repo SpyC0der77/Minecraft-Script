@@ -1,1 +1,1 @@
-$tellraw @a ["", {"storage": "$(s0)", "nbt": "$(n0)"}, {"text": " "}, {"storage": "$(s1)", "nbt": "$(n1)"}, {"text": " "}, {"storage": "$(s2)", "nbt": "$(n2)"}, {"text": " "}, {"storage": "$(s3)", "nbt": "$(n3)"}, {"text": " "}, {"storage": "$(s4)", "nbt": "$(n4)"}]
+$tellraw @a {text:'',extra:[{storage:'$(s0)',nbt:'$(n0)'},{text:' '},{storage:'$(s1)',nbt:'$(n1)'},{text:' '},{storage:'$(s2)',nbt:'$(n2)'},{text:' '},{storage:'$(s3)',nbt:'$(n3)'},{text:' '},{storage:'$(s4)',nbt:'$(n4)'}]}
