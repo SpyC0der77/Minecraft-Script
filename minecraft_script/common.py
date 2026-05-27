@@ -1,17 +1,10 @@
 import json
+import os
+from pathlib import Path
 from uuid import uuid4 as _uuid4
-import platform
-os = platform.system().lower()
 
 version = "0.2.2"
-module_folder = ""
-if os == "windows":
-    print("Detected Windows OS")
-    module_folder = "/".join(__file__.split('\\')[:-1])
-elif os == "darwin":
-    print("Detected macOS")
-    module_folder = "/".join(__file__.split('/')[:-1])
-
+module_folder = str(Path(__file__).resolve().parent)
 
 # load Minecraft-Script configuration
 with open(f"{module_folder}/config.json", "rt", encoding="utf-8") as file:

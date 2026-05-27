@@ -1,18 +1,24 @@
 from .compile_types import *
+from ..version_config import get_version_context
 
 function_output = tuple[tuple[str, ...], mcs_type]  # [commands, return value]
 
 
 def log(interpreter, args, context) -> function_output:
     max_length = 5
+    version = get_version_context()
 
     values = list(map(lambda arg: (arg.get_storage(), arg.get_nbt()), args))
     values.extend(("", "none") for _ in range(max_length - len(args)))
 
-    storage = " {" + ", ".join(f'"s{i}": "{values[i][0]}", "n{i}": "{values[i][1]}"' for i in range(max_length)) + '}'
+    storage_suffix = (
+        " {"
+        + ", ".join(f'"s{i}": "{values[i][0]}", "n{i}": "{values[i][1]}"' for i in range(max_length))
+        + "}"
+    )
 
     commands = (
-        f'function {interpreter.datapack_id}:builtins/log' + storage,
+        version.render("builtin.log", storageSuffix=storage_suffix),
     )
 
     return commands, MCSNull(context)
@@ -20,12 +26,13 @@ def log(interpreter, args, context) -> function_output:
 
 def command(interpreter, args, context) -> function_output:
     value = args[0]
+    version = get_version_context()
 
-    commands = (
-        f"data modify storage {value.get_storage()} current set value " "{}",  # set current to object to store values
-        f"data modify storage {value.get_storage()} current.cmd set from storage {value.get_storage()} {value.get_nbt()}",
-        f"function {interpreter.datapack_id}:builtins/command with storage {value.get_storage()} current",
-    )
+    commands = tuple(version.render_lines(
+        "builtin.command.setup",
+        valueStorage=value.get_storage(),
+        valueNbt=value.get_nbt(),
+    ))
 
     return commands, MCSNull(context)
 
@@ -33,84 +40,86 @@ def command(interpreter, args, context) -> function_output:
 def get_block(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
     x, y, z, *_ = args
+    version = get_version_context()
 
     local_context = CompileContext(parent=context)
-
     mcs_obj = MCSString(context)
 
-    fnc_commands = (
-        f"data modify storage {mcs_obj.get_storage()} {mcs_obj.get_nbt()} set value \"\"",
-        "summon armor_stand ~ ~5 ~ {Invisible:1b, NoBasePlate:1b, NoGravity:1b, Tags:[\"mcs_get_block_temp\"]}",
-        "$loot replace entity @e[type=armor_stand, limit=1, sort=nearest, tag=mcs_get_block_temp] armor.head mine $(x) $(y) $(z) netherite_pickaxe[minecraft:enchantments={silk_touch:1}]",
-        # NOQA
-        f"data modify storage {mcs_obj.get_storage()} {mcs_obj.get_nbt()} set from entity @e[type=minecraft:armor_stand, tag=mcs_get_block_temp, limit=1, sort=nearest] equipment.head.id",
-        # NOQA
-        "kill @e[type=armor_stand, tag=mcs_get_block_temp]"
+    interpreter.add_commands(
+        local_context.mcfunction_name,
+        version.render_lines(
+            "builtin.get_block.body",
+            resultStorage=mcs_obj.get_storage(),
+            resultNbt=mcs_obj.get_nbt(),
+        ),
     )
-    interpreter.add_commands(local_context.mcfunction_name, fnc_commands)
 
-    setup_commands = (
-        f"data modify storage mcs_{context.uuid} current set value " "{}",  # set current to an object to store values
-        f"data modify storage mcs_{context.uuid} current.x set from storage {x.get_storage()} {x.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.y set from storage {y.get_storage()} {y.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.z set from storage {z.get_storage()} {z.get_nbt()}",
-        f"function {interpreter.datapack_id}:{local_context.mcfunction_name} with storage mcs_{context.uuid} current",
-    )
+    setup_commands = tuple(version.render_lines(
+        "builtin.get_block.setup",
+        ctxStorage=f"mcs_{context.uuid}",
+        xStorage=x.get_storage(),
+        xNbt=x.get_nbt(),
+        yStorage=y.get_storage(),
+        yNbt=y.get_nbt(),
+        zStorage=z.get_storage(),
+        zNbt=z.get_nbt(),
+        bodyPath=local_context.mcfunction_name,
+    ))
 
     return setup_commands, mcs_obj
 
 
 def set_block(interpreter, args, context) -> function_output:
     x, y, z, block_name, *_ = args
+    version = get_version_context()
 
-    commands = (
-        f"data modify storage mcs_{context.uuid} current set value " "{}",  # set current to an object to store values
-        f"data modify storage mcs_{context.uuid} current.x set from storage {x.get_storage()} {x.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.y set from storage {y.get_storage()} {y.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.z set from storage {z.get_storage()} {z.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.block set from storage {block_name.get_storage()} {block_name.get_nbt()}",
-        f"function {interpreter.datapack_id}:builtins/set_block with storage mcs_{context.uuid} current",
-    )
+    commands = tuple(version.render_lines(
+        "builtin.set_block.setup",
+        ctxStorage=f"mcs_{context.uuid}",
+        xStorage=x.get_storage(),
+        xNbt=x.get_nbt(),
+        yStorage=y.get_storage(),
+        yNbt=y.get_nbt(),
+        zStorage=z.get_storage(),
+        zNbt=z.get_nbt(),
+        blockStorage=block_name.get_storage(),
+        blockNbt=block_name.get_nbt(),
+    ))
 
     return commands, MCSNull(context)
 
 
 def raycast_block(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     local_context = CompileContext(parent=context)
     raycast_id = generate_uuid()
-    raycast_function: MCSFunction = args[0]  # get function to play on block (at raycast end)
-    raycast_range: mcs_type = args[1]  # get raycast range
-    raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None  # get function to play on each loop
+    raycast_function: MCSFunction = args[0]
+    raycast_range: mcs_type = args[1]
+    raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
 
-    fnc_commands = (
-        # Check if not colliding with block
-        f"execute unless block ~ ~ ~ #{interpreter.datapack_id}:no_collision run scoreboard players operation .raycast_iter_{raycast_id} mcs_math = .raycast_end_{raycast_id} mcs_math",
-
-        # Call function if at end of raycast
-        f"execute if score .raycast_iter_{raycast_id} mcs_math >= .raycast_end_{raycast_id} mcs_math run function {interpreter.datapack_id}:user_functions/{raycast_function.name}",
-
-        # Call loop function if it exists
-        f"function {interpreter.datapack_id}:user_functions/{raycast_loop_function.name}" if raycast_loop_function is not None else "# No loop function",
-
-        # Start next loop
-        f"scoreboard players add .raycast_iter_{raycast_id} mcs_math 1",
-        f"execute if score .raycast_iter_{raycast_id} mcs_math < .raycast_end_{raycast_id} mcs_math positioned ^ ^ ^0.5 run function {interpreter.datapack_id}:{local_context.mcfunction_name}",
+    interpreter.add_commands(
+        local_context.mcfunction_name,
+        version.render_lines(
+            "builtin.raycast_block.loop",
+            raycastId=raycast_id,
+            hitFunction=raycast_function.name,
+            hasLoopFunction=raycast_loop_function is not None,
+            loopFunction=raycast_loop_function.name if raycast_loop_function else "",
+            loopPath=local_context.mcfunction_name,
+        ),
     )
-    interpreter.add_commands(local_context.mcfunction_name, fnc_commands)
 
     setup_commands = (
-        # Initialize values
         raycast_range.set_to_current_cmd(context),
-        f"execute store result score .raycast_end_{raycast_id} mcs_math run data get storage mcs_{context.uuid} current 2",
-        f"scoreboard players set .raycast_iter_{raycast_id} mcs_math 0",
-
-        # Call raycast
-        f"execute anchored eyes positioned ^ ^ ^.00001 run function {interpreter.datapack_id}:{local_context.mcfunction_name}",
-
-        # Reset used scoreboards
-        f"scoreboard players reset .raycast_iter_{raycast_id} mcs_math",
-        f"scoreboard players reset .raycast_end_{raycast_id} mcs_math",
+        *version.render_lines(
+            "builtin.raycast_block.setup",
+            ctxStorage=f"mcs_{context.uuid}",
+            rangeStorage=raycast_range.get_storage(),
+            rangeNbt=raycast_range.get_nbt(),
+            raycastId=raycast_id,
+            loopPath=local_context.mcfunction_name,
+        ),
     )
 
     return setup_commands, MCSNull(context)
@@ -118,169 +127,166 @@ def raycast_block(interpreter, args, context) -> function_output:
 
 def raycast_entity(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     local_context = CompileContext(parent=context)
     raycast_id = generate_uuid()
     raycast_function: MCSFunction = args[0]
-    raycast_range: mcs_type = args[1]  # get raycast range
-    raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None  # get function to play on each loop
+    raycast_range: mcs_type = args[1]
+    raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
 
-    fnc_commands = (
-        # Check if entity is found
-        f"execute positioned ~-0.1 ~-0.1 ~-0.1 as @e[tag=!raycast_{raycast_id}, dx=0] positioned ~-0.7 ~-0.7 ~-0.7 if entity @s[dx=0] run scoreboard players operation .raycast_iter_{raycast_id} mcs_math = .raycast_end_{raycast_id} mcs_math",
-
-        # Call function if at end of raycast
-        f"execute if score .raycast_iter_{raycast_id} mcs_math >= .raycast_end_{raycast_id} mcs_math positioned ~-0.1 ~-0.1 ~-0.1 as @e[tag=!raycast_{raycast_id}, dx=0] positioned ~-0.7 ~-0.7 ~-0.7 at @s run function {interpreter.datapack_id}:user_functions/{raycast_function.name}",
-
-        # Call loop function if it exists
-        f"function {interpreter.datapack_id}:user_functions/{raycast_loop_function.name}" if raycast_loop_function is not None else "# No loop function",
-
-        # Start next loop
-        f"scoreboard players add .raycast_iter_{raycast_id} mcs_math 1",
-        f"execute if block ~ ~ ~ #{interpreter.datapack_id}:no_collision if score .raycast_iter_{raycast_id} mcs_math < .raycast_end_{raycast_id} mcs_math positioned ^ ^ ^0.5 run function {interpreter.datapack_id}:{local_context.mcfunction_name}",
+    interpreter.add_commands(
+        local_context.mcfunction_name,
+        version.render_lines(
+            "builtin.raycast_entity.loop",
+            raycastId=raycast_id,
+            hitFunction=raycast_function.name,
+            hasLoopFunction=raycast_loop_function is not None,
+            loopFunction=raycast_loop_function.name if raycast_loop_function else "",
+            loopPath=local_context.mcfunction_name,
+        ),
     )
-    interpreter.add_commands(local_context.mcfunction_name, fnc_commands)
 
     setup_commands = (
-        # Initialize values
         raycast_range.set_to_current_cmd(context),
-        f"execute store result score .raycast_end_{raycast_id} mcs_math run data get storage mcs_{context.uuid} current 2",
-        f"scoreboard players set .raycast_iter_{raycast_id} mcs_math 0",
-        f"tag @s add raycast_{raycast_id}",
-
-        # Call raycast
-        f"execute anchored eyes positioned ^ ^ ^.00001 run function {interpreter.datapack_id}:{local_context.mcfunction_name}",
-
-        # Reset used scoreboards
-        f"tag @s remove raycast_{raycast_id}",
-        f"scoreboard players reset .raycast_iter_{raycast_id} mcs_math",
-        f"scoreboard players reset .raycast_end_{raycast_id} mcs_math",
+        *version.render_lines(
+            "builtin.raycast_entity.setup",
+            ctxStorage=f"mcs_{context.uuid}",
+            rangeStorage=raycast_range.get_storage(),
+            rangeNbt=raycast_range.get_nbt(),
+            raycastId=raycast_id,
+            loopPath=local_context.mcfunction_name,
+        ),
     )
 
     return setup_commands, MCSNull(context)
 
 
 def give_item(interpreter, args, context) -> function_output:
-    item: MCSString = args[0]  # item name
-    components: MCSString = args[1] if len(args) > 1 else None  # item nbt (optional)
+    item: MCSString = args[0]
+    components: MCSString = args[1] if len(args) > 1 else None
     count: MCSString = args[2] if len(args) > 2 else None
+    version = get_version_context()
 
-    commands = (
-        # ------ Setup ------
-        f"data modify storage mcs_{context.uuid} current set value " "{}",
+    params = {
+        "ctxStorage": f"mcs_{context.uuid}",
+        "itemStorage": item.get_storage(),
+        "itemNbt": item.get_nbt(),
+        "hasComponents": components is not None,
+        "hasCount": count is not None,
+    }
+    if components is not None:
+        params["componentsStorage"] = components.get_storage()
+        params["componentsNbt"] = components.get_nbt()
+    if count is not None:
+        params["countStorage"] = count.get_storage()
+        params["countNbt"] = count.get_nbt()
 
-        # --- Item ---
-        f"data modify storage mcs_{context.uuid} current.item set from storage {item.get_storage()} {item.get_nbt()}",
-
-        # --- Components ---
-        f"data modify storage mcs_{context.uuid} current.components set from storage {components.get_storage()} {components.get_nbt()}"
-        if components is not None else
-        f"data modify storage mcs_{context.uuid} current.components set value ''",  # set value to default
-
-        # --- Count ---
-        f"data modify storage mcs_{context.uuid} current.count set from storage {count.get_storage()} {count.get_nbt()}"
-        if count is not None else
-        f"data modify storage mcs_{context.uuid} current.count set value 1",  # set value to default
-
-        # ------ Call Function ------
-        f"function {interpreter.datapack_id}:builtins/give_item with storage mcs_{context.uuid} current",
-    )
-
+    commands = tuple(version.render_lines("builtin.give_item.setup", **params))
     return commands, MCSNull(context)
 
 
 def concatenate(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     string_1: MCSString = args[0]
     string_2: MCSString = args[1]
-
     string_concat_context = CompileContext(parent=context)
-
     output_string = MCSString(context)
-
-    setup_commands = (
-        f"data modify storage mcs_{context.uuid} current set value " "{}",
-        f"data modify storage mcs_{context.uuid} current.string_1 set from storage {string_1.get_storage()} {string_1.get_nbt()}",
-        f"data modify storage mcs_{context.uuid} current.string_2 set from storage {string_2.get_storage()} {string_2.get_nbt()}",
-        f"function {interpreter.datapack_id}:{string_concat_context.mcfunction_name} with storage mcs_{context.uuid} current",
-    )
 
     interpreter.add_command(
         string_concat_context.mcfunction_name,
-        f"$data modify storage {output_string.get_storage()} {output_string.get_nbt()} set value \"$(string_1)$(string_2)\""
+        version.render(
+            "builtin.concatenate.macro",
+            resultStorage=output_string.get_storage(),
+            resultNbt=output_string.get_nbt(),
+        ),
     )
+
+    setup_commands = tuple(version.render_lines(
+        "builtin.concatenate.setup",
+        ctxStorage=f"mcs_{context.uuid}",
+        s1Storage=string_1.get_storage(),
+        s1Nbt=string_1.get_nbt(),
+        s2Storage=string_2.get_storage(),
+        s2Nbt=string_2.get_nbt(),
+        macroPath=string_concat_context.mcfunction_name,
+    ))
 
     return setup_commands, output_string
 
 
 def append(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     list_arg: MCSList = args[0]
     value: mcs_type = args[1]
-
     set_key_context = CompileContext(parent=context)
-
-    commands = (
-        # Add element to list
-        f"data modify storage mcs_{context.uuid} current set value " "{}",
-        f"data modify storage mcs_{context.uuid} current.index set from storage {list_arg.get_storage()} {list_arg.get_nbt()}.length",
-        f"function {interpreter.datapack_id}:{set_key_context.mcfunction_name} with storage mcs_{context.uuid} current",
-
-        # Increment list length
-        f"execute store result score .temp mcs_math run data get storage {list_arg.get_storage()} {list_arg.get_nbt()}.length",
-        f"scoreboard players set .1 mcs_math 1",
-        f"scoreboard players operation .temp mcs_math += .1 mcs_math",
-        f"execute store result storage {list_arg.get_storage()} {list_arg.get_nbt()}.length int 1 run scoreboard players get .temp mcs_math",
-        f"scoreboard players reset .1 mcs_math",
-    )
 
     interpreter.add_command(
         set_key_context.mcfunction_name,
-        f"$data modify storage {list_arg.get_storage()} {list_arg.get_nbt()}.$(index) set from storage {value.get_storage()} {value.get_nbt()}"
+        version.render(
+            "builtin.append.macro",
+            listStorage=list_arg.get_storage(),
+            listNbt=list_arg.get_nbt(),
+            valueStorage=value.get_storage(),
+            valueNbt=value.get_nbt(),
+        ),
     )
+
+    commands = tuple(version.render_lines(
+        "builtin.append.setup",
+        ctxStorage=f"mcs_{context.uuid}",
+        listStorage=list_arg.get_storage(),
+        listNbt=list_arg.get_nbt(),
+        macroPath=set_key_context.mcfunction_name,
+    ))
 
     return commands, MCSNull(context)
 
 
 def mcs_range(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     range_bound: MCSNumber = args[0]
-
     result = MCSList(context)
     scoreboard_id = f"{generate_uuid()}"
     recursive_function = CompileContext(parent=context)
     set_index_function = CompileContext(parent=context)
 
     commands = (
-        # Initialize values:
-        f"scoreboard players set .range_current_{scoreboard_id} mcs_math 0",
-        f"execute store result score .range_max_{scoreboard_id} mcs_math run data get storage {range_bound.get_storage()} {range_bound.get_nbt()}",
-        f"data modify storage {result.get_storage()} {result.get_nbt()}.length set from storage {range_bound.get_storage()} {range_bound.get_nbt()}",
-
-        f"function {interpreter.datapack_id}:{recursive_function.mcfunction_name}",
-
-        # Clean up initial values:
-        f"scoreboard players reset .range_current_{scoreboard_id} mcs_math",
-        f"scoreboard players reset .range_max_{scoreboard_id} mcs_math",
+        *version.render_lines(
+            "builtin.range.init",
+            scoreboardId=scoreboard_id,
+            boundStorage=range_bound.get_storage(),
+            boundNbt=range_bound.get_nbt(),
+            resultStorage=result.get_storage(),
+            resultNbt=result.get_nbt(),
+            recursivePath=recursive_function.mcfunction_name,
+        ),
+        *version.render_lines(
+            "builtin.range.cleanup",
+            scoreboardId=scoreboard_id,
+        ),
     )
 
-    recursive_function_commands = (
-        # Initialize values for set_index_function:
-        f"data modify storage mcs_{recursive_function.uuid} current set value " "{}",
-        f"execute store result storage mcs_{recursive_function.uuid} current.index int 1 run scoreboard players get .range_current_{scoreboard_id} mcs_math",
-
-        f"function {interpreter.datapack_id}:{set_index_function.mcfunction_name} with storage mcs_{recursive_function.uuid} current",
-
-        # Recursive loop:
-        f"scoreboard players set .1 mcs_math 1",
-        f"scoreboard players operation .range_current_{scoreboard_id} mcs_math += .1 mcs_math",
-        f"scoreboard players reset .1 mcs_math",
-        f"execute unless score .range_current_{scoreboard_id} mcs_math >= .range_max_{scoreboard_id} mcs_math run function {interpreter.datapack_id}:{recursive_function.mcfunction_name}",
+    interpreter.add_commands(
+        recursive_function.mcfunction_name,
+        version.render_lines(
+            "builtin.range.recursive",
+            recursiveStorage=f"mcs_{recursive_function.uuid}",
+            scoreboardId=scoreboard_id,
+            setIndexPath=set_index_function.mcfunction_name,
+            recursivePath=recursive_function.mcfunction_name,
+        ),
     )
-    interpreter.add_commands(recursive_function.mcfunction_name, recursive_function_commands)
 
     interpreter.add_command(
         set_index_function.mcfunction_name,
-        f"$data modify storage {result.get_storage()} {result.get_nbt()}.$(index) set value $(index)"
+        version.render(
+            "builtin.range.set_index_macro",
+            resultStorage=result.get_storage(),
+            resultNbt=result.get_nbt(),
+        ),
     )
 
     return commands, result
@@ -288,48 +294,45 @@ def mcs_range(interpreter, args, context) -> function_output:
 
 def give_clickable_item(interpreter, args, context) -> function_output:
     from .compile_interpreter import CompileContext
+    version = get_version_context()
     click_function: MCSFunction = args[0]
     name: MCSString = args[1] if len(args) > 1 else None
     custom_model_data: MCSNumber = args[2] if len(args) > 2 else None
 
-    "give @s minecraft:carrot_on_a_stick[minecraft:custom_data={mcs_click:VALUE},minecraft:custom_name={text:'NAME'},minecraft:custom_model_data=0]"
-    "function interpreter.datapack_id:clickable_items/id"
-
     click_function_id = interpreter.click_item_lookup.get(click_function)
     if click_function_id is None:
-        click_function_id = max(interpreter.click_item_lookup.values()) + 1 if interpreter.click_item_lookup.values() else 0
-        interpreter.click_item_lookup[click_function.name] = click_function_id  # add id to dict
+        click_function_id = (
+            max(interpreter.click_item_lookup.values()) + 1
+            if interpreter.click_item_lookup.values() else 0
+        )
+        interpreter.click_item_lookup[click_function.name] = click_function_id
         interpreter.add_command(
             f"clickable_items/{click_function_id}",
-            f"function {interpreter.datapack_id}:user_functions/{click_function.name}"
+            version.render("click.register", userFunctionName=click_function.name),
         )
-
-    local_context = CompileContext(parent=context)
 
     if name is None:
         commands = (
-            "give @s carrot_on_a_stick[minecraft:custom_data={mcs_click:" f"{click_function_id}" "}]",
+            version.render("builtin.give_clickable.simple", clickId=click_function_id),
         )
-
     else:
-        commands = (
-            f"data modify storage mcs_{context.uuid} current set value " "{}",
-            # Name:
-            f"data modify storage mcs_{context.uuid} current.name set from storage {name.get_storage()} {name.get_nbt()}",
-            # Custom Model Data:
-            f"data modify storage mcs_{context.uuid} current.model set from storage {custom_model_data.get_storage()} {custom_model_data.get_nbt()}"
-            if custom_model_data is not None else
-            "\r",
+        local_context = CompileContext(parent=context)
+        params = {
+            "ctxStorage": f"mcs_{context.uuid}",
+            "nameStorage": name.get_storage(),
+            "nameNbt": name.get_nbt(),
+            "macroPath": local_context.mcfunction_name,
+            "clickId": click_function_id,
+            "hasCustomModel": custom_model_data is not None,
+        }
+        if custom_model_data is not None:
+            params["modelStorage"] = custom_model_data.get_storage()
+            params["modelNbt"] = custom_model_data.get_nbt()
 
-            f"function {interpreter.datapack_id}:{local_context.mcfunction_name} with storage mcs_{context.uuid} current",
-        )
-
+        commands = tuple(version.render_lines("builtin.give_clickable.named_setup", **params))
         interpreter.add_command(
             local_context.mcfunction_name,
-            "$give @s carrot_on_a_stick["
-            "minecraft:custom_data={mcs_click:" f"{click_function_id}" "}, "
-            "minecraft:custom_name={text:'$(name)'}" +        # + needed here otherwise ternary applies to whole string
-            (", minecraft:custom_model_data=$(model)]" if custom_model_data is not None else "]")
+            version.render("builtin.give_clickable.named_macro", **params),
         )
 
     return commands, MCSNull(context)

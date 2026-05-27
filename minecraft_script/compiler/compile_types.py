@@ -1,4 +1,5 @@
 from ..common import generate_uuid
+from ..version_config import get_version_context
 
 
 class MCSObject:
@@ -14,13 +15,27 @@ class MCSObject:
         return f"mcs_{self.context.uuid}"
 
     def save_to_storage_cmd(self, value: any) -> str:
-        return f"data modify storage {self.get_storage()} {self.get_nbt()} set value {value}"
+        return get_version_context().render(
+            "literal.save",
+            storage=self.get_storage(),
+            nbt=self.get_nbt(),
+            value=value,
+        )
 
     def delete_from_storage_cmd(self) -> str:
-        return f"data remove storage {self.get_storage()} {self.get_nbt()}"
+        return get_version_context().render(
+            "literal.delete",
+            storage=self.get_storage(),
+            nbt=self.get_nbt(),
+        )
 
     def set_to_current_cmd(self, output_context) -> str:
-        return f"data modify storage mcs_{output_context.uuid} current set from storage {self.get_storage()} {self.get_nbt()}"  # NOQA
+        return get_version_context().render(
+            "literal.set_to_current",
+            destStorage=f"mcs_{output_context.uuid}",
+            storage=self.get_storage(),
+            nbt=self.get_nbt(),
+        )
 
 
 class MCSVariable:
@@ -35,7 +50,12 @@ class MCSVariable:
         return f"mcs_{self.context.uuid}"
 
     def set_to_current_cmd(self, output_context) -> str:
-        return f"data modify storage mcs_{output_context.uuid} current set from storage {self.get_storage()} {self.get_nbt()}"  # NOQA
+        return get_version_context().render(
+            "literal.set_to_current",
+            destStorage=f"mcs_{output_context.uuid}",
+            storage=self.get_storage(),
+            nbt=self.get_nbt(),
+        )
 
     def __repr__(self) -> str:
         return f"MCSVariable({self.name !r}, {self.context.uuid !r})"
@@ -46,15 +66,26 @@ class MCSList(MCSObject):
         super().__init__(context, "list")
 
     def save_to_storage_cmd(self, values: list["mcs_type"]) -> list[str]:
+        version = get_version_context()
         commands = [
-            # add length (since value is (for now) set in stone)
-            f"data modify storage {self.get_storage()} {self.get_nbt()}.length set value {len(values)}"
+            version.render(
+                "literal.list.length",
+                storage=self.get_storage(),
+                nbt=self.get_nbt(),
+                length=len(values),
+            )
         ]
 
         for i, value in enumerate(values):
             commands.extend((
                 value.set_to_current_cmd(self.context),
-                f"data modify storage {self.get_storage()} {self.get_nbt()}.{i} set from storage {self.get_storage()} current"  # NOQA
+                version.render(
+                    "literal.list.element",
+                    storage=self.get_storage(),
+                    nbt=self.get_nbt(),
+                    index=i,
+                    srcStorage=self.get_storage(),
+                ),
             ))
 
         return commands
@@ -67,11 +98,21 @@ class MCSNull(MCSObject):
     def __init__(self, context):
         super().__init__(context, "null")
 
-    def save_to_storage_cmd(self) -> str:  # NOQA
-        return f"data modify storage {self.get_storage()} {self.get_nbt()} set value 0b"
+    def save_to_storage_cmd(self) -> str:
+        return get_version_context().render(
+            "literal.save",
+            storage=self.get_storage(),
+            nbt=self.get_nbt(),
+            value="0b",
+        )
 
-    def set_to_current_cmd(self, output_context) -> str:  # NOQA
-        return f"data modify storage mcs_{output_context.uuid} current set value 0b"
+    def set_to_current_cmd(self, output_context) -> str:
+        return get_version_context().render(
+            "literal.save",
+            storage=f"mcs_{output_context.uuid}",
+            nbt="current",
+            value="0b",
+        )
 
     def __repr__(self) -> str:
         return "MCSNull()"
@@ -122,18 +163,25 @@ class MCSFunction:
         for name in self.parameter_names:
             self.local_context.declare(name, MCSVariable(name, self.local_context))
 
-        interpreter.visit(self.body, self.local_context)  # generate all commands inside body
+        interpreter.visit(self.body, self.local_context)
 
     def call(self, interpreter, arguments, context) -> tuple[list, "mcs_type"]:
+        version = get_version_context()
         commands = []
 
         for name, argument in zip(self.parameter_names, arguments):
-            commands.extend([
-                argument.set_to_current_cmd(self.local_context),
-                f"data modify storage mcs_{self.local_context.uuid} variable.{name} set from storage mcs_{self.local_context.uuid} current",  # NOQA
-            ])
+            commands.extend(version.render_lines(
+                "function.call.param",
+                localStorage=f"mcs_{self.local_context.uuid}",
+                argStorage=argument.get_storage(),
+                argNbt=argument.get_nbt(),
+                paramName=name,
+            ))
 
-        commands.append(f"function {interpreter.datapack_id}:user_functions/{self.name}")
+        commands.append(version.render(
+            "function.call.invoke",
+            functionName=self.name,
+        ))
 
         return commands, MCSNull(context)
 
