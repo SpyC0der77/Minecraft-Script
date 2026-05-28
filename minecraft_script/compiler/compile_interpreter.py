@@ -415,7 +415,7 @@ class CompileInterpreter:
             childPath=local_context.mcfunction_name,
         )
         commands = add_comment(setup_commands, f"Entity selector {selector !r}")
-        self.add_commands(context.mcfunction_name, setup_commands)
+        self.add_commands(context.mcfunction_name, commands)
         return out if out.get_return() is not None else CompileResult()
     def visit_BinaryOperationNode(self, node, context: CompileContext) -> CompileResult:
         left_value: mcs_type = self.visit(node.get_left_node(), context).get_value()

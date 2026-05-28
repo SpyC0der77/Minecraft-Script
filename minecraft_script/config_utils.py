@@ -31,7 +31,7 @@ def reset_config() -> None:
 
 def update_config(setting: str, value: str) -> None:
     value_wrapper_fnc = config_value_wrapper[setting]
-    py_value = value_wrapper_fnc(value)
+    py_value = value_wrapper_fnc(value, setting)
     COMMON_CONFIG[setting] = py_value
     _write_config()
 
@@ -69,7 +69,7 @@ def config_minecraft_version_check(value: str, setting: str) -> str:
 
 config_value_wrapper = {
     "minecraft_version": config_minecraft_version_check,
-    "debug_comments": lambda x: config_boolean_check(x, "debug_comments"),
-    "verbose": lambda x: config_boolean_check(x, "verbose"),
-    "default_output_path": lambda x: config_path_check(x, "default_output_path"),
+    "debug_comments": config_boolean_check,
+    "verbose": config_boolean_check,
+    "default_output_path": config_path_check,
 }
