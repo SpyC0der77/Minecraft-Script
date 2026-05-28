@@ -169,7 +169,7 @@ class MCSFunction:
         version = get_version_context()
         commands = []
 
-        for name, argument in zip(self.parameter_names, arguments):
+        for name, argument in zip(self.parameter_names, arguments, strict=True):
             commands.extend(version.render_lines(
                 "function.call.param",
                 localStorage=f"mcs_{self.local_context.uuid}",

@@ -7,15 +7,9 @@ from .version_config import list_supported_versions, load_version_profile
 
 
 def _write_config() -> None:
-    json_file_content: str = (
-        json.dumps(COMMON_CONFIG)
-        .replace("{", "{\n\t")
-        .replace("}", "\n}")
-        .replace(", ", ",\n\t")
-    )
-
     with open(f"{module_folder}/config.json", "wt", encoding="utf-8") as file:
-        file.write(json_file_content)
+        json.dump(COMMON_CONFIG, file, indent=4, ensure_ascii=False)
+        file.write("\n")
 
 
 def reset_config() -> None:

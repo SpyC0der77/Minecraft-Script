@@ -1,7 +1,7 @@
 from .builtin_functions import builtin_functions
 from .compile_types import *
 from ..common import COMMON_CONFIG
-from ..version_config import get_version_context, init_version_context, clear_version_context
+from ..version_config import get_version_context
 
 def add_comment(commands: tuple | list | str, comment: str) -> tuple | str:
     if not isinstance(commands, (tuple, list, str)):
@@ -339,7 +339,7 @@ class CompileInterpreter:
             "control.async_while.init",
             conditionPath=condition_context.mcfunction_name,
         )
-        loop_init_cmd = add_comment(loop_init_cmd, f"Initialize async while loop:")
+        loop_init_cmd = add_comment(loop_init_cmd, "Initialize async while loop:")
         self.add_command(context.mcfunction_name, loop_init_cmd)
         condition_commands = self.version.render_lines(
             "control.async_while.condition",
@@ -459,7 +459,6 @@ class CompileInterpreter:
         return "CompileInterpreter()"
 
 def mcs_compile(ast, functions_dir: str, datapack_id):
-    init_version_context(datapack_id)
     return _mcs_compile(ast, functions_dir, datapack_id)
 
 

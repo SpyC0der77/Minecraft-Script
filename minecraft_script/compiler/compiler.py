@@ -139,7 +139,7 @@ class Compiler:
             print('\rBuilding built-in functions... 83%', end="")
         self.make_click_item_check_file()
         if self.verbose:
-            print('\rBuilding builtin-in functions... Done!')
+            print('\rBuilding built-in functions... Done!')
 
     def clean_empty_code_blocks(self):
         code_blocks_folder = self.function_path("code_blocks")
