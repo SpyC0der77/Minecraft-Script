@@ -16,5 +16,6 @@ Users switch versions with `config set minecraft_version <version>` (default is 
 
 ### Orchestration vs user NBT
 
-- **`orchestration`**: datapack folders, pack format, function tags, scoreboard names, and MCS built-in feature wiring (e.g. clickable-item detection path).
+- **`orchestration`**: datapack folders, pack format, function tags, scoreboard names, MCS built-in feature wiring, and **`orchestration.commands`** (all `execute` / scoreboard patterns for if/while/for, math, raycast, etc.).
+- **`template_assemblies`**: lists which command paths to stitch for each compiler template key (e.g. `control.if.branch`).
 - **User `.mcs` files**: item NBT, `/give` components, entity data in `command()` strings — authors update those when the game changes; the compiler does not rewrite them.

@@ -51,6 +51,29 @@ def predefined_root(category: str, version: str | None = None) -> str:
     return str(Path(module_folder) / "compiler" / "build_templates" / category / version)
 
 
+def _snake_to_camel(name: str) -> str:
+    parts = name.split("_")
+    return parts[0] + "".join(part.capitalize() for part in parts[1:])
+
+
+def _apply_scoreboard_placeholders(command: str, scoreboards: dict) -> str:
+    return (
+        command.replace("{{scoreboardMath}}", scoreboards["math"])
+        .replace("{{scoreboardClick}}", scoreboards["click"])
+    )
+
+
+def get_command_by_path(commands: dict, path: str) -> str:
+    node = commands
+    for part in path.split("."):
+        if part not in node:
+            raise KeyError(f"Command path {path!r} not found in orchestration.commands")
+        node = node[part]
+    if not isinstance(node, str):
+        raise KeyError(f"Command path {path!r} is not a command string")
+    return node
+
+
 def resolve_orchestration(profile: dict) -> dict:
     """Normalize orchestration settings (with legacy top-level fallbacks)."""
     orchestration = dict(profile.get("orchestration", {}))
@@ -149,6 +172,7 @@ def resolve_orchestration(profile: dict) -> dict:
             "datapack_lifecycle",
             {"disable_target": "file"},
         ),
+        "commands": orchestration.get("commands", {}),
     }
 
 
@@ -158,6 +182,7 @@ def orchestration_template_params(orchestration: dict) -> dict:
     click = orchestration["mcs_features"]["click"]
     clickable_item = orchestration["mcs_features"]["clickable_item"]
     get_block = orchestration["mcs_features"]["get_block"]
+    scoreboards = orchestration["scoreboards"]
 
     params = {
         "pack_format": pack_format["pack_format"],
@@ -168,6 +193,8 @@ def orchestration_template_params(orchestration: dict) -> dict:
         "formatMinMinor": pack_format.get("min_minor", 0),
         "formatMaxMajor": pack_format.get("max_major", pack_format.get("major")),
         "formatMaxMinor": pack_format.get("max_minor", 0),
+        "scoreboardMath": scoreboards["math"],
+        "scoreboardClick": scoreboards["click"],
         "clickScoreboardCriterion": click["scoreboard_criterion"],
         "clickSelectedItemPath": click["selected_item_path"],
         "clickItemId": clickable_item["item_id"],
@@ -177,13 +204,27 @@ def orchestration_template_params(orchestration: dict) -> dict:
 
 
 class VersionRenderer:
-    def __init__(self, profile: dict):
+    def __init__(self, profile: dict, orchestration: dict):
         self.profile = profile
+        self.orchestration = orchestration
         self._compiled: dict[str, object] = {}
+        self._compiled_commands: dict[str, object] = {}
 
-    def render(self, key: str, **params) -> str:
-        templates = self.profile.get("templates")
-        if templates is None or key not in templates:
+    def render_command(self, command_path: str, params: dict) -> str:
+        commands = self.orchestration.get("commands", {})
+        scoreboards = self.orchestration["scoreboards"]
+        command_text = _apply_scoreboard_placeholders(
+            get_command_by_path(commands, command_path),
+            scoreboards,
+        )
+        if command_path not in self._compiled_commands:
+            self._compiled_commands[command_path] = _handlebars.compile(command_text)
+        result = self._compiled_commands[command_path](params)
+        return result.strip() if isinstance(result, str) else str(result).strip()
+
+    def _render_template(self, key: str, params: dict) -> str:
+        templates = self.profile.get("templates", {})
+        if key not in templates:
             raise KeyError(
                 f"Template {key!r} not defined for Minecraft {self.profile.get('minecraft_version')!r}"
             )
@@ -191,6 +232,21 @@ class VersionRenderer:
             self._compiled[key] = _handlebars.compile(templates[key])
         result = self._compiled[key](params)
         return result.strip() if isinstance(result, str) else str(result).strip()
+
+    def render(self, key: str, **params) -> str:
+        parts: list[str] = []
+        assemblies = self.profile.get("template_assemblies", {})
+        if key in assemblies:
+            for command_path in assemblies[key]:
+                parts.append(self.render_command(command_path, params))
+        templates = self.profile.get("templates", {})
+        if key in templates:
+            parts.append(self._render_template(key, params))
+        if not parts:
+            raise KeyError(
+                f"Template {key!r} not defined for Minecraft {self.profile.get('minecraft_version')!r}"
+            )
+        return "\n".join(parts)
 
     def render_lines(self, key: str, **params) -> list[str]:
         text = self.render(key, **params)
@@ -202,7 +258,7 @@ class VersionContext:
         self.datapack_id = datapack_id
         self.profile = profile or load_version_profile()
         self.orchestration = resolve_orchestration(self.profile)
-        self.renderer = VersionRenderer(self.profile)
+        self.renderer = VersionRenderer(self.profile, self.orchestration)
         self.paths = self.orchestration["paths"]
         self.function_dir = self.paths["function_dir"]
         self.function_tag_dir = self.paths["function_tag_dir"]
