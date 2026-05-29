@@ -55,7 +55,7 @@ class Compiler:
 
     def make_click_item_check_file(self):
         check_text = self.version.render("click.check") + "\n"
-        click_path = self.function_path("clickable_items")
+        click_path = self.function_path(self.version.paths["clickable_items"])
         mkdir(click_path)
         with open(f'{click_path}/check.mcfunction', 'xt') as check_file:
             check_file.write(check_text)
@@ -172,16 +172,20 @@ class Compiler:
             print('Done!')
             print('Building Templates...', end=" ")
         with open(f'{self.root_folder}/pack.mcmeta', 'xt') as output_file:
-            output_file.write(self.version.render("pack.mcmeta", pack_format=self.version.pack_format))
+            output_file.write(self.version.render_pack_mcmeta())
         copyfile(f'{module_folder}/compiler/build_templates/pack.png', f'{self.root_folder}/pack.png')
-        with (
-            open(f'{module_folder}/compiler/build_templates/function_tags.json', 'rt') as template_file,
-            open(f'{self.root_folder}/data/minecraft/tags/{self.function_tag_dir}/tick.json', 'xt') as tick_file,
-            open(f'{self.root_folder}/data/minecraft/tags/{self.function_tag_dir}/load.json', 'xt') as load_file
-        ):
-            template_content = template_file.read()
-            tick_file.write(template_content.replace('NAME', self.datapack_id).replace('FILETYPE', 'main'))
-            load_file.write(template_content.replace('NAME', self.datapack_id).replace('FILETYPE', 'init'))
+        tick_tag_path = (
+            f'{self.root_folder}/data/minecraft/tags/{self.function_tag_dir}/'
+            f'{self.version.function_tag_path("tick")}'
+        )
+        load_tag_path = (
+            f'{self.root_folder}/data/minecraft/tags/{self.function_tag_dir}/'
+            f'{self.version.function_tag_path("load")}'
+        )
+        with open(tick_tag_path, 'xt') as tick_file:
+            tick_file.write(self.version.render_function_tag("tick"))
+        with open(load_tag_path, 'xt') as load_file:
+            load_file.write(self.version.render_function_tag("load"))
         if self.verbose:
             print("Done!")
         used_math_ops, used_builtins = mcs_compile(
