@@ -164,6 +164,7 @@ def resolve_orchestration(profile: dict) -> dict:
             **orchestration.get("storage", {}),
         },
         "mcs_features": {
+            "log": mcs_features.get("log", {}),
             "click": click,
             "clickable_item": clickable_item,
             "get_block": get_block,

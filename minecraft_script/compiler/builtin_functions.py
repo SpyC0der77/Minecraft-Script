@@ -4,12 +4,36 @@ from ..version_config import get_version_context
 function_output = tuple[tuple[str, ...], mcs_type]  # [commands, return value]
 
 
-def log(interpreter, args, context) -> function_output:
-    max_length = 5
-    version = get_version_context()
+def _direct_tellraw_log_commands(args) -> tuple[str, ...]:
+    components: list[str] = []
+    for index, arg in enumerate(args):
+        if index > 0:
+            components.append('{"text":" "}')
+        components.append(
+            f'{{"storage":"{arg.get_storage()}","nbt":"{arg.get_nbt()}","interpret":true}}'
+        )
+    extra = ",".join(components)
+    return (f'tellraw @a [{{"text":"","extra":[{extra}]}}]',)
 
-    values = list(map(lambda arg: (arg.get_storage(), arg.get_nbt()), args))
-    values.extend(("", "none") for _ in range(max_length - len(args)))
+
+def log(interpreter, args, context) -> function_output:
+    version = get_version_context()
+    log_style = version.orchestration.get("mcs_features", {}).get("log", {}).get("style")
+
+    if log_style == "direct_tellraw":
+        return _direct_tellraw_log_commands(args), MCSNull(context)
+
+    max_length = 5
+    commands: list[str] = []
+    values: list[tuple[str, str]] = []
+
+    for i in range(max_length):
+        if i < len(args):
+            values.append((args[i].get_storage(), args[i].get_nbt()))
+        else:
+            empty = MCSString(context)
+            commands.append(empty.save_to_storage_cmd('""'))
+            values.append((empty.get_storage(), empty.get_nbt()))
 
     storage_suffix = (
         " {"
@@ -17,11 +41,9 @@ def log(interpreter, args, context) -> function_output:
         + "}"
     )
 
-    commands = (
-        version.render("builtin.log", storageSuffix=storage_suffix),
-    )
+    commands.append(version.render("builtin.log", storageSuffix=storage_suffix))
 
-    return commands, MCSNull(context)
+    return tuple(commands), MCSNull(context)
 
 
 def command(interpreter, args, context) -> function_output:
