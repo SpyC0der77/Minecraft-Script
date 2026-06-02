@@ -42,7 +42,7 @@ All methods return a new ``TextComponent`` and can be chained:
 | ``.insertion("...")`` | Shift-click insert text |
 | ``.translate("key")`` | Translation key |
 | ``.append(other)`` | Append another component to ``extra`` |
-| ``.click_run("...")``, ``.click_suggest("...")``, ``.click_open_url("...")``, ``.click_copy("...")`` | Click events |
+| ``.click_run("...")``, ``.click_suggest("...")``, ``.click_open_url("...")``, ``.click_copy("...")`` | Click events (``click_run`` cannot use chat commands like ``/say`` or ``/tell``) |
 | ``.hover_text("...")`` or ``.hover_text(other)`` | Tooltip text |
 | ``.hover_item("minecraft:diamond")`` | Item tooltip |
 
@@ -65,7 +65,7 @@ title("@a", "subtitle", text().text("Subtitle text").color("gray"));
 
 // Click events
 tellraw("@a", text().text("Click me!").color("aqua").bold()
-    .click_run("/say You clicked the text!")    // Runs a command
+    .click_run("/give @s minecraft:emerald 1")  // Runs as the player (not /say — chat cmds are blocked)
 );
 
 tellraw("@a", text().text("Suggest /msg ...").color("green")
