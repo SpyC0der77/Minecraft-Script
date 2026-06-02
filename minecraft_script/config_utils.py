@@ -1,44 +1,41 @@
 import json
 import os.path
+from pathlib import Path
+
 from .common import COMMON_CONFIG, module_folder
+from .version_config import list_supported_versions, load_version_profile
+
+
+def _write_config() -> None:
+    with open(f"{module_folder}/config.json", "wt", encoding="utf-8") as file:
+        json.dump(COMMON_CONFIG, file, indent=4, ensure_ascii=False)
+        file.write("\n")
 
 
 def reset_config() -> None:
-    default_config = {
-        "pack_format": "71",
+    index_path = Path(module_folder) / "versions" / "index.json"
+    default_version = "1.20.4"
+    if index_path.is_file():
+        with index_path.open("rt", encoding="utf-8") as file:
+            default_version = json.load(file).get("default", default_version)
+
+    COMMON_CONFIG.clear()
+    COMMON_CONFIG.update({
+        "minecraft_version": default_version,
         "debug_comments": True,
         "verbose": True,
-        "default_output_path": "."
-    }
-
-    json_file_content: str = (
-        json.dumps(default_config)
-        .replace("{", "{\n\t")
-        .replace("}", "\n}")
-        .replace(", ", ",\n\t")
-    )
-
-    with open(f"{module_folder}/config.json", "wt", encoding="utf-8") as file:
-        file.write(json_file_content)
+        "default_output_path": ".",
+    })
+    _write_config()
 
 
 def update_config(setting: str, value: str) -> None:
     value_wrapper_fnc = config_value_wrapper[setting]
-    py_value = value_wrapper_fnc(value)
+    py_value = value_wrapper_fnc(value, setting)
     COMMON_CONFIG[setting] = py_value
-
-    json_file_content: str = (
-        json.dumps(COMMON_CONFIG)
-        .replace("{", "{\n\t")
-        .replace("}", "\n}")
-        .replace(", ", ",\n\t")
-    )
-
-    with open(f"{module_folder}/config.json", "wt", encoding="utf-8") as file:
-        file.write(json_file_content)
+    _write_config()
 
 
-# ----------------- CONFIG VALUE UPDATE CHECKS ----------------- :
 def config_boolean_check(value: str, setting: str) -> bool:
     py_value = value.lower().capitalize()
 
@@ -58,9 +55,21 @@ def config_path_check(value: str, setting: str) -> str:
     return path
 
 
+def config_minecraft_version_check(value: str, setting: str) -> str:
+    try:
+        load_version_profile(value)
+    except FileNotFoundError as error:
+        supported = list_supported_versions()
+        print(error)
+        if supported:
+            print(f"Supported versions: {', '.join(supported)}")
+        exit(-1)
+    return value
+
+
 config_value_wrapper = {
-    "pack_format": lambda x: x,  # don't check (it's just text anyway, it can be whatever)
-    "debug_comments": lambda x: config_boolean_check(x, "debug_comments"),
-    "verbose": lambda x: config_boolean_check(x, "verbose"),
-    "default_output_path": lambda x: config_path_check(x, "default_output_path"),
+    "minecraft_version": config_minecraft_version_check,
+    "debug_comments": config_boolean_check,
+    "verbose": config_boolean_check,
+    "default_output_path": config_path_check,
 }

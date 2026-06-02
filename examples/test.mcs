@@ -1,23 +1,15 @@
-var is_active = true;
-
-function get_state() {
-    log(is_active);
+function init() {
+    log("load");
 }
 
-function test_fnc() {
-    if (is_active) {
-        log("Program is active!");
-    } else {
-        log("Program is inactive.");
-    }
-}
+function main() {
+    var welcome = text().text("Hello ").color("gold").bold().append(
+        text().text("Minecraft-Script!").color("yellow")
+    );
 
-function run_until_inactive() {
-    async while (is_active) {
-        command("particle end_rod ~ ~2.5 ~ 0 0 0 0 1 force");
-    }
-}
+    tellraw("@a", welcome);
 
-function toggle_active() {
-    set is_active = !is_active;
+    title_times("@a", 10, 60, 20);
+    title("@a", "title", text().text("Welcome").color("red").bold());
+    title("@a", "subtitle", text().text("Built with text components").color("gray"));
 }

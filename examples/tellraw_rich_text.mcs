@@ -1,0 +1,48 @@
+function init() {
+    log("tellraw rich text example loaded");
+
+    // Chained colors, formatting, and append()
+    var welcome = text().text("Rich Text Demo").color("gold").bold().underlined().append(
+        text().text(" — ").color("gray").append(
+            text().text("styled ").color("aqua").italic().append(
+                text().text("components").color("yellow").bold()
+            )
+        )
+    );
+    tellraw("@a", welcome);
+
+    // Title + subtitle with timing
+    title_times("@a", 10, 80, 20);
+    title("@a", "title", text().text("Tellraw Fluent API").color("red").bold());
+    title("@a", "subtitle", text().text("See chat for interactive links").color("gray"));
+
+    // Click events (each on its own line via append)
+    var links = text().text("[Run]").color("green").bold()
+        .click_run("/give @s minecraft:emerald 1")
+        .hover_text("Gives you an emerald (chat commands like /say are blocked)")
+        .append(text().text(" ").color("white"))
+        .append(text().text("[Suggest]").color("aqua")
+            .click_suggest("/msg @p Hello from MCS!")
+            .hover_text("Fills chat with a command suggestion"))
+        .append(text().text(" ").color("white"))
+        .append(text().text("[URL]").color("gold")
+            .click_open_url("https://github.com/Bard-Gaming/Minecraft-Script")
+            .hover_text("Opens the project repo in your browser"))
+        .append(text().text(" ").color("white"))
+        .append(text().text("[Copy]").color("light_purple")
+            .click_copy("MCS-RICH-TEXT-2026")
+            .hover_text("Copies a code to your clipboard"));
+
+    tellraw("@a", links);
+
+    // Shift-click insertion + nested hover text + item tooltip
+    tellraw("@a", text().text("Shift-click ").color("gray").append(
+        text().text("here").color("white").italic()
+            .insertion("/say Inserted from chat!")
+            .hover_item("minecraft:diamond", 1)
+            .hover_text(text().text("Diamond reward?").color("aqua").bold())
+    ));
+}
+
+function main() {
+}

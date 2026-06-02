@@ -32,7 +32,8 @@ the mcs file, unless a datapack name is specified. The output path argument
 specifies where the datapack should be generated (default to current path).
 
 - config set <setting> <value>: Overwrite specified setting in config
-to the new value.
+to the new value. Use ``minecraft_version`` (e.g. ``1.20.4``) to select
+which Minecraft version profile to compile for.
 
 - config get [<setting>]: prints out specified settings' value. If no setting
 is specified, all settings with their associated values will be shown.
