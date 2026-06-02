@@ -213,10 +213,74 @@ def custom_range(args, context):
     )))
 
 
+def custom_text(args, context):
+    from .interpreter import RuntimeResult
+    from .types import MCSTextComponent, _runtime_text
+
+    if len(args) > 1:
+        raise MCSTypeError(f"Function <builtin-text> takes up to 1 argument, got {len(args)}")
+
+    component = MCSTextComponent()
+    if len(args) == 1:
+        if not isinstance(args[0], MCSString):
+            raise MCSTypeError(f"Function text() expects a string, got {args[0].class_name()!r}")
+        component = _runtime_text(component, args)
+
+    return RuntimeResult(return_value=component)
+
+
+def custom_tellraw(args, context):
+    from .interpreter import RuntimeResult
+    from .types import MCSTextComponent
+
+    if len(args) != 2:
+        raise MCSTypeError(f"Function <builtin-tellraw> takes 2 arguments, got {len(args)}")
+    if not isinstance(args[0], MCSString):
+        raise MCSTypeError("tellraw() target must be a string")
+    if not isinstance(args[1], MCSTextComponent):
+        raise MCSTypeError("tellraw() message must be a TextComponent")
+
+    print(f"tellraw {args[0].get_value()} {args[1].get_value()}")
+    return RuntimeResult(return_value=MCSNull())
+
+
+def custom_title(args, context):
+    from .interpreter import RuntimeResult
+    from .types import MCSTextComponent
+
+    if len(args) != 3:
+        raise MCSTypeError(f"Function <builtin-title> takes 3 arguments, got {len(args)}")
+    if not isinstance(args[0], MCSString) or not isinstance(args[1], MCSString):
+        raise MCSTypeError("title() target and mode must be strings")
+    if not isinstance(args[2], MCSTextComponent):
+        raise MCSTypeError("title() message must be a TextComponent")
+
+    print(f"title {args[0].get_value()} {args[1].get_value()} {args[2].get_value()}")
+    return RuntimeResult(return_value=MCSNull())
+
+
+def custom_title_times(args, context):
+    from .interpreter import RuntimeResult
+
+    if len(args) != 4:
+        raise MCSTypeError(f"Function <builtin-title_times> takes 4 arguments, got {len(args)}")
+    if not isinstance(args[0], MCSString):
+        raise MCSTypeError("title_times() target must be a string")
+    if not all(isinstance(value, MCSNumber) for value in args[1:4]):
+        raise MCSTypeError("title_times() tick values must be numbers")
+
+    print(
+        f"title {args[0].get_value()} times "
+        f"{args[1].get_value()} {args[2].get_value()} {args[3].get_value()}"
+    )
+    return RuntimeResult(return_value=MCSNull())
+
+
 builtin_functions = [
     custom_log, custom_concatenate, custom_command,
     custom_get_block, custom_set_block,
     custom_give_item, custom_give_clickable_item,
     custom_raycast_block, custom_raycast_entity,
     custom_append, custom_range,
+    custom_text, custom_tellraw, custom_title, custom_title_times,
 ]

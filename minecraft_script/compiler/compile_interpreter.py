@@ -1,4 +1,5 @@
 from .builtin_functions import builtin_functions
+from .text_component_builtins import text, tellraw, title, title_times
 from .compile_types import *
 from ..common import COMMON_CONFIG
 from ..version_config import get_version_context
@@ -24,7 +25,7 @@ class CompileSymbols:
         function_name_lookup = {
             "mcs_range": "range"
         }
-        for fnc in builtin_functions:
+        for fnc in (*builtin_functions, text, tellraw, title, title_times):
             mcs_fnc = MCSFunction(None, None, None, None)
             mcs_fnc.call = fnc
             self.declare(
@@ -135,12 +136,14 @@ class CompileInterpreter:
     def visit_NumberNode(self, node, context: CompileContext) -> CompileResult:
         value = int(node.get_value())
         obj = MCSNumber(context)
+        obj.literal_value = value
         self.add_command(context.mcfunction_name, obj.save_to_storage_cmd(value))
         result = CompileResult(obj)
         return result
     def visit_StringNode(self, node, context: CompileContext) -> CompileResult:
         value = repr(node.get_value())
         mcs_obj = MCSString(context)
+        mcs_obj.literal_value = node.get_value()
         self.add_command(context.mcfunction_name, mcs_obj.save_to_storage_cmd(value))
         result = CompileResult(mcs_obj)
         return result
@@ -176,7 +179,10 @@ class CompileInterpreter:
             context.declare(variable_name, MCSNull(context))
             return CompileResult()
         variable_value = self.visit(variable_value, context).get_value()
-        commands = [
+        commands = []
+        if isinstance(variable_value, MCSTextComponent):
+            commands.append(variable_value.save_to_storage_cmd())
+        commands.append(
             self.version.render(
                 "variable.declare",
                 ownerStorage=f"mcs_{context.uuid}",
@@ -184,18 +190,26 @@ class CompileInterpreter:
                 valueStorage=variable_value.get_storage(),
                 valueNbt=variable_value.get_nbt(),
             ),
-        ]
+        )
         if not isinstance(variable_value, MCSVariable):
             commands.append(variable_value.delete_from_storage_cmd())
         self.add_commands(context.mcfunction_name, commands)
         variable = MCSVariable(variable_name, context)
         context.declare(variable_name, variable)
         return CompileResult()
-    @staticmethod
-    def visit_VariableAccessNode(node, context: CompileContext) -> CompileResult:
+    def visit_VariableAccessNode(self, node, context: CompileContext) -> CompileResult:
         variable_name: str = node.get_name()
-        value: MCSVariable = context.get(variable_name)
+        value: mcs_type = context.get(variable_name)
         return CompileResult(value)
+    def visit_AttributeGetNode(self, node, context: CompileContext) -> CompileResult:
+        root: mcs_type = self.visit(node.get_root(), context).get_value()
+        attribute_name: str = node.get_name()
+        attribute = getattr(root, f"attribute_{attribute_name}", None)
+        if attribute is None:
+            if hasattr(root, "attribute_not_present"):
+                root.attribute_not_present(attribute_name)
+            raise AttributeError(f"Type {type(root).__name__} has no attribute {attribute_name!r}")
+        return CompileResult(attribute())
     def visit_VariableSetNode(self, node, context: CompileContext) -> CompileResult:
         var_name = node.get_name()
         new_value: mcs_type = self.visit(node.get_value(), context).get_value()
@@ -471,7 +485,7 @@ def _mcs_compile(ast, functions_dir: str, datapack_id):
     version = get_version_context()
     for context_id in interpreter.used_context_ids:
         commands = []
-        for compartment in ("current", "variable", "number", "string", "list", "boolean", "unknown"):
+        for compartment in ("current", "variable", "number", "string", "list", "boolean", "unknown", "text_component"):
             commands.append(version.render(
                 "kill.remove_compartment",
                 ctxStorage=f"mcs_{context_id}",

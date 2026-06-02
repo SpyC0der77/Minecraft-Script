@@ -1,4 +1,7 @@
+from copy import deepcopy
+
 from ..common import generate_uuid
+from ..text_components import get_text_component_config, serialize_component
 from ..version_config import get_version_context
 
 
@@ -7,6 +10,10 @@ class MCSObject:
         self.context = context
         self.uuid = generate_uuid()
         self.storage_compartment = storage_compartment
+
+    def class_name(self) -> str:
+        name = self.__class__.__name__
+        return name[3:] if name.startswith("MCS") else name
 
     def get_nbt(self) -> str:
         return f"{self.storage_compartment}.{self.uuid}"
@@ -134,6 +141,30 @@ class MCSString(MCSObject):
         return f"MCSString({self.uuid !r})"
 
 
+class MCSTextComponent(MCSObject):
+    def __init__(self, context, component: dict | None = None):
+        super().__init__(context, "text_component")
+        self.component = dict(component or {})
+        from .text_component_builtins import attach_text_component_methods
+
+        attach_text_component_methods(self)
+
+    def clone(self) -> "MCSTextComponent":
+        cloned = MCSTextComponent(self.context, deepcopy(self.component))
+        return cloned
+
+    def save_to_storage_cmd(self, value: any = None) -> str:
+        config = get_text_component_config(get_version_context().orchestration)
+        serialized = serialize_component(self.component, config)
+        return super().save_to_storage_cmd(repr(serialized))
+
+    def attribute_not_present(self, name: str):
+        raise AttributeError(f"TextComponent has no attribute {name!r}")
+
+    def __repr__(self) -> str:
+        return f"MCSTextComponent({self.uuid !r})"
+
+
 class MCSBoolean(MCSObject):
     def __init__(self, context):
         super().__init__(context, "boolean")
@@ -189,4 +220,14 @@ class MCSFunction:
         return f"MCSFunction({self.name !r})"
 
 
-mcs_type = MCSNull | MCSNumber | MCSString | MCSBoolean | MCSUnknown | MCSList | MCSFunction | MCSVariable
+mcs_type = (
+    MCSNull
+    | MCSNumber
+    | MCSString
+    | MCSBoolean
+    | MCSUnknown
+    | MCSList
+    | MCSFunction
+    | MCSVariable
+    | MCSTextComponent
+)

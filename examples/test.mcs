@@ -3,5 +3,13 @@ function init() {
 }
 
 function main() {
-    log("tick");
+    var welcome = text().text("Hello ").color("gold").bold().append(
+        text().text("Minecraft-Script!").color("yellow")
+    );
+
+    tellraw("@a", welcome);
+
+    title_times("@a", 10, 60, 20);
+    title("@a", "title", text().text("Welcome").color("red").bold());
+    title("@a", "subtitle", text().text("Built with text components").color("gray"));
 }

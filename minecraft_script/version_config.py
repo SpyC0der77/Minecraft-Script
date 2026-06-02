@@ -150,6 +150,59 @@ def resolve_orchestration(profile: dict) -> dict:
     if "getBlockEntityPath" in legacy_constants:
         get_block["entity_loot_result_path"] = legacy_constants["getBlockEntityPath"]
 
+    text_component = {
+        "serialization": "json",
+        "boolean_true": "true",
+        "property_keys": {
+            "click_event": "clickEvent",
+            "hover_event": "hoverEvent",
+        },
+        "commands": {
+            "tellraw": "tellraw {{target}} {{component}}",
+            "title": "title {{target}} {{mode}} {{component}}",
+            "title_times": "title {{target}} times {{fadeIn}} {{stay}} {{fadeOut}}",
+        },
+        **mcs_features.get("text_component", {}),
+    }
+    text_component["property_keys"] = {
+        "text": "text",
+        "extra": "extra",
+        "color": "color",
+        "bold": "bold",
+        "italic": "italic",
+        "underlined": "underlined",
+        "strikethrough": "strikethrough",
+        "obfuscated": "obfuscated",
+        "font": "font",
+        "insertion": "insertion",
+        "translate": "translate",
+        "with": "with",
+        "click_event": "clickEvent",
+        "hover_event": "hoverEvent",
+        "action": "action",
+        "value": "value",
+        "command": "command",
+        "url": "url",
+        "open_url": "open_url",
+        "run_command": "run_command",
+        "suggest_command": "suggest_command",
+        "copy_to_clipboard": "copy_to_clipboard",
+        "show_text": "show_text",
+        "show_item": "show_item",
+        "id": "id",
+        "count": "count",
+        "interpret": "interpret",
+        "storage": "storage",
+        "nbt": "nbt",
+        **mcs_features.get("text_component", {}).get("property_keys", {}),
+    }
+    text_component["commands"] = {
+        "tellraw": "tellraw {{target}} {{component}}",
+        "title": "title {{target}} {{mode}} {{component}}",
+        "title_times": "title {{target}} times {{fadeIn}} {{stay}} {{fadeOut}}",
+        **mcs_features.get("text_component", {}).get("commands", {}),
+    }
+
     return {
         "paths": paths,
         "pack": pack,
@@ -168,6 +221,7 @@ def resolve_orchestration(profile: dict) -> dict:
             "click": click,
             "clickable_item": clickable_item,
             "get_block": get_block,
+            "text_component": text_component,
         },
         "datapack_lifecycle": orchestration.get(
             "datapack_lifecycle",

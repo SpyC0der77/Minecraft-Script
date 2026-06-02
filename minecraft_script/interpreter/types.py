@@ -269,6 +269,184 @@ class MCSList(MCSIterable, MCSObject):
         return f'MCSList({self.value !r})'
 
 
+class MCSTextComponent(MCSObject):
+    def __init__(self, component: dict | None = None):
+        from copy import deepcopy
+
+        self.component = deepcopy(component) if component else {}
+
+    def get_value(self) -> dict:
+        return self.component
+
+    def print_value(self) -> str:
+        return str(self.component)
+
+    def clone(self) -> "MCSTextComponent":
+        from copy import deepcopy
+
+        return MCSTextComponent(deepcopy(self.component))
+
+    def _bind(self, method_name: str, handler):
+        receiver = self
+
+        def fnc_call(call_args: list, context):
+            from .interpreter import RuntimeResult
+
+            return RuntimeResult(return_value=handler(receiver, call_args))
+
+        fnc = MCSFunction(f"TextComponent.{method_name}", None, None)
+        fnc.call = fnc_call
+        return fnc
+
+    def attribute_text(self):
+        return self._bind("text", _runtime_text)
+
+    def attribute_color(self):
+        return self._bind("color", _runtime_color)
+
+    def attribute_font(self):
+        return self._bind("font", _runtime_font)
+
+    def attribute_insertion(self):
+        return self._bind("insertion", _runtime_insertion)
+
+    def attribute_bold(self):
+        return self._bind("bold", lambda receiver, args: _runtime_flag(receiver, args, "bold"))
+
+    def attribute_italic(self):
+        return self._bind("italic", lambda receiver, args: _runtime_flag(receiver, args, "italic"))
+
+    def attribute_underlined(self):
+        return self._bind("underlined", lambda receiver, args: _runtime_flag(receiver, args, "underlined"))
+
+    def attribute_strikethrough(self):
+        return self._bind("strikethrough", lambda receiver, args: _runtime_flag(receiver, args, "strikethrough"))
+
+    def attribute_obfuscated(self):
+        return self._bind("obfuscated", lambda receiver, args: _runtime_flag(receiver, args, "obfuscated"))
+
+    def attribute_translate(self):
+        return self._bind("translate", _runtime_translate)
+
+    def attribute_append(self):
+        return self._bind("append", _runtime_append)
+
+    def attribute_click_run(self):
+        return self._bind("click_run", lambda receiver, args: _runtime_click(receiver, args, "run_command"))
+
+    def attribute_click_suggest(self):
+        return self._bind("click_suggest", lambda receiver, args: _runtime_click(receiver, args, "suggest_command"))
+
+    def attribute_click_open_url(self):
+        return self._bind("click_open_url", lambda receiver, args: _runtime_click(receiver, args, "open_url"))
+
+    def attribute_click_copy(self):
+        return self._bind("click_copy", lambda receiver, args: _runtime_click(receiver, args, "copy_to_clipboard"))
+
+    def attribute_hover_text(self):
+        return self._bind("hover_text", _runtime_hover_text)
+
+    def attribute_hover_item(self):
+        return self._bind("hover_item", _runtime_hover_item)
+
+
+def _runtime_require_string(args, method_name: str) -> MCSString:
+    if len(args) != 1 or not isinstance(args[0], MCSString):
+        raise MCSTypeError(f"TextComponent.{method_name}() expects one string argument")
+    return args[0]
+
+
+def _runtime_text(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, "text")
+    result = receiver.clone()
+    result.component = {"text": string_arg.get_value()}
+    return result
+
+
+def _runtime_color(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, "color")
+    result = receiver.clone()
+    result.component["color"] = string_arg.get_value()
+    return result
+
+
+def _runtime_font(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, "font")
+    result = receiver.clone()
+    result.component["font"] = string_arg.get_value()
+    return result
+
+
+def _runtime_insertion(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, "insertion")
+    result = receiver.clone()
+    result.component["insertion"] = string_arg.get_value()
+    return result
+
+
+def _runtime_flag(receiver: MCSTextComponent, args, flag_name: str) -> MCSTextComponent:
+    if len(args) != 0:
+        raise MCSTypeError(f"TextComponent.{flag_name}() takes 0 arguments")
+    result = receiver.clone()
+    result.component[flag_name] = True
+    return result
+
+
+def _runtime_translate(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, "translate")
+    result = receiver.clone()
+    result.component = {"translate": string_arg.get_value()}
+    return result
+
+
+def _runtime_append(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    if len(args) != 1 or not isinstance(args[0], MCSTextComponent):
+        raise MCSTypeError("TextComponent.append() expects one TextComponent argument")
+    result = receiver.clone()
+    if not result.component:
+        return args[0].clone()
+    extra = list(result.component.get("extra", []))
+    extra.append(args[0].clone().component)
+    result.component["extra"] = extra
+    return result
+
+
+def _runtime_click(receiver: MCSTextComponent, args, action: str) -> MCSTextComponent:
+    string_arg = _runtime_require_string(args, f"click_{action}")
+    result = receiver.clone()
+    result.component["click_event"] = {"action": action, "value": string_arg.get_value()}
+    return result
+
+
+def _runtime_hover_text(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    if len(args) != 1:
+        raise MCSTypeError("TextComponent.hover_text() expects one argument")
+    result = receiver.clone()
+    if isinstance(args[0], MCSTextComponent):
+        hover_value = args[0].clone().component
+    elif isinstance(args[0], MCSString):
+        hover_value = {"text": args[0].get_value()}
+    else:
+        raise MCSTypeError("TextComponent.hover_text() expects a string or TextComponent")
+    result.component["hover_event"] = {"action": "show_text", "value": hover_value}
+    return result
+
+
+def _runtime_hover_item(receiver: MCSTextComponent, args) -> MCSTextComponent:
+    if not (1 <= len(args) <= 2):
+        raise MCSTypeError("TextComponent.hover_item() expects one or two arguments")
+    if not isinstance(args[0], MCSString):
+        raise MCSTypeError("TextComponent.hover_item() expects a string item id")
+    result = receiver.clone()
+    hover_value = {"id": args[0].get_value()}
+    if len(args) == 2:
+        if not isinstance(args[1], MCSNumber):
+            raise MCSTypeError("TextComponent.hover_item() expects a number count")
+        hover_value["count"] = args[1].get_value()
+    result.component["hover_event"] = {"action": "show_item", "value": hover_value}
+    return result
+
+
 class MCSFunction(MCSObject):
     def __init__(self, name: str, body, parameter_names: tuple[str, ...]):
         self.name = name if name is not None else "anonymous function"

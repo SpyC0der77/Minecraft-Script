@@ -109,6 +109,19 @@
       },
       "get_block": {
         "entity_loot_result_path": "equipment.head.id"
+      },
+      "text_component": {
+        "serialization": "json",
+        "boolean_true": "true",
+        "property_keys": {
+          "click_event": "clickEvent",
+          "hover_event": "hoverEvent"
+        },
+        "commands": {
+          "tellraw": "tellraw {{target}} {{component}}",
+          "title": "title {{target}} {{mode}} {{component}}",
+          "title_times": "title {{target}} times {{fadeIn}} {{stay}} {{fadeOut}}"
+        }
       }
     },
     "datapack_lifecycle": {
@@ -215,7 +228,7 @@
       }
     },
     "1.21.2": {
-      "summary": "Pack format 48 (1.21.2-1.21.3); JSON tellraw for log; item components for clickable items",
+      "summary": "Pack format 48 (1.21.2-1.21.3); JSON tellraw for log; item components for clickable items; text_component builder uses JSON with clickEvent/hoverEvent",
       "orchestration": {
         "pack.format.pack_format": 48,
         "mcs_features.click.selected_item_path": "SelectedItem.components.\"minecraft:custom_data\".mcs_click"

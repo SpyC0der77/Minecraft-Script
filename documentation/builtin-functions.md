@@ -23,6 +23,67 @@ log("Hello", test);  // prints "Hello World!" in Minecraft chat
 
 
 
+## Text Components
+Minecraft rich text (``/tellraw``, ``/title``, etc.) uses the **text component format**.
+The ``text()`` builder creates a fluent ``TextComponent`` value that compiles to JSON for 1.21.2
+(or SNBT on newer profiles — configured in the version file under ``mcs_features.text_component``).
+
+Use ``tellraw()``, ``title()``, and ``title_times()`` to send the same component to different channels.
+
+### Builder methods
+All methods return a new ``TextComponent`` and can be chained:
+
+| Method | Description |
+|--------|-------------|
+| ``.text("...")`` | Plain text content |
+| ``.color("gold")`` | Named or ``#RRGGBB`` color |
+| ``.bold()``, ``.italic()``, ``.underlined()``, ``.strikethrough()``, ``.obfuscated()`` | Formatting flags |
+| ``.font("alt")`` | Font id |
+| ``.insertion("...")`` | Shift-click insert text |
+| ``.translate("key")`` | Translation key |
+| ``.append(other)`` | Append another component to ``extra`` |
+| ``.click_run("...")``, ``.click_suggest("...")``, ``.click_open_url("...")``, ``.click_copy("...")`` | Click events |
+| ``.hover_text("...")`` or ``.hover_text(other)`` | Tooltip text |
+| ``.hover_item("minecraft:diamond")`` | Item tooltip |
+
+### Functions
+- ``text()`` / ``text("Hello")`` — start a new component
+- ``tellraw("@a", component)`` — chat message
+- ``title("@a", "title", component)`` — mode is ``title``, ``subtitle``, or ``actionbar``
+- ``title_times("@a", fadeIn, stay, fadeOut)`` — title timing in ticks (20 = 1 second)
+
+### Example
+```js
+var msg = text().text("Hello ").color("gold").bold().append(
+    text().text("World!").color("yellow")
+);
+
+tellraw("@a", msg);
+title_times("@a", 10, 60, 20);
+title("@a", "title", text().text("Welcome").color("red").bold());
+title("@a", "subtitle", text().text("Subtitle text").color("gray"));
+
+// Click events
+tellraw("@a", text().text("Click me!").color("aqua").bold()
+    .click_run("/say You clicked the text!")    // Runs a command
+);
+
+tellraw("@a", text().text("Suggest /msg ...").color("green")
+    .click_suggest("/msg @p Hello!")           // Fills chat input with suggestion
+);
+
+tellraw("@a", text().text("Open Google").color("gold")
+    .click_open_url("https://google.com")      // Opens a URL in browser
+);
+
+tellraw("@a", text().text("Copy secret code").color("light_purple")
+    .click_copy("SECRET1234")                  // Copies to clipboard
+);
+
+```
+
+
+
 # World Manipulation
 
 ## Get Block
