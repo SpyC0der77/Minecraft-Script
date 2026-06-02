@@ -5,7 +5,7 @@ If you want to contribute, look here.
 If you are trying to add compatibility for a new version of Minecraft, here is how you can do it.
 
  1. Find breaking changes from the [Datapack breaking changes](https://datapack.wiki/wiki/info/breaking-changes) page
- 2. Copy `minecraft_script/versions/1.20.4.json` to `minecraft_script/versions/<version>.json`
+ 2. Copy `minecraft_script/versions/1.21.2.json` to `minecraft_script/versions/<version>.json`
  3. Update the `orchestration` section for datapack layout changes (folder names, `pack.mcmeta` format, function tags, MCS built-in feature paths). See the `breaking_changes` map in the JSON for which keys apply per game version.
  4. Update Handlebars `templates` only for compiler-generated command shapes (not user NBT in `.mcs` source).
  5. Copy `minecraft_script/compiler/build_templates/math/1.20.4/` (and `builtins/`, `tags/`) to matching `<version>/` folders; edit predefined `.mcfunction` files as needed
