@@ -1,2 +1,1 @@
 pybars3>=0.9.7
-pytest

@@ -1,4 +1,4 @@
-from conftest import normalize_generated_content
+from tests._helpers import normalize_generated_content
 
 
 def test_scoreboard_event_example_compiles(compile_datapack, example_source):
