@@ -156,6 +156,9 @@ class Parser:
         elif self.current_token.matches('TT_RETURN'):
             return self.return_statement()
 
+        elif self.current_token.matches('TT_IMPORT'):
+            return self.import_statement()
+
         elif self.current_token.matches('TT_IF_CONDITIONAL'):
             return self.if_condition()
 
@@ -321,6 +324,25 @@ class Parser:
             return ReturnNode(None, position)  # don't advance since newline is part of statement
         else:
             return ReturnNode(self.expression(), position)
+
+    def import_statement(self) -> ImportNode:
+        position = self.current_token.get_position()
+        self.advance()
+
+        if not self.current_token.matches('TT_STRING'):
+            self.raise_error(f"Expected import path string, got {self.current_token.value !r}")
+        path = self.current_token
+        self.advance()
+
+        alias = None
+        if self.current_token.matches('TT_AS'):
+            self.advance()
+            if not self.current_token.matches('TT_NAME'):
+                self.raise_error(f"Expected import alias name, got {self.current_token.value !r}")
+            alias = self.current_token
+            self.advance()
+
+        return ImportNode(path, alias, position)
 
     def code_block(self, *, insert_newline: bool = True) -> CodeBlockNode:
         position = self.current_token.get_position()

@@ -1,0 +1,11 @@
+import "./imports_helper.mcs";
+import "./imports_helper.mcs" as helper;
+
+function init() {
+    announce_inline();
+    helper.announce_alias();
+}
+
+function main() {
+    command("# imports demo tick placeholder");
+}

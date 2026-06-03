@@ -1,15 +1,19 @@
 from .lexer.lexer import Lexer
 from .parser.parser import Parser
 from .interpreter.interpreter import Interpreter, InterpreterContext, SymbolTable
+from .imports import parse_code_with_imports
 
 
-def debug_code(code_input: str, *, print_variables: bool = False) -> None:
-    lexer = Lexer(code_input)
-    parser = Parser(lexer.tokenize())
-
+def debug_code(
+    code_input: str,
+    *,
+    print_variables: bool = False,
+    source_path=None,
+    import_base_dir=None,
+) -> None:
     interpreter = Interpreter()
     context = InterpreterContext(top_level=True)
-    interpreter.visit(parser.parse(), context)
+    interpreter.visit(parse_code(code_input, source_path=source_path, import_base_dir=import_base_dir), context)
 
     if print_variables:
         print(context.symbol_table.symbols)
@@ -35,11 +39,5 @@ def run_shell():
         print(run_interpreter.visit(ast, context))
 
 
-def parse_code(code: str):
-    run_lexer = Lexer(code + "\n")
-    tokens = run_lexer.tokenize()
-
-    run_parser = Parser(tokens)
-    ast = run_parser.parse()
-
-    return ast
+def parse_code(code: str, *, source_path=None, import_base_dir=None):
+    return parse_code_with_imports(code, source_path=source_path, import_base_dir=import_base_dir)

@@ -185,11 +185,21 @@ class Interpreter:
         body = node.get_body()
         parameter_names: list[str, ...] = node.get_parameter_names()
 
-        function = MCSFunction(name, body, tuple(parameter_names))
+        function = MCSFunction(name, body, tuple(parameter_names), context)
 
         if name is not None:
             context.declare(name, function)
 
+        return RuntimeResult()
+
+    def visit_ImportNode(self, node, context: InterpreterContext) -> RuntimeResult:
+        alias = node.get_alias()
+        if alias is None:
+            raise MCSImportError("Inline imports should be resolved before interpretation")
+
+        module_context = InterpreterContext(parent=context)
+        self.visit(node.get_body(), module_context)
+        context.declare(alias, MCSModule(alias, module_context))
         return RuntimeResult()
 
     def visit_FunctionCallNode(self, node, context: InterpreterContext) -> RuntimeResult:

@@ -350,6 +350,31 @@ class MCSTextComponent(MCSObject):
         return self._bind("hover_item", _runtime_hover_item)
 
 
+class MCSModule(MCSObject):
+    def __init__(self, name: str, context):
+        self.name = name
+        self.context = context
+
+    def get_value(self):
+        raise MCSInterpreterError("Can't get value of module")
+
+    def print_value(self) -> str:
+        return f"<module-{self.name}>"
+
+    def repr_value(self) -> str:
+        return self.print_value()
+
+    def __getattr__(self, name: str):
+        if not name.startswith("attribute_"):
+            raise AttributeError(name)
+
+        attribute_name = name[len("attribute_"):]
+        return lambda: self.context.get(attribute_name)
+
+    def __repr__(self) -> str:
+        return f"MCSModule({self.name !r})"
+
+
 def _runtime_require_string(args, method_name: str) -> MCSString:
     if len(args) != 1 or not isinstance(args[0], MCSString):
         raise MCSTypeError(f"TextComponent.{method_name}() expects one string argument")
@@ -448,10 +473,11 @@ def _runtime_hover_item(receiver: MCSTextComponent, args) -> MCSTextComponent:
 
 
 class MCSFunction(MCSObject):
-    def __init__(self, name: str, body, parameter_names: tuple[str, ...]):
+    def __init__(self, name: str, body, parameter_names: tuple[str, ...], context=None):
         self.name = name if name is not None else "anonymous function"
         self.body = body
         self.parameter_names = parameter_names
+        self.context = context
 
     def get_value(self):
         raise MCSInterpreterError("Can't get value of function")
@@ -465,7 +491,7 @@ class MCSFunction(MCSObject):
     def call(self, arg_list: list | None, context):
         from .interpreter import Interpreter, InterpreterContext, RuntimeResult
         local_interpreter = Interpreter()
-        local_context = InterpreterContext(parent=context)  # top level always false here
+        local_context = InterpreterContext(parent=self.context or context)  # top level always false here
 
         if len(arg_list) != len(self.parameter_names):
             raise MCSValueError(f"Function {self.print_value()} takes {len(self.parameter_names)} arguments, got {len(arg_list)}")
