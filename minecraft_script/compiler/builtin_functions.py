@@ -9,9 +9,10 @@ def _direct_tellraw_log_commands(args) -> tuple[str, ...]:
     for index, arg in enumerate(args):
         if index > 0:
             components.append('{"text":" "}')
-        components.append(
-            f'{{"storage":"{arg.get_storage()}","nbt":"{arg.get_nbt()}","interpret":true}}'
-        )
+        component = f'{{"storage":"{arg.get_storage()}","nbt":"{arg.get_nbt()}"'
+        if isinstance(arg, MCSTextComponent):
+            component += ',"interpret":true'
+        components.append(component + "}")
     extra = ",".join(components)
     return (f'tellraw @a [{{"text":"","extra":[{extra}]}}]',)
 

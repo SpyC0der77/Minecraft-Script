@@ -3,6 +3,10 @@ from .text_component_builtins import text, tellraw, title, title_times
 from .compile_types import *
 from ..common import COMMON_CONFIG
 from ..version_config import get_version_context
+import re
+
+
+SCOREBOARD_CRITERIA_PATTERN = re.compile(r"^[A-Za-z0-9_./:-]+$")
 
 def add_comment(commands: tuple | list | str, comment: str) -> tuple | str:
     if not isinstance(commands, (tuple, list, str)):
@@ -118,6 +122,17 @@ class CompileInterpreter:
         self.click_item_lookup = dict()
         self.used_math_builtins = set()
         self.used_builtin_functions = set()
+        self.scoreboard_event_functions = []
+
+    def get_scoreboard_event_hooks(self) -> list[dict[str, str]]:
+        hooks = []
+        for index, function in enumerate(self.scoreboard_event_functions):
+            hooks.append({
+                "function_name": function.name,
+                "criteria": function.event_criteria,
+                "scoreboard": f"mcs_on_{index}",
+            })
+        return hooks
     def add_command(self, mcfunction: str, command: str | None) -> None:
         if command is not None:
             self.commands.add_command(mcfunction, command)
@@ -168,8 +183,16 @@ class CompileInterpreter:
         fnc_name = node.get_name()
         fnc_body = node.get_body()
         fnc_parameter_names: list[str, ...] = node.get_parameter_names()
-        function = MCSFunction(fnc_name, fnc_body, fnc_parameter_names, context)
+        event_criteria = node.get_event_criteria()
+        if event_criteria is not None:
+            if fnc_parameter_names:
+                raise ValueError(f"Event function {fnc_name!r} cannot have parameters")
+            if SCOREBOARD_CRITERIA_PATTERN.fullmatch(event_criteria) is None:
+                raise ValueError(f"Invalid scoreboard criteria {event_criteria!r}")
+        function = MCSFunction(fnc_name, fnc_body, fnc_parameter_names, context, event_criteria)
         self.functions_to_generate.add(function)
+        if event_criteria is not None:
+            self.scoreboard_event_functions.append(function)
         context.declare(fnc_name, function)
         return CompileResult(function)
     def visit_VariableDeclareNode(self, node, context: CompileContext) -> CompileResult:
@@ -497,4 +520,4 @@ def _mcs_compile(ast, functions_dir: str, datapack_id):
         mcfunction_path = f"{functions_dir}/{fnc_name}.mcfunction"
         with open(mcfunction_path, "xt") as mcfunction_file:
             mcfunction_file.write(interpreter.get_file_content(fnc_name))
-    return interpreter.used_math_builtins, interpreter.used_builtin_functions
+    return interpreter.used_math_builtins, interpreter.used_builtin_functions, interpreter.get_scoreboard_event_hooks()

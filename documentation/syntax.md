@@ -135,6 +135,7 @@ can then be called in-game with the following syntax:
 
 #### Grammar
 - "function" [name] "(" [name]* ")" [code block]
+- "function" [name] "(" ")" "on" [string] [code block]
 
 #### Grammatical Class: Statement
 
@@ -154,6 +155,15 @@ function do_thing(thing) {
 }
 
 do_thing("stuff");
+```
+
+Scoreboard event functions run as each player whose tracked scoreboard criteria is greater than zero, then reset that player's score to zero.
+They cannot take parameters.
+
+```js
+function hello() on "minecraft.mined.diamond_ore" {
+    log("diamond ore mined");
+}
 ```
 
 ### Special functions

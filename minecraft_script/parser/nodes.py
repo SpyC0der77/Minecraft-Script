@@ -227,11 +227,19 @@ class ReturnNode(ParserNode):
 
 
 class DefineFunctionNode(ParserNode):
-    def __init__(self, name: Token, body: ParserNode, parameter_names: list[Token, ...], position: tuple[int, int]):
+    def __init__(
+        self,
+        name: Token,
+        body: ParserNode,
+        parameter_names: list[Token, ...],
+        position: tuple[int, int],
+        event_criteria: Token = None,
+    ):
         self.name = name
         self.body = body
         self.parameter_names = parameter_names
         self.position = position
+        self.event_criteria = event_criteria
 
     def get_name(self) -> str:
         return self.name.value  # extract string from token
@@ -242,11 +250,17 @@ class DefineFunctionNode(ParserNode):
     def get_parameter_names(self) -> list[str, ...]:
         return list(map(lambda param: param.value, self.parameter_names))  # NOQA extract value out of parameter tokens
 
+    def get_event_criteria(self) -> str | None:
+        return self.event_criteria.value if self.event_criteria is not None else None
+
     def get_position(self) -> tuple[int, int]:
         return self.name.get_position()
 
     def __repr__(self) -> str:
-        return f"DefineFunctionNode({self.name !r}, {self.body !r}, {self.parameter_names !r}, {self.position !r})"
+        return (
+            f"DefineFunctionNode({self.name !r}, {self.body !r}, {self.parameter_names !r}, "
+            f"{self.position !r}, {self.event_criteria !r})"
+        )
 
 
 class FunctionCallNode(ParserNode):
