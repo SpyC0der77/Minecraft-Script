@@ -26,7 +26,10 @@ class Compiler:
     def make_scoreboard_event_init_commands(self, scoreboard_event_hooks):
         commands = []
         for hook in scoreboard_event_hooks:
-            commands.append(f'scoreboard objectives add {hook["scoreboard"]} {hook["criteria"]}')
+            commands.extend((
+                f'scoreboard objectives add {hook["scoreboard"]} {hook["criteria"]}',
+                f'execute as @a run scoreboard players set @s {hook["scoreboard"]} 0',
+            ))
         return commands
 
     def make_scoreboard_event_main_commands(self, scoreboard_event_hooks):
@@ -83,7 +86,10 @@ class Compiler:
         event_commands = self.make_scoreboard_event_kill_commands(scoreboard_event_hooks)
         if event_commands:
             event_text = "\n".join(event_commands)
-            text = text.replace("\ndatapack disable", f"\n{event_text}\n\ndatapack disable", 1)
+            marker = "\ndatapack disable"
+            if marker not in text:
+                raise RuntimeError("Could not inject scoreboard event cleanup before datapack disable command")
+            text = text.replace(marker, f"\n{event_text}\n{marker}", 1)
         with open(self.function_path("kill.mcfunction"), 'xt') as kill_file:
             kill_file.write(text)
 

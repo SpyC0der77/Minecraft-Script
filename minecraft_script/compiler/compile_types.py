@@ -182,7 +182,7 @@ class MCSUnknown(MCSObject):
 
 
 class MCSFunction:
-    def __init__(self, name: str, body, parameter_names: list[str, ...], context, event_criteria: str = None):
+    def __init__(self, name: str, body, parameter_names: list[str, ...], context, event_criteria: str | None = None):
         from .compile_interpreter import CompileContext
 
         self.name = name

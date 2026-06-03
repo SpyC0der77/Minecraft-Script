@@ -161,7 +161,7 @@ Scoreboard event functions run as each player whose tracked scoreboard criteria 
 They cannot take parameters.
 
 ```js
-function hello() on "minecraft.mined.diamond_ore" {
+function hello() on "minecraft.mined:minecraft.diamond_ore" {
     log("diamond ore mined");
 }
 ```
