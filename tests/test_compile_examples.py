@@ -3,15 +3,15 @@ from tests._helpers import normalize_generated_content
 
 def test_scoreboard_event_example_compiles(compile_datapack, example_source):
     datapack = compile_datapack(
-        example_source("scoreboard_event_test.mcs"),
-        "Test Scoreboard Event",
+        example_source("scoreboard_reward_event.mcs"),
+        "Test Scoreboard Reward Event",
     )
 
     assert (datapack.root / "pack.mcmeta").is_file()
     assert datapack.has_function("init.mcfunction")
     assert datapack.has_function("main.mcfunction")
     assert datapack.has_function("kill.mcfunction")
-    assert datapack.has_function("user_functions", "hello.mcfunction")
+    assert datapack.has_function("user_functions", "reward_miner.mcfunction")
 
     init_function = datapack.read_function("init.mcfunction")
     main_function = datapack.read_function("main.mcfunction")
@@ -21,7 +21,7 @@ def test_scoreboard_event_example_compiles(compile_datapack, example_source):
     assert "execute as @a run scoreboard players set @s mcs_on_0 0" in init_function
     assert (
         "execute as @a at @s if score @s mcs_on_0 matches 1.. "
-        "run function test_scoreboard_event:user_functions/hello"
+        "run function test_scoreboard_reward_event:user_functions/reward_miner"
     ) in main_function
     assert "execute as @a if score @s mcs_on_0 matches 1.. run scoreboard players set @s mcs_on_0 0" in main_function
     assert "scoreboard objectives remove mcs_on_0" in kill_function

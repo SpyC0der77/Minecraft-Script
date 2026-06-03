@@ -1,0 +1,12 @@
+function init() {
+    log("Mine diamond ore to trigger a reward");
+}
+
+function main() {
+    command("# scoreboard reward event tick placeholder");
+}
+
+function reward_miner() on "minecraft.mined:minecraft.diamond_ore" {
+    give_item("minecraft:stick", "", 1);
+    tellraw("@s", text().text("Diamond mining reward earned!").color("aqua").bold());
+}

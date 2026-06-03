@@ -1,0 +1,19 @@
+function sparkle() {
+    command("particle minecraft:enchanted_hit ~ ~ ~ 0 0 0 0 1 force");
+}
+
+function strike_target() {
+    command("summon minecraft:lightning_bolt ~ ~ ~");
+}
+
+function cast_lightning() {
+    raycast_block(strike_target, 20, sparkle);
+}
+
+function init() {
+    @a give_clickable_item(cast_lightning, "Lightning Wand", 2001);
+    log("Everyone received a Lightning Wand");
+}
+
+function main() {
+}

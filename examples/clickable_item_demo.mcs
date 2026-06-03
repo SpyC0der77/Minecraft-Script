@@ -1,0 +1,16 @@
+var wand_uses = 0;
+
+function cast_wand() {
+    set wand_uses = wand_uses + 1;
+    command("particle minecraft:happy_villager ~ ~1 ~ 0.5 0.5 0.5 0 20 force");
+    command("playsound minecraft:block.amethyst_block.chime player @s ~ ~ ~ 1 1.2");
+    log("Magic wand used", wand_uses, "time(s)");
+}
+
+function init() {
+    @a give_clickable_item(cast_wand, "Magic Wand", 1001);
+    log("Everyone received a Magic Wand");
+}
+
+function main() {
+}
