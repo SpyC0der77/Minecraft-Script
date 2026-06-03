@@ -3,6 +3,7 @@ from .text_component_builtins import text, tellraw, title, title_times
 from .compile_types import *
 from ..common import COMMON_CONFIG
 from ..version_config import get_version_context
+from pathlib import Path
 import re
 
 
@@ -518,6 +519,7 @@ def _mcs_compile(ast, functions_dir: str, datapack_id):
         interpreter.add_commands('user_functions/kill', commands)
     for fnc_name in interpreter.get_mcs_functions():
         mcfunction_path = f"{functions_dir}/{fnc_name}.mcfunction"
+        Path(mcfunction_path).parent.mkdir(parents=True, exist_ok=True)
         with open(mcfunction_path, "xt") as mcfunction_file:
             mcfunction_file.write(interpreter.get_file_content(fnc_name))
     return interpreter.used_math_builtins, interpreter.used_builtin_functions, interpreter.get_scoreboard_event_hooks()
