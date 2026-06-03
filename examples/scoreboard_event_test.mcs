@@ -1,0 +1,11 @@
+function init() {
+    log("Scoreboard event test loaded");
+}
+
+function main() {
+    command("# main tick placeholder");
+}
+
+function hello() on "minecraft.mined:minecraft.diamond_ore" {
+    log("Diamond ore mined event fired");
+}

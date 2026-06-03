@@ -380,9 +380,17 @@ class Parser:
 
         self.advance()  # skip right parenthesis (self.current_token has to be ')' here)
 
+        event_criteria = None
+        if self.current_token.matches('TT_ON'):
+            self.advance()
+            if not self.current_token.matches('TT_STRING'):
+                self.raise_error(f"Expected scoreboard criteria string, got {self.current_token.value !r}")
+            event_criteria = self.current_token
+            self.advance()
+
         body = self.code_block_statement()
 
-        return DefineFunctionNode(name, body, parameter_names, position)
+        return DefineFunctionNode(name, body, parameter_names, position, event_criteria)
 
     def call_function(self, atom) -> FunctionCallNode:
         call_position = self.current_token.get_position()

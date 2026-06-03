@@ -12,6 +12,7 @@
   "async"    : "TT_ASYNC",
 
   "function" : "TT_FUNC_DEFINE",
+  "on"       : "TT_ON",
   "return"   : "TT_RETURN",
 
   "true"     : "TT_BOOLEAN",

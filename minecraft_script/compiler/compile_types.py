@@ -182,12 +182,13 @@ class MCSUnknown(MCSObject):
 
 
 class MCSFunction:
-    def __init__(self, name: str, body, parameter_names: list[str, ...], context):
+    def __init__(self, name: str, body, parameter_names: list[str, ...], context, event_criteria: str | None = None):
         from .compile_interpreter import CompileContext
 
         self.name = name
         self.body = body
         self.parameter_names = parameter_names
+        self.event_criteria = event_criteria
         self.local_context = CompileContext(self.name, parent=context)
 
     def generate_function(self, interpreter) -> None:

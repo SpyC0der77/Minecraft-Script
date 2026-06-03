@@ -23,33 +23,73 @@ class Compiler:
     def function_path(self, *parts: str) -> str:
         return f"{self.root_folder}/data/{self.datapack_id}/{self.function_dir}/{'/'.join(parts)}"
 
-    def make_init_file(self):
+    def make_scoreboard_event_init_commands(self, scoreboard_event_hooks):
+        commands = []
+        for hook in scoreboard_event_hooks:
+            commands.extend((
+                f'scoreboard objectives add {hook["scoreboard"]} {hook["criteria"]}',
+                f'execute as @a run scoreboard players set @s {hook["scoreboard"]} 0',
+            ))
+        return commands
+
+    def make_scoreboard_event_main_commands(self, scoreboard_event_hooks):
+        commands = []
+        for hook in scoreboard_event_hooks:
+            commands.extend((
+                (
+                    f'execute as @a at @s if score @s {hook["scoreboard"]} matches 1.. run function '
+                    f'{self.datapack_id}:user_functions/{hook["function_name"]}'
+                ),
+                f'execute as @a if score @s {hook["scoreboard"]} matches 1.. run scoreboard players set @s {hook["scoreboard"]} 0',
+            ))
+        return commands
+
+    def make_scoreboard_event_kill_commands(self, scoreboard_event_hooks):
+        commands = []
+        for hook in scoreboard_event_hooks:
+            commands.append(f'scoreboard objectives remove {hook["scoreboard"]}')
+        return commands
+
+    def make_init_file(self, scoreboard_event_hooks):
         text = (
             self.version.render("datapack.init.header")
             + "\n"
             + self.version.render("datapack.init")
             + "\n"
         )
+        event_commands = self.make_scoreboard_event_init_commands(scoreboard_event_hooks)
+        if event_commands:
+            text += "\n" + "\n".join(event_commands) + "\n"
         with open(self.function_path("init.mcfunction"), 'xt') as init_file:
             init_file.write(text)
 
-    def make_main_file(self):
+    def make_main_file(self, scoreboard_event_hooks):
         text = (
             self.version.render("datapack.main.header")
             + "\n"
             + self.version.render("datapack.main")
             + "\n"
         )
+        event_commands = self.make_scoreboard_event_main_commands(scoreboard_event_hooks)
+        if event_commands:
+            text += "\n" + "\n".join(event_commands) + "\n"
         with open(self.function_path("main.mcfunction"), 'xt') as main_file:
             main_file.write(text)
 
-    def make_kill_file(self):
+    def make_kill_file(self, scoreboard_event_hooks):
         text = (
             self.version.render("datapack.kill.header")
             + "\n"
             + self.version.render("datapack.kill", datapackName=self.datapack_name)
             + "\n"
         )
+        event_commands = self.make_scoreboard_event_kill_commands(scoreboard_event_hooks)
+        if event_commands:
+            event_text = "\n".join(event_commands)
+            marker = "\ndatapack disable"
+            if marker not in text:
+                raise RuntimeError("Could not inject scoreboard event cleanup before datapack disable command")
+            text = text.replace(marker, f"\n{event_text}\n{marker}", 1)
         with open(self.function_path("kill.mcfunction"), 'xt') as kill_file:
             kill_file.write(text)
 
@@ -117,16 +157,16 @@ class Compiler:
         if os.path.exists(folder_path) and not os.listdir(folder_path):
             rmdir(folder_path)
 
-    def generate_builtin_functions(self, used_math_ops, used_builtins):
+    def generate_builtin_functions(self, used_math_ops, used_builtins, scoreboard_event_hooks):
         if self.verbose:
             print('\rBuilding built-in functions...', end="")
-        self.make_init_file()
+        self.make_init_file(scoreboard_event_hooks)
         if self.verbose:
             print('\rBuilding built-in functions... 17%', end="")
-        self.make_main_file()
+        self.make_main_file(scoreboard_event_hooks)
         if self.verbose:
             print('\rBuilding built-in functions... 33%', end="")
-        self.make_kill_file()
+        self.make_kill_file(scoreboard_event_hooks)
         if self.verbose:
             print('\rBuilding built-in functions... 50%', end="")
         self.import_math_files(used_math_ops)
@@ -188,12 +228,12 @@ class Compiler:
             load_file.write(self.version.render_function_tag("load"))
         if self.verbose:
             print("Done!")
-        used_math_ops, used_builtins = mcs_compile(
+        used_math_ops, used_builtins, scoreboard_event_hooks = mcs_compile(
             self.ast,
             f'{self.root_folder}/data/{self.datapack_id}/{self.function_dir}',
             self.datapack_id
         )
-        self.generate_builtin_functions(used_math_ops, used_builtins)
+        self.generate_builtin_functions(used_math_ops, used_builtins, scoreboard_event_hooks)
         self.clean_empty_code_blocks()
         if self.verbose:
             print("Generating datapack tags...", end=" ")
