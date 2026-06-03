@@ -96,7 +96,7 @@ class Compiler:
     def make_click_item_check_file(self):
         check_text = self.version.render("click.check") + "\n"
         click_path = self.function_path(self.version.paths["clickable_items"])
-        mkdir(click_path)
+        os.makedirs(click_path, exist_ok=True)
         with open(f'{click_path}/check.mcfunction', 'xt') as check_file:
             check_file.write(check_text)
         with open(f'{click_path}/run.mcfunction', 'xt') as run_file:
