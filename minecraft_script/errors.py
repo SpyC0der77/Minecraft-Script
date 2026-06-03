@@ -40,6 +40,11 @@ class MCSParserError(Exception):
         super().__init__(details)
 
 
+class MCSImportError(Exception):
+    def __init__(self, details):
+        super().__init__(details)
+
+
 class MCSInterpreterError(NotImplementedError):
     def __init__(self, details):
         super().__init__(details)

@@ -46,6 +46,42 @@ var text = "Hello World!";
 ```
 
 
+### Imports
+Imports load code from another `.mcs` file. Import paths are resolved relative
+to the file that contains the import statement.
+
+Inline imports make the imported file's top-level functions and variables
+available as if the imported statements were written in the current file.
+
+#### Grammar
+- "import" [string]
+- "import" [string] "as" [name]
+
+#### Grammatical class: Statement
+
+#### Examples
+```js
+import "./helpers.mcs";
+
+function init() {
+    helper_function();
+}
+```
+
+Aliased imports keep the imported file in a module namespace.
+
+```js
+import "./helpers.mcs" as helpers;
+
+function init() {
+    helpers.helper_function();
+}
+```
+
+Import cycles are not allowed. If file A imports file B, file B cannot import
+file A again.
+
+
 
 ## Variables
 

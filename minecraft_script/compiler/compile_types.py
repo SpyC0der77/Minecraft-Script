@@ -221,6 +221,25 @@ class MCSFunction:
         return f"MCSFunction({self.name !r})"
 
 
+class MCSModule:
+    def __init__(self, name: str, context):
+        self.name = name
+        self.context = context
+
+    def __getattr__(self, name: str):
+        if not name.startswith("attribute_"):
+            raise AttributeError(name)
+
+        attribute_name = name[len("attribute_"):]
+        return lambda: self.context.get(attribute_name)
+
+    def class_name(self) -> str:
+        return "Module"
+
+    def __repr__(self) -> str:
+        return f"MCSModule({self.name !r})"
+
+
 mcs_type = (
     MCSNull
     | MCSNumber
@@ -229,6 +248,7 @@ mcs_type = (
     | MCSUnknown
     | MCSList
     | MCSFunction
+    | MCSModule
     | MCSVariable
     | MCSTextComponent
 )

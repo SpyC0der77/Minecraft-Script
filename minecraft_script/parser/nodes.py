@@ -395,6 +395,32 @@ class AttributeGetNode(ParserNode):
         return f"AttributeGetNode({self.root !r}, {self.name !r})"
 
 
+class ImportNode(ParserNode):
+    def __init__(self, path: Token, alias: Token = None, position: tuple[int, int] = None, body: ParserNode = None):
+        self.path = path
+        self.alias = alias
+        self.position = position if position is not None else path.get_position()
+        self.body = body
+
+    def get_path(self) -> str:
+        return self.path.value
+
+    def get_alias(self) -> str | None:
+        return self.alias.value if self.alias is not None else None
+
+    def get_body(self) -> ParserNode | None:
+        return self.body
+
+    def with_body(self, body: ParserNode) -> "ImportNode":
+        return ImportNode(self.path, self.alias, self.position, body)
+
+    def get_position(self) -> tuple[int, int]:
+        return self.position
+
+    def __repr__(self) -> str:
+        return f"ImportNode({self.path !r}, {self.alias !r}, {self.position !r}, {self.body !r})"
+
+
 class EntitySelectorNode(ParserNode):
     def __init__(self, selector: str, statement: ParserNode, position: tuple[int, int]):
         self.selector = selector

@@ -13,7 +13,13 @@ from tests._helpers import BUILD_TEST_ROOT, PROJECT_ROOT, CompiledDatapack
 def compile_datapack():
     compiled_roots = []
 
-    def _compile_datapack(source: str, datapack_name: str) -> CompiledDatapack:
+    def _compile_datapack(
+        source: str,
+        datapack_name: str,
+        *,
+        source_path=None,
+        import_base_dir=None,
+    ) -> CompiledDatapack:
         BUILD_TEST_ROOT.mkdir(exist_ok=True)
         datapack_root = BUILD_TEST_ROOT / datapack_name
         compiled_roots.append(datapack_root)
@@ -21,7 +27,14 @@ def compile_datapack():
             shutil.rmtree(datapack_root)
 
         try:
-            build_datapack(source, datapack_name, str(BUILD_TEST_ROOT), verbose=False)
+            build_datapack(
+                source,
+                datapack_name,
+                str(BUILD_TEST_ROOT),
+                verbose=False,
+                source_path=source_path,
+                import_base_dir=import_base_dir,
+            )
         finally:
             clear_version_context()
         return CompiledDatapack(datapack_name, datapack_root)

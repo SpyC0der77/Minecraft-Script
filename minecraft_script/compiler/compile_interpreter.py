@@ -58,12 +58,25 @@ class CompileSymbols:
         return f'CompileSymbols({self.parent !r})'
 
 class CompileContext:
-    def __init__(self, mcfunction_name: str = None, *, parent: "CompileContext" = None, top_level: bool = False):
+    def __init__(
+        self,
+        mcfunction_name: str = None,
+        *,
+        parent: "CompileContext" = None,
+        top_level: bool = False,
+        function_prefix: str = None,
+    ):
         self.parent: CompileContext = parent
         self.symbols = CompileSymbols(parent.symbols if parent is not None else None, load_builtins=top_level)
         self.top_level = top_level
         self._mcfunction_name = mcfunction_name if mcfunction_name is not None else f":cb_{generate_uuid()}"
         self.uuid = generate_uuid()
+        self.function_prefix = (
+            function_prefix.rstrip("/")
+            if function_prefix is not None else
+            parent.function_prefix if parent is not None else
+            ""
+        )
     @property
     def mcfunction_name(self) -> str:
         return (
@@ -77,6 +90,8 @@ class CompileContext:
         return self.symbols.set(name, value)
     def declare(self, name: str, value: mcs_type) -> None:
         self.symbols.declare(name, value)
+    def get_function_name(self, name: str) -> str:
+        return f"{self.function_prefix}/{name}" if self.function_prefix else name
     def get_context_ownership(self, var_name: str) -> "CompileContext":
         if self.symbols.symbols.get(var_name, None) is not None:
             return self
@@ -190,7 +205,7 @@ class CompileInterpreter:
                 raise ValueError(f"Event function {fnc_name!r} cannot have parameters")
             if SCOREBOARD_CRITERIA_PATTERN.fullmatch(event_criteria) is None:
                 raise ValueError(f"Invalid scoreboard criteria {event_criteria!r}")
-        function = MCSFunction(fnc_name, fnc_body, fnc_parameter_names, context, event_criteria)
+        function = MCSFunction(context.get_function_name(fnc_name), fnc_body, fnc_parameter_names, context, event_criteria)
         self.functions_to_generate.add(function)
         if event_criteria is not None:
             self.scoreboard_event_functions.append(function)
@@ -427,6 +442,20 @@ class CompileInterpreter:
         commands = add_comment(commands, f"Code block (parent: {context.mcfunction_name !r})")
         self.add_commands(context.mcfunction_name, commands)
         return return_value
+    def visit_ImportNode(self, node, context: CompileContext) -> CompileResult:
+        alias = node.get_alias()
+        if alias is None:
+            raise ValueError("Inline imports should be resolved before compilation")
+
+        module_context = CompileContext(
+            f"imports/{alias}/__init",
+            parent=context,
+            function_prefix=f"imports/{alias}",
+        )
+        self.visit(node.get_body(), module_context)
+        context.declare(alias, MCSModule(alias, module_context))
+        self.add_command(context.mcfunction_name, f"function {self.datapack_id}:{module_context.mcfunction_name}")
+        return CompileResult()
     def visit_FunctionCallNode(self, node, context: CompileContext) -> CompileResult:
         fnc: MCSFunction = self.visit(node.get_root(), context).get_value()
         arguments: tuple[mcs_type, ...] = tuple(map(lambda x: self.visit(x, context).get_value(), node.get_arguments()))

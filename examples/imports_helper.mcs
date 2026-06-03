@@ -1,0 +1,9 @@
+var helper_prefix = "Imported helper";
+
+function announce_inline() {
+    log(helper_prefix, "loaded through an inline import");
+}
+
+function announce_alias() {
+    log(helper_prefix, "loaded through an aliased import");
+}

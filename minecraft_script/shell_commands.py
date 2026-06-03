@@ -2,6 +2,7 @@ from . import debug_code
 from .compiler import build_datapack
 from .common import COMMON_CONFIG, version
 from .config_utils import update_config, reset_config
+from pathlib import Path
 import os.path
 
 
@@ -62,10 +63,11 @@ def sh_debug(*args) -> None:
         exit()
 
     path: str = args[0]
+    source_path = Path(path).resolve()
 
-    with open(path, 'rt', encoding='utf-8') as file:
+    with open(source_path, 'rt', encoding='utf-8') as file:
         code = file.read()
-    debug_code(code)  # run code only after closing file
+    debug_code(code, source_path=source_path)  # run code only after closing file
 
 
 def sh_compile(*args) -> None:
@@ -76,6 +78,7 @@ def sh_compile(*args) -> None:
         exit()
 
     path: str = args[0]
+    source_path = Path(path).resolve()
     datapack_name: str = (
         "-".join(args[0].split("\\")[-1].split("/")[-1].split(".")[:-1]).replace("_", " ").title()
         if arg_count < 2 else
@@ -99,10 +102,10 @@ def sh_compile(*args) -> None:
         exit(-1)
 
     # Build datapack
-    with open(path, 'rt', encoding='utf-8') as mcs_file:
+    with open(source_path, 'rt', encoding='utf-8') as mcs_file:
         code = mcs_file.read()
 
-    build_datapack(code, datapack_name, output_path, verbose)
+    build_datapack(code, datapack_name, output_path, verbose, source_path=source_path)
 
 
 def sh_config(*args) -> None:
