@@ -13,6 +13,15 @@ Be sure to check out the [documentation](https://github.com/Bard-Gaming/Minecraf
 | Version Number | Development Status |
 | -------------- | ------------------ |
 | 1.21.2         | Continued Support  |
+| 1.21.4         | Continued Support  |
+| 1.21.5         | Continued Support  |
+| 1.21.6         | Continued Support  |
+| 1.21.7         | Continued Support  |
+| 1.21.8         | Continued Support  |
+| 1.21.9         | Continued Support  |
+| 1.21.10        | Continued Support  |
+| 1.21.11        | Continued Support  |
+| 26.1           | Continued Support  |
 
 
 ## Installation
