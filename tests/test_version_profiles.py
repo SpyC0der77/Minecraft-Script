@@ -1,9 +1,17 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from minecraft_script.common import COMMON_CONFIG
+from minecraft_script import shell_commands
 from minecraft_script.text_components import get_text_component_config, serialize_component
-from minecraft_script.version_config import VersionContext, list_supported_versions, load_version_profile
+from minecraft_script.version_config import (
+    VersionContext,
+    breaking_changes_between,
+    list_supported_versions,
+    load_version_profile,
+)
 
 VERSIONS_DIR = Path(__file__).resolve().parents[1] / "minecraft_script" / "versions"
 
@@ -64,6 +72,67 @@ def test_range_profiles_do_not_keep_legacy_pack_mcmeta_template():
         assert profile["templates"]["pack.mcmeta"] == profile["templates"]["pack.mcmeta.range"]
         assert "pack_format" not in profile["templates"]["pack.mcmeta"]
         assert "supported_formats" not in profile["templates"]["pack.mcmeta"]
+
+
+def test_profiles_only_include_their_own_breaking_change_step():
+    expected_steps = {
+        "1.21.4": {"1.21.4"},
+        "1.21.5": {"1.21.5"},
+        "1.21.6": {"1.21.6"},
+        "1.21.9": {"1.21.9"},
+        "1.21.11": {"1.21.11"},
+        "26.1": {"26.1"},
+    }
+
+    for version, expected in expected_steps.items():
+        profile = load_version_profile(version)
+        actual = set(profile.get("breaking_changes", {}))
+        assert actual == expected
+
+    assert breaking_changes_between("1.21.7", "1.21.8") == []
+    assert breaking_changes_between("1.21.9", "1.21.10") == []
+
+
+def test_breaking_changes_between_uses_supported_version_order():
+    changes = breaking_changes_between("1.21.5", "1.21.10")
+
+    assert [version for version, _change in changes] == [
+        "1.21.6",
+        "1.21.7",
+        "1.21.9",
+    ]
+
+
+def test_cli_requires_acknowledgement_for_minecraft_version_breaking_changes(monkeypatch, capsys):
+    updated = []
+
+    monkeypatch.setitem(COMMON_CONFIG, "minecraft_version", "1.21.5")
+    monkeypatch.setattr(shell_commands, "update_config", lambda setting, value: updated.append((setting, value)))
+    monkeypatch.setattr("builtins.input", lambda _prompt: "Acknowledged, change version")
+
+    shell_commands.sh_config_set(["minecraft_version", "1.21.9"])
+
+    output = capsys.readouterr().out
+    assert "Breaking changes from 1.21.5 to 1.21.9" in output
+    assert "- 1.21.6:" in output
+    assert "- 1.21.7:" in output
+    assert "- 1.21.9:" in output
+    assert "Acknowledged, change version" in output
+    assert "No, don't change" in output
+    assert updated == [("minecraft_version", "1.21.9")]
+
+
+def test_cli_rejects_minecraft_version_change_without_acknowledgement(monkeypatch):
+    updated = []
+
+    monkeypatch.setitem(COMMON_CONFIG, "minecraft_version", "1.21.5")
+    monkeypatch.setattr(shell_commands, "update_config", lambda setting, value: updated.append((setting, value)))
+    monkeypatch.setattr("builtins.input", lambda _prompt: "No, don't change")
+
+    with pytest.raises(SystemExit):
+        shell_commands.sh_config_set(["minecraft_version", "1.21.9"])
+
+    assert updated == []
 
 
 def test_1215_profile_uses_snbt_text_components_and_new_item_component_shapes():

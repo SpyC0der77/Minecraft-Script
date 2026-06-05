@@ -65,6 +65,34 @@ def list_supported_versions() -> list[str]:
     )
 
 
+def breaking_changes_between(old_version: str, new_version: str) -> list[tuple[str, dict]]:
+    load_version_profile(old_version)
+    load_version_profile(new_version)
+
+    supported = list_supported_versions()
+    if old_version not in supported or new_version not in supported:
+        return []
+
+    old_index = supported.index(old_version)
+    new_index = supported.index(new_version)
+    if new_index <= old_index:
+        return []
+
+    changes: list[tuple[str, dict]] = []
+    seen_steps: set[str] = set()
+    for version in supported[old_index + 1:new_index + 1]:
+        profile = load_version_profile(version)
+        breaking_changes = profile.get("breaking_changes", {})
+        change = breaking_changes.get(version)
+        if change is None:
+            continue
+        if version in seen_steps:
+            continue
+        seen_steps.add(version)
+        changes.append((version, change))
+    return changes
+
+
 def predefined_root(category: str, version: str | None = None) -> str:
     version = version or get_minecraft_version()
     root = Path(module_folder) / "compiler" / "build_templates" / category / version

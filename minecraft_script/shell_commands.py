@@ -2,6 +2,7 @@ from . import debug_code
 from .compiler import build_datapack
 from .common import COMMON_CONFIG, version
 from .config_utils import update_config, reset_config
+from .version_config import breaking_changes_between
 from pathlib import Path
 import os.path
 
@@ -134,6 +135,24 @@ def sh_config_set(args: list) -> None:
     if setting not in COMMON_CONFIG.keys():
         print(f"Unknown setting {setting !r}.")
         exit()
+
+    if setting == "minecraft_version":
+        try:
+            changes = breaking_changes_between(COMMON_CONFIG["minecraft_version"], value)
+        except FileNotFoundError:
+            changes = []
+        if changes:
+            print(f"Breaking changes from {COMMON_CONFIG['minecraft_version']} to {value}:")
+            for change_version, change in changes:
+                summary = change.get("summary", str(change))
+                print(f"- {change_version}: {summary}")
+            print("Options:")
+            print('- Acknowledged, change version')
+            print("- No, don't change")
+            acknowledgement = input("Choose an option: ")
+            if acknowledgement != "Acknowledged, change version":
+                print("Minecraft version was not updated.")
+                exit(-1)
 
     update_config(setting, value)
     print(f"Updated setting {setting !r} to value {value !r}")

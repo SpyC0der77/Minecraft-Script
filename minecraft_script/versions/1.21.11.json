@@ -230,43 +230,6 @@
     }
   },
   "breaking_changes": {
-    "_note": "User-written NBT/item syntax inside .mcs files is not configured here.",
-    "1.21": {
-      "summary": "Datapack directories use singular names (functions→function, tags/functions→tags/function, etc.)",
-      "orchestration": {
-        "paths.function_dir": "function",
-        "paths.function_tag_dir": "function"
-      }
-    },
-    "1.21.2": {
-      "summary": "Pack format 48 (1.21.2-1.21.3); JSON tellraw for log; item components for clickable items; text_component builder uses JSON with clickEvent/hoverEvent",
-      "orchestration": {
-        "pack.format.pack_format": 48,
-        "mcs_features.click.selected_item_path": "SelectedItem.components.\"minecraft:custom_data\".mcs_click"
-      },
-      "templates": [
-        "builtin.give_clickable.simple",
-        "builtin.give_clickable.named_macro",
-        "builtin.get_block.body"
-      ]
-    },
-    "1.21.9": {
-      "summary": "Pack metadata uses min_format/max_format [88, 0] without legacy supported_formats; chain is iron_chain; spawnpoint/setworldspawn require pitch when yaw is specified.",
-      "orchestration": {
-        "pack.format.style": "range",
-        "pack.format.min_major": 88,
-        "pack.format.min_minor": 0,
-        "pack.format.max_major": 88,
-        "pack.format.max_minor": 0
-      },
-      "templates": [
-        "pack.mcmeta.range"
-      ]
-    },
-    "1.20.2": {
-      "summary": "Entity effect NBT renames — affects command() strings in user .mcs only",
-      "orchestration": {}
-    },
     "1.21.11": {
       "summary": "Data pack version 94.1; gamerules are registry ids, fire tick gamerules were replaced, worldborder time is ticks by default, filtered item modifiers use on_pass, and biome/dimension fields moved to environment attributes.",
       "orchestration": {
@@ -276,59 +239,6 @@
         "pack.format.max_major": 94,
         "pack.format.max_minor": 1
       }
-    },
-    "_command_orchestration": "All compiler execute/scoreboard patterns live under orchestration.commands; templates only stitch them with runtime parameters.",
-    "1.21.4": {
-      "summary": "Pack format 61; custom_model_data now stores model values in the floats list; trail particles require duration; several block/entity NBT fields were renamed.",
-      "orchestration": {
-        "pack.format.pack_format": 61
-      },
-      "templates": [
-        "builtin.give_clickable.named_macro"
-      ]
-    },
-    "1.21.5": {
-      "summary": "Pack format 71; text components in commands and item components use SNBT; equipment, drop chances, respawn, tooltip, trim, recipe, predicate, and entity data formats changed.",
-      "orchestration": {
-        "pack.format.pack_format": 71,
-        "mcs_features.text_component.serialization": "snbt",
-        "mcs_features.text_component.property_keys.click_event": "click_event",
-        "mcs_features.text_component.property_keys.hover_event": "hover_event"
-      },
-      "templates": [
-        "builtin.give_clickable.named_macro"
-      ]
-    },
-    "1.21.6": {
-      "summary": "Pack format 80; JSON is strict, area effect cloud Particle is custom_particle, painting variants no longer accept inline variants, and ambient desert sand tag names changed.",
-      "orchestration": {
-        "pack.format.pack_format": 80
-      }
-    },
-    "1.21.7": {
-      "summary": "Pack format 81; JSON is strict, area effect cloud Particle is custom_particle, painting variants no longer accept inline variants, and ambient desert sand tag names changed.",
-      "orchestration": {
-        "pack.format.pack_format": 81
-      }
-    },
-    "1.21.8": {
-      "summary": "Pack format 81; JSON is strict, area effect cloud Particle is custom_particle, painting variants no longer accept inline variants, and ambient desert sand tag names changed.",
-      "orchestration": {
-        "pack.format.pack_format": 81
-      }
-    },
-    "1.21.10": {
-      "summary": "Pack metadata uses min_format/max_format [88, 0] without legacy supported_formats; chain is iron_chain; spawnpoint/setworldspawn require pitch when yaw is specified.",
-      "orchestration": {
-        "pack.format.style": "range",
-        "pack.format.min_major": 88,
-        "pack.format.min_minor": 0,
-        "pack.format.max_major": 88,
-        "pack.format.max_minor": 0
-      },
-      "templates": [
-        "pack.mcmeta.range"
-      ]
     }
   },
   "template_assemblies": {
