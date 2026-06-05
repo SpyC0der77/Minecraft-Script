@@ -26,6 +26,8 @@ def test_new_version_profiles_are_supported():
 
 
 def test_equivalent_version_profiles_use_range_files():
+    index = json.loads((VERSIONS_DIR / "index.json").read_text(encoding="utf-8"))
+
     assert (VERSIONS_DIR / "1.21.7-8.json").is_file()
     assert (VERSIONS_DIR / "1.21.9-10.json").is_file()
     assert not (VERSIONS_DIR / "1.21.7.json").exists()
@@ -33,6 +35,8 @@ def test_equivalent_version_profiles_use_range_files():
     assert not (VERSIONS_DIR / "1.21.9.json").exists()
     assert not (VERSIONS_DIR / "1.21.10.json").exists()
 
+    assert index["profiles"]["1.21.8"] == "1.21.7-8"
+    assert index["profiles"]["1.21.10"] == "1.21.9-10"
     assert load_version_profile("1.21.8")["minecraft_version"] == "1.21.7-8"
     assert load_version_profile("1.21.10")["minecraft_version"] == "1.21.9-10"
 
@@ -51,6 +55,15 @@ def test_legacy_and_range_pack_metadata_render_for_new_profiles():
     assert "supported_formats" not in range_pack
     assert range_pack["min_format"] == [94, 1]
     assert range_pack["max_format"] == [94, 1]
+
+
+def test_range_profiles_do_not_keep_legacy_pack_mcmeta_template():
+    for version in ("1.21.9", "1.21.11", "26.1"):
+        profile = load_version_profile(version)
+        assert profile["orchestration"]["pack"]["format"]["style"] == "range"
+        assert profile["templates"]["pack.mcmeta"] == profile["templates"]["pack.mcmeta.range"]
+        assert "pack_format" not in profile["templates"]["pack.mcmeta"]
+        assert "supported_formats" not in profile["templates"]["pack.mcmeta"]
 
 
 def test_1215_profile_uses_snbt_text_components_and_new_item_component_shapes():

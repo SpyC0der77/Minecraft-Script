@@ -14,48 +14,18 @@ def get_minecraft_version() -> str:
     return COMMON_CONFIG["minecraft_version"]
 
 
-def _expand_version_stem(stem: str) -> list[str]:
-    if "-" not in stem:
-        return [stem]
-
-    start, end_suffix = stem.split("-", maxsplit=1)
-    start_parts = start.split(".")
-    end_parts = end_suffix.split(".")
-    if not all(part.isdigit() for part in (*start_parts, *end_parts)):
-        return [stem]
-
-    if len(end_parts) == 1:
-        end_full_parts = [*start_parts[:-1], end_parts[0]]
-    elif len(end_parts) == len(start_parts):
-        end_full_parts = end_parts
-    else:
-        return [stem]
-
-    if start_parts[:-1] != end_full_parts[:-1]:
-        return [stem]
-
-    start_patch = int(start_parts[-1])
-    end_patch = int(end_full_parts[-1])
-    if end_patch < start_patch:
-        return [stem]
-
-    prefix = ".".join(start_parts[:-1])
-    return [f"{prefix}.{patch}" for patch in range(start_patch, end_patch + 1)]
+def _load_version_index() -> dict:
+    index_path = Path(module_folder) / "versions" / "index.json"
+    if not index_path.is_file():
+        return {}
+    with index_path.open("rt", encoding="utf-8") as file:
+        return json.load(file)
 
 
 def _profile_path_for_version(version: str) -> Path:
     versions_dir = Path(module_folder) / "versions"
-    exact_path = versions_dir / f"{version}.json"
-    if exact_path.is_file():
-        return exact_path
-
-    for path in sorted(versions_dir.glob("*.json")):
-        if path.name == "index.json":
-            continue
-        if version in _expand_version_stem(path.stem):
-            return path
-
-    return exact_path
+    profile_name = _load_version_index().get("profiles", {}).get(version, version)
+    return versions_dir / f"{profile_name}.json"
 
 
 def load_version_profile(version: str | None = None) -> dict:
@@ -84,18 +54,15 @@ def list_supported_versions() -> list[str]:
     if not versions_dir.is_dir():
         return []
 
-    index_path = versions_dir / "index.json"
-    if index_path.is_file():
-        with index_path.open("rt", encoding="utf-8") as file:
-            supported = json.load(file).get("supported", [])
-        if supported:
-            return supported
+    supported = _load_version_index().get("supported", [])
+    if supported:
+        return supported
 
-    versions: list[str] = []
-    for path in sorted(versions_dir.glob("*.json")):
-        if path.name != "index.json":
-            versions.extend(_expand_version_stem(path.stem))
-    return versions
+    return sorted(
+        path.stem
+        for path in versions_dir.glob("*.json")
+        if path.name != "index.json"
+    )
 
 
 def predefined_root(category: str, version: str | None = None) -> str:
