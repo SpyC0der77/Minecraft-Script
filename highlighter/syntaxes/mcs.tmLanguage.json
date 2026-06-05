@@ -1,0 +1,388 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Minecraft Script",
+  "scopeName": "source.mcs",
+  "patterns": [
+    {
+      "include": "#mcs-comments"
+    },
+    {
+      "include": "#mcs-command-calls"
+    },
+    {
+      "include": "#mcs-function-declarations"
+    },
+    {
+      "include": "#mcs-variable-declarations"
+    },
+    {
+      "include": "#mcs-set-assignments"
+    },
+    {
+      "include": "#mcs-selector-calls"
+    },
+    {
+      "include": "#mcs-selectors"
+    },
+    {
+      "include": "#mcs-keywords"
+    },
+    {
+      "include": "#mcs-command-functions"
+    },
+    {
+      "include": "#mcs-resource-locations"
+    },
+    {
+      "include": "#mcs-strings"
+    },
+    {
+      "include": "#mcs-numbers"
+    },
+    {
+      "include": "#mcs-operators"
+    },
+    {
+      "include": "source.js"
+    }
+  ],
+  "repository": {
+    "mcs-comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.mcs",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.mcs",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "mcs-command-calls": {
+      "patterns": [
+        {
+          "name": "meta.function-call.command.mcs",
+          "begin": "\\b(command)(\\s*)(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "support.function.command.mcs"
+            },
+            "3": {
+              "name": "punctuation.definition.arguments.begin.mcs"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.arguments.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-command-strings"
+            },
+            {
+              "include": "#mcs-strings"
+            },
+            {
+              "include": "#mcs-resource-locations"
+            },
+            {
+              "include": "#mcs-selectors"
+            },
+            {
+              "include": "source.js"
+            }
+          ]
+        }
+      ]
+    },
+    "mcs-command-strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.command.mcs",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-string-contents"
+            },
+            {
+              "name": "keyword.other.minecraft-command.mcs",
+              "match": "\\b(?:advancement|attribute|ban|ban-ip|banlist|bossbar|clear|clone|damage|data|datapack|debug|defaultgamemode|deop|difficulty|effect|enchant|execute|experience|fill|fillbiome|forceload|function|gamemode|gamerule|give|help|item|jfr|kick|kill|list|locate|loot|me|msg|op|pardon|pardon-ip|particle|perf|place|playsound|publish|random|recipe|reload|return|ride|rotate|save-all|save-off|save-on|say|schedule|scoreboard|seed|setblock|setidletimeout|setworldspawn|spawnpoint|spectate|spreadplayers|stop|stopsound|summon|tag|team|teammsg|teleport|tell|tellraw|tick|time|title|tm|tp|transfer|trigger|w|weather|whitelist|worldborder|xp)\\b"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.command.mcs",
+          "begin": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-string-contents"
+            }
+          ]
+        }
+      ]
+    },
+    "mcs-function-declarations": {
+      "patterns": [
+        {
+          "name": "meta.function.declaration.mcs",
+          "match": "\\b(function)(\\s+)([A-Za-z_][A-Za-z0-9_-]*)(\\s*)(\\()",
+          "captures": {
+            "1": {
+              "name": "storage.type.function.mcs"
+            },
+            "3": {
+              "name": "entity.name.function.mcs"
+            },
+            "5": {
+              "name": "punctuation.definition.parameters.begin.mcs"
+            }
+          }
+        },
+        {
+          "name": "meta.event-binding.mcs",
+          "match": "\\b(on)(\\s+)([\"'][^\"'\\n]+[\"'])",
+          "captures": {
+            "1": {
+              "name": "keyword.control.event.mcs"
+            },
+            "3": {
+              "name": "string.quoted.event.mcs"
+            }
+          }
+        }
+      ]
+    },
+    "mcs-variable-declarations": {
+      "patterns": [
+        {
+          "name": "meta.variable.declaration.mcs",
+          "match": "\\b(var|const)(\\s+)([A-Za-z_][A-Za-z0-9_-]*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.mcs"
+            },
+            "3": {
+              "name": "variable.other.declaration.mcs"
+            }
+          }
+        }
+      ]
+    },
+    "mcs-set-assignments": {
+      "patterns": [
+        {
+          "name": "meta.assignment.set.mcs",
+          "match": "\\b(set)(\\s+)([A-Za-z_][A-Za-z0-9_-]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.assignment.set.mcs"
+            },
+            "3": {
+              "name": "variable.other.assignment.mcs"
+            }
+          }
+        }
+      ]
+    },
+    "mcs-selector-calls": {
+      "patterns": [
+        {
+          "name": "meta.selector-call.mcs",
+          "match": "(@(?:a|e|p|r|s)(?:\\[[^\\]\\n]*\\])?)(\\s+)([A-Za-z_][A-Za-z0-9_-]*)(?=\\s*\\()",
+          "captures": {
+            "1": {
+              "name": "variable.language.selector.mcs"
+            },
+            "3": {
+              "name": "entity.name.function.selector-call.mcs"
+            }
+          }
+        }
+      ]
+    },
+    "mcs-keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.mcs",
+          "match": "\\b(?:as|async|else|for|if|import|in|on|return|while)\\b"
+        },
+        {
+          "name": "storage.type.mcs",
+          "match": "\\b(?:const|var)\\b"
+        },
+        {
+          "name": "constant.language.mcs",
+          "match": "\\b(?:false|null|true)\\b"
+        }
+      ]
+    },
+    "mcs-command-functions": {
+      "patterns": [
+        {
+          "name": "support.function.minecraft.mcs",
+          "match": "\\b(?:append|concatenate|get_block|give_clickable_item|give_item|log|range|raycast_block|raycast_entity|set_block|tellraw|text|title|title_times)\\b(?=\\s*\\()"
+        },
+        {
+          "name": "support.function.text-component.mcs",
+          "match": "\\.(?:append|bold|click_copy|click_open_url|click_run|click_suggest|color|hover_item|hover_text|insertion|italic|text|underlined)\\b(?=\\s*\\()"
+        }
+      ]
+    },
+    "mcs-resource-locations": {
+      "patterns": [
+        {
+          "name": "entity.name.function.resource-location.mcs",
+          "match": "(?<![\\w.-])[a-z0-9_.-]+:[a-z0-9_./-]+\\b"
+        }
+      ]
+    },
+    "mcs-selectors": {
+      "patterns": [
+        {
+          "name": "variable.language.selector.mcs",
+          "match": "@(?:a|e|p|r|s)(?:\\[[^\\]\\n]*\\])?"
+        }
+      ]
+    },
+    "mcs-string-contents": {
+      "patterns": [
+        {
+          "include": "#mcs-selectors"
+        },
+        {
+          "include": "#mcs-resource-locations"
+        },
+        {
+          "name": "constant.character.escape.mcs",
+          "match": "\\\\(?:[\"'\\\\/bfnrt]|u[0-9a-fA-F]{4}|.)"
+        }
+      ]
+    },
+    "mcs-strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.mcs",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-string-contents"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.mcs",
+          "begin": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-string-contents"
+            }
+          ]
+        },
+        {
+          "name": "string.template.mcs",
+          "begin": "`",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "`",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-string-contents"
+            }
+          ]
+        }
+      ]
+    },
+    "mcs-numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.mcs",
+          "match": "(?<![\\w.])-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\b"
+        }
+      ]
+    },
+    "mcs-operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.mcs",
+          "match": "=>|="
+        },
+        {
+          "name": "keyword.operator.comparison.mcs",
+          "match": "==|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.mcs",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.arithmetic.mcs",
+          "match": "\\+|-|\\*|/|%"
+        },
+        {
+          "name": "punctuation.separator.statement.mcs",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.comma.mcs",
+          "match": ","
+        }
+      ]
+    }
+  }
+}
