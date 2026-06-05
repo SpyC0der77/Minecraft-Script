@@ -1,20 +1,28 @@
 from .compile_types import *
+from ..text_components import get_text_component_config, serialize_component
 from ..version_config import get_version_context
 
 function_output = tuple[tuple[str, ...], mcs_type]  # [commands, return value]
 
 
 def _direct_tellraw_log_commands(args) -> tuple[str, ...]:
-    components: list[str] = []
+    version = get_version_context()
+    config = get_text_component_config(version.orchestration)
+    component = {"text": "", "extra": []}
+
     for index, arg in enumerate(args):
         if index > 0:
-            components.append('{"text":" "}')
-        component = f'{{"storage":"{arg.get_storage()}","nbt":"{arg.get_nbt()}"'
+            component["extra"].append({"text": " "})
+
+        nbt_component = {
+            "storage": arg.get_storage(),
+            "nbt": arg.get_nbt(),
+        }
         if isinstance(arg, MCSTextComponent):
-            component += ',"interpret":true'
-        components.append(component + "}")
-    extra = ",".join(components)
-    return (f'tellraw @a [{{"text":"","extra":[{extra}]}}]',)
+            nbt_component["interpret"] = True
+        component["extra"].append(nbt_component)
+
+    return (f"tellraw @a {serialize_component(component, config)}",)
 
 
 def log(interpreter, args, context) -> function_output:

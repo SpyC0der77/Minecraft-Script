@@ -43,11 +43,22 @@ def get_text_component_config(orchestration: dict) -> dict:
             "title": "title {{target}} {{mode}} {{component}}",
             "title_times": "title {{target}} times {{fadeIn}} {{stay}} {{fadeOut}}",
         },
+        "click_event_value_keys": {
+            "open_url": "value",
+            "run_command": "value",
+            "suggest_command": "value",
+            "copy_to_clipboard": "value",
+        },
+        "hover_event_show_item": "value",
     }
     configured = orchestration.get("mcs_features", {}).get("text_component", {})
     merged = {**defaults, **configured}
     merged["property_keys"] = {**defaults["property_keys"], **configured.get("property_keys", {})}
     merged["commands"] = {**defaults["commands"], **configured.get("commands", {})}
+    merged["click_event_value_keys"] = {
+        **defaults["click_event_value_keys"],
+        **configured.get("click_event_value_keys", {}),
+    }
     return merged
 
 

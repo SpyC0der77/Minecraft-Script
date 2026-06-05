@@ -161,10 +161,13 @@ def _method_append(receiver: MCSTextComponent, args, context) -> MCSTextComponen
 def _method_click(receiver: MCSTextComponent, args, context, *, action: str) -> MCSTextComponent:
     method_name = action.replace("_command", "").replace("_", "_")
     string_arg = _require_string_arg(args, f"click_{action}")
+    version = get_version_context()
+    config = get_text_component_config(version.orchestration)
+    value_key = config["click_event_value_keys"].get(action, "value")
     result = receiver.clone()
     result.component["click_event"] = {
         "action": action,
-        "value": _require_literal_string(string_arg, f"TextComponent.click_{action}()"),
+        value_key: _require_literal_string(string_arg, f"TextComponent.click_{action}()"),
     }
     return result
 
@@ -216,10 +219,15 @@ def _method_hover_item(receiver: MCSTextComponent, args, context) -> MCSTextComp
             raise MCSValueError("TextComponent.hover_item() count must be a number literal at compile time")
         hover_value["count"] = count_value
 
-    result.component["hover_event"] = {
-        "action": "show_item",
-        "value": hover_value,
-    }
+    version = get_version_context()
+    config = get_text_component_config(version.orchestration)
+    if config.get("hover_event_show_item") == "inline":
+        result.component["hover_event"] = {"action": "show_item", **hover_value}
+    else:
+        result.component["hover_event"] = {
+            "action": "show_item",
+            "value": hover_value,
+        }
     return result
 
 

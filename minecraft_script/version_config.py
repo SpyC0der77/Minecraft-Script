@@ -14,12 +14,26 @@ def get_minecraft_version() -> str:
     return COMMON_CONFIG["minecraft_version"]
 
 
+def _load_version_index() -> dict:
+    index_path = Path(module_folder) / "versions" / "index.json"
+    if not index_path.is_file():
+        return {}
+    with index_path.open("rt", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def _profile_path_for_version(version: str) -> Path:
+    versions_dir = Path(module_folder) / "versions"
+    profile_name = _load_version_index().get("profiles", {}).get(version, version)
+    return versions_dir / f"{profile_name}.json"
+
+
 def load_version_profile(version: str | None = None) -> dict:
     version = version or get_minecraft_version()
     if version in _profile_cache:
         return _profile_cache[version]
 
-    profile_path = Path(module_folder) / "versions" / f"{version}.json"
+    profile_path = _profile_path_for_version(version)
     if not profile_path.is_file():
         supported = list_supported_versions()
         raise FileNotFoundError(
@@ -39,6 +53,11 @@ def list_supported_versions() -> list[str]:
     versions_dir = Path(module_folder) / "versions"
     if not versions_dir.is_dir():
         return []
+
+    supported = _load_version_index().get("supported", [])
+    if supported:
+        return supported
+
     return sorted(
         path.stem
         for path in versions_dir.glob("*.json")
@@ -48,7 +67,17 @@ def list_supported_versions() -> list[str]:
 
 def predefined_root(category: str, version: str | None = None) -> str:
     version = version or get_minecraft_version()
-    return str(Path(module_folder) / "compiler" / "build_templates" / category / version)
+    root = Path(module_folder) / "compiler" / "build_templates" / category / version
+    if root.is_dir():
+        return str(root)
+
+    profile = load_version_profile(version)
+    template_versions = profile.get("template_versions", {})
+    template_version = template_versions.get(category, profile.get("template_version"))
+    if template_version:
+        return str(Path(module_folder) / "compiler" / "build_templates" / category / template_version)
+
+    return str(root)
 
 
 def _snake_to_camel(name: str) -> str:
