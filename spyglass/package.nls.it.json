@@ -1,0 +1,12 @@
+{
+	"spyglassmc.commands.dataHackPubify.title": "Pubblica dati",
+	"spyglassmc.commands.resetProjectCache.title": "Reimposta cache del progetto",
+	"spyglassmc.commands.showCacheRoot.title": "Apri cartella cache",
+	"spyglassmc.commands.showOutput.title": "Mostra output",
+	"spyglassmc.description": "Funzionalità linguistiche avanzate per i file data pack di Minecraft: Java Edition",
+	"spyglassmc.displayName": "Datapack Helper Plus by Spyglass",
+	"spyglassmc.env.gameVersion": "La versione di Minecraft da usare. Quando è impostata su auto, la versione viene dedotta da `pack.mcmeta`. Altre versioni possono essere specificate in un file di configurazione `spyglass.json`. È necessario riavviare Spyglass per applicare le modifiche.",
+	"spyglassmc.env.enableMcdocCaching": "Indica se abilitare la cache dei tipi semplificati mcdoc.\n\nPuò corrompersi dopo aver cambiato versione di gioco, quindi al momento è disabilitata per impostazione predefinita.",
+	"spyglassmc.env.useFilePolling": "Fa usare il polling al file watcher per rilevare le modifiche ai file. Ha un costo in prestazioni per data pack molto grandi.\n\nSu Windows, abilitarlo può risolvere problemi di blocco dei file quando Spyglass è in esecuzione. Vedi: https://github.com/SpyglassMC/Spyglass/issues/1414. È necessario riavviare Spyglass per applicare le modifiche.\n\n**Dovresti considerare di abilitarlo solo su macchine Windows.**",
+	"spyglassmc.trace.server": "Traccia la comunicazione tra VS Code e Spyglass Language Server."
+}

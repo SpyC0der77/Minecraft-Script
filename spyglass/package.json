@@ -1,0 +1,407 @@
+{
+  "name": "datapack-language-server",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "main": "dist/extension.js",
+  "author": "Spyglass Contributors",
+  "publisher": "SPGoding",
+  "license": "MIT",
+  "scripts": {
+    "build": "wireit",
+    "build:dev": "wireit",
+    "release": "vsce publish && ovsx publish",
+    "release:dry": "echo \"DO NOT PUBLISH (DRY)\"",
+    "watch": "node esbuild.mjs watch"
+  },
+  "wireit": {
+    "build": {
+      "command": "node esbuild.mjs prod",
+      "dependencies": [
+        "../..:build:packages"
+      ],
+      "files": [
+        "out/extension.mjs",
+        "../language-server/lib/server.js"
+      ],
+      "output": [
+        "dist/extension.js",
+        "dist/server.js"
+      ]
+    },
+    "build:dev": {
+      "command": "node esbuild.mjs dev",
+      "dependencies": [
+        "../..:build:packages"
+      ],
+      "files": [
+        "out/extension.mjs",
+        "../language-server/lib/server.js"
+      ],
+      "output": [
+        "dist/extension.js",
+        "dist/server.js"
+      ]
+    }
+  },
+  "extensionDependencies": [
+    "MinecraftCommands.syntax-mcfunction"
+  ],
+  "extensionDependencyVersions": {
+    "MinecraftCommands.syntax-mcfunction": "1.0.1"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.101.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.1",
+    "esbuild": "^0.25.2",
+    "ovsx": "^0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpyglassMC/Spyglass.git"
+  },
+  "homepage": "https://spyglassmc.com",
+  "bugs": {
+    "url": "https://github.com/SpyglassMC/Spyglass/issues"
+  },
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "displayName": "%spyglassmc.displayName%",
+  "description": "%spyglassmc.description%",
+  "icon": "icon.png",
+  "categories": [
+    "Linters",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "multi-root ready",
+    "minecraft",
+    "datapack",
+    "mcfunction"
+  ],
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "pack.mcmeta",
+          "assets/*/atlases/**/*.json",
+          "assets/*/blockstates/**/*.json",
+          "assets/*/items/**/*.json",
+          "assets/*/equipment/**/*.json",
+          "assets/*/fonts/**/*.json",
+          "assets/*/lang/**/*.json",
+          "assets/*/models/**/*.json",
+          "assets/*/particles/**/*.json",
+          "assets/*/post_effect/**/*.json",
+          "assets/*/shaders/**/*.json",
+          "assets/*/waypoint_style/**/*.json",
+          "assets/minecraft/**/*.json",
+          "data/*/advancement/**/*.json",
+          "data/*/advancements/**/*.json",
+          "data/*/banner_pattern/**/*.json",
+          "data/*/cat_variant/**/*.json",
+          "data/*/chat_type/**/*.json",
+          "data/*/chicken_variant/**/*.json",
+          "data/*/cow_variant/**/*.json",
+          "data/*/damage_type/**/*.json",
+          "data/*/dialog/**/*.json",
+          "data/*/dimension/**/*.json",
+          "data/*/dimension_type/**/*.json",
+          "data/*/enchantment/**/*.json",
+          "data/*/enchantment_provider/**/*.json",
+          "data/*/frog_variant/**/*.json",
+          "data/*/item_modifier/**/*.json",
+          "data/*/item_modifiers/**/*.json",
+          "data/*/jukebox_song/**/*.json",
+          "data/*/loot_table/**/*.json",
+          "data/*/loot_tables/**/*.json",
+          "data/*/painting_variant/**/*.json",
+          "data/*/pig_variant/**/*.json",
+          "data/*/predicate/**/*.json",
+          "data/*/predicates/**/*.json",
+          "data/*/recipe/**/*.json",
+          "data/*/recipes/**/*.json",
+          "data/*/sulfur_cube_archetype/**/*.json",
+          "data/*/tags/**/*.json",
+          "data/*/test_instance/**/*.json",
+          "data/*/test_environment/**/*.json",
+          "data/*/timeline/**/*.json",
+          "data/*/trade_set/**/*.json",
+          "data/*/trial_spawner/**/*.json",
+          "data/*/trim_material/**/*.json",
+          "data/*/trim_pattern/**/*.json",
+          "data/*/villager_trade/**/*.json",
+          "data/*/wolf_sound_variant/**/*.json",
+          "data/*/wolf_variant/**/*.json",
+          "data/*/world_clock/**/*.json",
+          "data/*/zombie_nautilus_variant/**/*.json",
+          "data/*/worldgen/**/*.json",
+          "data/minecraft/**/*.json"
+        ],
+        "url": "./resource/empty-object.json"
+      },
+      {
+        "fileMatch": [
+          "spyglass.json",
+          ".spyglassrc",
+          ".spyglassrc.json"
+        ],
+        "url": "./resource/spyglass.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "mcfunction",
+        "extensions": [
+          ".mcfunction"
+        ],
+        "configuration": "./mcfunction-language-configuration.json"
+      },
+      {
+        "id": "mcdoc",
+        "extensions": [
+          ".mcdoc"
+        ],
+        "configuration": "./mcdoc-language-configuration.json"
+      },
+      {
+        "id": "snbt",
+        "extensions": [
+          ".snbt"
+        ],
+        "configuration": "./snbt-language-configuration.json"
+      },
+      {
+        "id": "mcmeta",
+        "aliases": [
+          "MCMETA",
+          "mcmeta"
+        ],
+        "extensions": [
+          ".mcmeta"
+        ],
+        "configuration": "./mcmeta-language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mcmeta",
+        "scopeName": "source.mcmeta",
+        "path": "./resource/mcmeta.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "spyglassmc.dataHackPubify",
+        "title": "%spyglassmc.commands.dataHackPubify.title%",
+        "category": "Spyglass"
+      },
+      {
+        "command": "spyglassmc.resetProjectCache",
+        "title": "%spyglassmc.commands.resetProjectCache.title%",
+        "category": "Spyglass",
+        "enablement": "workspaceFolderCount != 0"
+      },
+      {
+        "command": "spyglassmc.showCacheRoot",
+        "title": "%spyglassmc.commands.showCacheRoot.title%",
+        "category": "Spyglass"
+      },
+      {
+        "command": "spyglassmc.showOutput",
+        "title": "%spyglassmc.commands.showOutput.title%",
+        "category": "Spyglass"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "spyglassmc.dataHackPubify"
+        },
+        {
+          "command": "spyglassmc.resetProjectCache",
+          "when": "workspaceFolderCount != 0"
+        },
+        {
+          "command": "spyglassmc.showCacheRoot"
+        },
+        {
+          "command": "spyglassmc.showOutput"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Spyglass",
+      "properties": {
+        "spyglassmc.env.gameVersion": {
+          "type": "string",
+          "enum": [
+            "Auto",
+            "Latest release",
+            "Latest snapshot"
+          ],
+          "markdownDescription": "%spyglassmc.env.gameVersion%",
+          "default": "Auto"
+        },
+        "spyglassmc.env.enableMcdocCaching": {
+          "type": "boolean",
+          "markdownDescription": "%spyglassmc.env.enableMcdocCaching%",
+          "default": false
+        },
+        "spyglassmc.env.useFilePolling": {
+          "type": "boolean",
+          "markdownDescription": "%spyglassmc.env.useFilePolling%",
+          "default": false
+        },
+        "spyglassmc.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "markdownDescription": "%spyglassmc.trace.server%",
+          "default": "off"
+        },
+        "spyglassmc.env.feature.codeActions": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.colors": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.completions": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.documentHighlighting": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.documentLinks": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.foldingRanges": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.formatting": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.hover": {
+          "type": "boolean",
+          "default": true
+        },
+        "spyglassmc.env.feature.inlayHint.enabledNodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "boolean",
+            "double",
+            "float",
+            "integer",
+            "long",
+            "mcfunction:coordinate",
+            "mcfunction:vector",
+            "mcfunction:command_child/unknown"
+          ]
+        },
+        "spyglassmc.env.feature.semanticColoring.disabledLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "spyglassmc.env.feature.signatures": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[json]": {
+        "editor.semanticHighlighting.enabled": true
+      },
+      "[mcdoc]": {
+        "editor.semanticHighlighting.enabled": true
+      },
+      "[mcfunction]": {
+        "editor.semanticHighlighting.enabled": true,
+        "editor.suggest.insertMode": "replace"
+      },
+      "editor.semanticTokenColorCustomizations": {
+        "rules": {
+          "vector": {
+            "underline": true
+          }
+        }
+      }
+    },
+    "semanticTokenTypes": [
+      {
+        "id": "error",
+        "description": "An error."
+      },
+      {
+        "id": "escape",
+        "description": "An escape sequence."
+      },
+      {
+        "id": "literal",
+        "description": "A literal."
+      },
+      {
+        "id": "operator",
+        "description": "An operator."
+      },
+      {
+        "id": "resourceLocation",
+        "description": "A resource location."
+      },
+      {
+        "id": "vector",
+        "description": "A vector."
+      }
+    ],
+    "semanticTokenModifiers": [],
+    "semanticTokenScopes": [
+      {
+        "scopes": {
+          "error": [
+            "invalid.illegal"
+          ],
+          "escape": [
+            "constant.character.escape"
+          ],
+          "literal": [
+            "keyword.other"
+          ],
+          "operator": [
+            "keyword.operator"
+          ],
+          "resourceLocation": [
+            "entity.name.function"
+          ],
+          "vector": [
+            "constant.numeric"
+          ]
+        }
+      }
+    ]
+  },
+  "activationEvents": [
+    "workspaceContains:**/pack.mcmeta",
+    "workspaceContains:**/*.mcdoc",
+    "workspaceContains:**/*.mcfunction"
+  ]
+}

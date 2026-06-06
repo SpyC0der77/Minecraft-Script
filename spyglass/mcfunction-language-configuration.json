@@ -1,0 +1,72 @@
+{
+	"brackets": [
+		[
+			"[",
+			"]"
+		],
+		[
+			"[B;",
+			"]"
+		],
+		[
+			"[I;",
+			"]"
+		],
+		[
+			"[L;",
+			"]"
+		],
+		[
+			"{",
+			"}"
+		]
+	],
+	"comments": {
+		"lineComment": "#"
+	},
+	"autoClosingPairs": [
+		{
+			"open": "'",
+			"close": "'",
+			"notIn": [
+				"comment",
+				"string"
+			]
+		},
+		{
+			"open": "\"",
+			"close": "\"",
+			"notIn": [
+				"comment",
+				"string"
+			]
+		},
+		{
+			"open": "[",
+			"close": "]"
+		},
+		{
+			"open": "{",
+			"close": "}"
+		}
+	],
+	"autoCloseBefore": ":,=}]\"' \n\t",
+	"surroundingPairs": [
+		[
+			"\"",
+			"\""
+		],
+		[
+			"'",
+			"'"
+		],
+		[
+			"{",
+			"}"
+		],
+		[
+			"[",
+			"]"
+		]
+	]
+}
