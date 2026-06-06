@@ -304,7 +304,7 @@ function findHoverTarget(document, position) {
   for (const match of lineText.matchAll(SELECTOR_PATTERN)) {
     const start = match.index ?? 0
     const end = start + match[0].length
-    if (column < start || column > end) continue
+    if (column < start || column >= end) continue
 
     const selectorKey = match[0].split('[')[0]
     const doc = SELECTORS[selectorKey]
@@ -347,7 +347,6 @@ function findHoverTarget(document, position) {
  */
 function formatHoverMarkdown(doc) {
   const markdown = new vscode.MarkdownString()
-  markdown.isTrusted = true
   markdown.appendMarkdown('```mcs\n')
   markdown.appendMarkdown(doc.syntax)
   markdown.appendMarkdown('\n```\n\n')
