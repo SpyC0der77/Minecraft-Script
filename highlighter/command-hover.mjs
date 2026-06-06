@@ -39,7 +39,6 @@ export function provideCommandHover(getSpyglassProject, output) {
       if (!hover) return undefined
 
       const markdown = new vscode.MarkdownString(hover.markdown)
-      markdown.isTrusted = true
 
       const mapped = mapCommandRangeToOffsets(target.call, hover.range)
 

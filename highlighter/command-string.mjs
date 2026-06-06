@@ -26,7 +26,7 @@ export function extractCommandCalls(text) {
       index = readIdentifier(text, index)
       const identifier = text.slice(identifierStart, index)
 
-      if (identifier !== 'command') continue
+      if (identifier !== 'command' || !isBuiltinCommandCall(text, identifierStart)) continue
 
       const call = readCommandCall(text, index)
       if (call) {
@@ -213,4 +213,11 @@ function isIdentifierStart(char) {
 
 function isIdentifierPart(char) {
   return /[A-Za-z0-9_-]/.test(char ?? '')
+}
+
+function isBuiltinCommandCall(text, identifierStart) {
+  let cursor = identifierStart - 1
+  while (cursor >= 0 && /\s/.test(text[cursor])) cursor -= 1
+
+  return cursor < 0 || text[cursor] !== '.'
 }

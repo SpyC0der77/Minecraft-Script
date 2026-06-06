@@ -15,7 +15,11 @@ const readyPromises = new WeakMap()
  */
 export function ensureProjectReady(project) {
   if (!readyPromises.has(project)) {
-    readyPromises.set(project, project.ready())
+    const promise = project.ready().catch((error) => {
+      readyPromises.delete(project)
+      throw error
+    })
+    readyPromises.set(project, promise)
   }
 
   return readyPromises.get(project)
