@@ -84,16 +84,10 @@
               "include": "#mcs-command-strings"
             },
             {
-              "include": "#mcs-strings"
-            },
-            {
               "include": "#mcs-resource-locations"
             },
             {
               "include": "#mcs-selectors"
-            },
-            {
-              "include": "source.js"
             }
           ]
         }
@@ -102,7 +96,7 @@
     "mcs-command-strings": {
       "patterns": [
         {
-          "name": "string.quoted.double.command.mcs",
+          "name": "meta.command-literal.mcs",
           "begin": "\"",
           "beginCaptures": {
             "0": {
@@ -117,17 +111,12 @@
           },
           "patterns": [
             {
-              "include": "#mcs-string-contents"
-            },
-            {
-              "comment": "Minecraft command names from the 1.21.2 command tree used by the default linter setting.",
-              "name": "keyword.other.minecraft-command.mcs",
-              "match": "\\b(?:advancement|attribute|ban|ban-ip|banlist|bossbar|clear|clone|damage|data|datapack|debug|defaultgamemode|deop|difficulty|effect|enchant|execute|experience|fill|fillbiome|forceload|function|gamemode|gamerule|give|help|item|jfr|kick|kill|list|locate|loot|me|msg|op|pardon|pardon-ip|particle|perf|place|playsound|publish|random|recipe|reload|return|ride|rotate|save-all|save-off|save-on|say|schedule|scoreboard|seed|setblock|setidletimeout|setworldspawn|spawnpoint|spectate|spreadplayers|stop|stopsound|summon|tag|team|teammsg|teleport|tell|tellraw|tick|time|title|tm|tp|transfer|trigger|w|weather|whitelist|worldborder|xp)\\b"
+              "include": "#mcs-command-literal-contents"
             }
           ]
         },
         {
-          "name": "string.quoted.single.command.mcs",
+          "name": "meta.command-literal.mcs",
           "begin": "'",
           "beginCaptures": {
             "0": {
@@ -142,9 +131,41 @@
           },
           "patterns": [
             {
-              "include": "#mcs-string-contents"
+              "include": "#mcs-command-literal-contents"
             }
           ]
+        },
+        {
+          "name": "meta.command-literal.mcs",
+          "begin": "`",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.mcs"
+            }
+          },
+          "end": "`",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#mcs-command-literal-contents"
+            }
+          ]
+        }
+      ]
+    },
+    "mcs-command-literal-contents": {
+      "patterns": [
+        {
+          "include": "#mcs-string-contents"
+        },
+        {
+          "comment": "Minecraft command names from the 1.21.2 command tree used by the default linter setting.",
+          "name": "support.function.minecraft-command.mcs",
+          "match": "\\b(?:advancement|attribute|ban|ban-ip|banlist|bossbar|clear|clone|damage|data|datapack|debug|defaultgamemode|deop|difficulty|effect|enchant|execute|experience|fill|fillbiome|forceload|function|gamemode|gamerule|give|help|item|jfr|kick|kill|list|locate|loot|me|msg|op|pardon|pardon-ip|particle|perf|place|playsound|publish|random|recipe|reload|return|ride|rotate|save-all|save-off|save-on|say|schedule|scoreboard|seed|setblock|setidletimeout|setworldspawn|spawnpoint|spectate|spreadplayers|stop|stopsound|summon|tag|team|teammsg|teleport|tell|tellraw|tick|time|title|tm|tp|transfer|trigger|w|weather|whitelist|worldborder|xp)\\b"
         }
       ]
     },
