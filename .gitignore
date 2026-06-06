@@ -11,3 +11,5 @@ __pycache__/
 build_test/
 highlighter/node_modules/
 highlighter/dist/
+npm/node_modules/
+npm/*.tgz
