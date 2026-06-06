@@ -77,6 +77,7 @@ export async function activate(context: vsc.ExtensionContext) {
 		title: localize('progress.initializing.title'),
 	}, async (progress) => {
 		let hasInitializationProgress = false
+		let lastReportedPercentage = 0
 		let progressDisposable: vsc.Disposable | undefined
 		let resolveInitializationProgress: () => void = () => undefined
 		const initializationProgress = new Promise<void>((resolve) => {
@@ -88,9 +89,12 @@ export async function activate(context: vsc.ExtensionContext) {
 			(params) => {
 				hasInitializationProgress = true
 				if (params.kind === 'begin') {
+					lastReportedPercentage = 0
 					progress?.report({ increment: 0, message: params.message })
 				} else if (params.kind === 'report') {
-					progress?.report({ increment: params.percentage, message: params.message })
+					const delta = Math.max(0, Math.min(100, params.percentage - lastReportedPercentage))
+					progress?.report({ increment: delta, message: params.message })
+					lastReportedPercentage = params.percentage
 				} else if (params.kind === 'end') {
 					resolveInitializationProgress()
 					progressDisposable?.dispose()
