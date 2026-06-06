@@ -9,6 +9,7 @@ import {
 } from '@spyglassmc/core'
 import { getNodeJsExternals } from '@spyglassmc/core/lib/nodejs.js'
 import { initialize as initializeJavaEdition } from '@spyglassmc/java-edition'
+import { createMcsHoverProvider } from './hover-docs.mjs'
 
 const commandLintSource = 'mcs-spyglass-command'
 const validationDelayMs = 250
@@ -138,6 +139,7 @@ export function activate(context) {
   context.subscriptions.push(
     diagnostics,
     output,
+    vscode.languages.registerHoverProvider('mcs', createMcsHoverProvider()),
     vscode.commands.registerCommand('mcsHighlighter.showOutput', () => output.show(true)),
     vscode.commands.registerCommand('mcsHighlighter.selectMinecraftVersion', selectMinecraftVersion),
     vscode.workspace.onDidOpenTextDocument(queueValidation),

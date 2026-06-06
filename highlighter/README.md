@@ -13,6 +13,8 @@ If command linting fails, open the **Minecraft Script** output channel: in the O
 
 The grammar highlights Minecraft Script-specific syntax such as `set`, `on`, selector-prefixed calls, event bindings, built-in helpers, text component chains, Minecraft resource locations, and `command()` strings. It still includes VS Code's JavaScript grammar as a fallback for JavaScript-like expressions.
 
+Hover over keywords, built-in functions, text component methods (`.text()`, `.color()`, etc.), and target selectors (`@a`, `@s`, ...) to see TypeScript-style syntax help.
+
 The small command-name keyword list used inside `command()` strings targets the default `1.21.2` lint version. Full command validation comes from Spyglass and follows the version selected with `Minecraft Script: Select Command Lint Version`.
 
 ## Spyglass
