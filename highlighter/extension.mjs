@@ -181,7 +181,7 @@ export function activate(context) {
 
   validateOpenMcsDocuments()
 
-  const indexingStatus = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
+  const indexingStatus = vscode.window.createStatusBarItem(100)
   indexingStatus.name = 'Minecraft Script Symbol Indexing'
 
   void getSpyglassProject(context, output)
