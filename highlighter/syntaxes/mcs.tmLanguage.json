@@ -120,6 +120,7 @@
               "include": "#mcs-string-contents"
             },
             {
+              "comment": "Minecraft command names from the 1.21.2 command tree used by the default linter setting.",
               "name": "keyword.other.minecraft-command.mcs",
               "match": "\\b(?:advancement|attribute|ban|ban-ip|banlist|bossbar|clear|clone|damage|data|datapack|debug|defaultgamemode|deop|difficulty|effect|enchant|execute|experience|fill|fillbiome|forceload|function|gamemode|gamerule|give|help|item|jfr|kick|kill|list|locate|loot|me|msg|op|pardon|pardon-ip|particle|perf|place|playsound|publish|random|recipe|reload|return|ride|rotate|save-all|save-off|save-on|say|schedule|scoreboard|seed|setblock|setidletimeout|setworldspawn|spawnpoint|spectate|spreadplayers|stop|stopsound|summon|tag|team|teammsg|teleport|tell|tellraw|tick|time|title|tm|tp|transfer|trigger|w|weather|whitelist|worldborder|xp)\\b"
             }
@@ -214,7 +215,7 @@
       "patterns": [
         {
           "name": "meta.selector-call.mcs",
-          "match": "(@(?:a|e|p|r|s)(?:\\[[^\\]\\n]*\\])?)(\\s+)([A-Za-z_][A-Za-z0-9_-]*)(?=\\s*\\()",
+          "match": "(@(?:a|e|p|r|s))(\\s+)([A-Za-z_][A-Za-z0-9_-]*)(?=\\s*\\()",
           "captures": {
             "1": {
               "name": "variable.language.selector.mcs"
@@ -223,6 +224,37 @@
               "name": "entity.name.function.selector-call.mcs"
             }
           }
+        },
+        {
+          "name": "meta.selector-call.mcs",
+          "begin": "(@(?:a|e|p|r|s))(\\[)",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.language.selector.mcs"
+            },
+            "2": {
+              "name": "punctuation.definition.selector-predicate.begin.mcs"
+            }
+          },
+          "end": "(\\])(\\s+)([A-Za-z_][A-Za-z0-9_-]*)(?=\\s*\\()",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.selector-predicate.end.mcs"
+            },
+            "3": {
+              "name": "entity.name.function.selector-call.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.selector-predicate.mcs",
+              "match": "\\\\."
+            },
+            {
+              "name": "meta.selector-predicate.content.mcs",
+              "match": "[^\\n]"
+            }
+          ]
         }
       ]
     },
@@ -266,7 +298,35 @@
       "patterns": [
         {
           "name": "variable.language.selector.mcs",
-          "match": "@(?:a|e|p|r|s)(?:\\[[^\\]\\n]*\\])?"
+          "match": "@(?:a|e|p|r|s)\\b"
+        },
+        {
+          "name": "variable.language.selector.with-predicate.mcs",
+          "begin": "(@(?:a|e|p|r|s))(\\[)",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.language.selector.mcs"
+            },
+            "2": {
+              "name": "punctuation.definition.selector-predicate.begin.mcs"
+            }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.selector-predicate.end.mcs"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.selector-predicate.mcs",
+              "match": "\\\\."
+            },
+            {
+              "name": "meta.selector-predicate.content.mcs",
+              "match": "[^\\n]"
+            }
+          ]
         }
       ]
     },
@@ -280,7 +340,7 @@
         },
         {
           "name": "constant.character.escape.mcs",
-          "match": "\\\\(?:[\"'\\\\/bfnrt]|u[0-9a-fA-F]{4}|.)"
+          "match": "\\\\(?:[\"'\\\\/bfnrt]|u[0-9a-fA-F]{4})"
         }
       ]
     },

@@ -61,6 +61,7 @@ export async function activate(context: vsc.ExtensionContext) {
 	const clientOptions: lc.LanguageClientOptions = {
 		documentSelector,
 		initializationOptions,
+		progressOnInitialization: true,
 	}
 
 	// Create the language client and start the client.
@@ -75,11 +76,41 @@ export async function activate(context: vsc.ExtensionContext) {
 		location: vsc.ProgressLocation.Window,
 		title: localize('progress.initializing.title'),
 	}, async (progress) => {
+		let hasInitializationProgress = false
+		let progressDisposable: vsc.Disposable | undefined
+		let resolveInitializationProgress: () => void = () => undefined
+		const initializationProgress = new Promise<void>((resolve) => {
+			resolveInitializationProgress = resolve
+		})
+		progressDisposable = client.onProgress(
+			lc.WorkDoneProgress.type,
+			'initialize',
+			(params) => {
+				hasInitializationProgress = true
+				if (params.kind === 'begin') {
+					progress?.report({ increment: 0, message: params.message })
+				} else if (params.kind === 'report') {
+					progress?.report({ increment: params.percentage, message: params.message })
+				} else if (params.kind === 'end') {
+					resolveInitializationProgress()
+					progressDisposable?.dispose()
+				}
+			},
+		)
+
 		try {
 			// Start the client. This will also launch the server
 			await client.start()
 		} catch (e) {
 			console.error('[client#start]', e)
+			resolveInitializationProgress()
+			progressDisposable?.dispose()
+			throw e
+		}
+
+		if (!hasInitializationProgress) {
+			resolveInitializationProgress()
+			progressDisposable?.dispose()
 		}
 
 		const customCapabilities: server.CustomServerCapabilities | undefined = client
@@ -146,17 +177,9 @@ export async function activate(context: vsc.ExtensionContext) {
 			}),
 		)
 
-		return new Promise<void>((resolve) => {
-			client.onProgress(lc.WorkDoneProgress.type, 'initialize', (params) => {
-				if (params.kind === 'begin') {
-					progress?.report({ increment: 0, message: params.message })
-				} else if (params.kind === 'report') {
-					progress?.report({ increment: params.percentage, message: params.message })
-				} else if (params.kind === 'end') {
-					resolve()
-				}
-			})
-		})
+		resolveInitializationProgress()
+		progressDisposable?.dispose()
+		return initializationProgress
 	})
 }
 

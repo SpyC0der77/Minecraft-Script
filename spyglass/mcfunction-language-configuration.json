@@ -35,7 +35,11 @@
 		},
 		{
 			"open": "\"",
-			"close": "\""
+			"close": "\"",
+			"notIn": [
+				"comment",
+				"string"
+			]
 		},
 		{
 			"open": "[",

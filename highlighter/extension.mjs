@@ -31,14 +31,20 @@ export function activate(context) {
   const diagnostics = vscode.languages.createDiagnosticCollection('mcs')
   const output = vscode.window.createOutputChannel('Minecraft Script')
   const timers = new Map()
+  const validationTokens = new Map()
   let isUpdatingVersionFromCommand = false
 
   async function validate(document) {
     if (document.languageId !== 'mcs') return
 
+    const uriKey = document.uri.toString()
+    const validationToken = Symbol(uriKey)
+    validationTokens.set(uriKey, validationToken)
+    const isCurrentValidation = () => validationTokens.get(uriKey) === validationToken
+
     const commandCalls = extractCommandCalls(document.getText())
     if (commandCalls.length === 0) {
-      diagnostics.set(document.uri, [])
+      if (isCurrentValidation()) diagnostics.set(document.uri, [])
       return
     }
 
@@ -61,10 +67,12 @@ export function activate(context) {
         )
       }
 
-      diagnostics.set(document.uri, nextDiagnostics)
+      if (isCurrentValidation()) diagnostics.set(document.uri, nextDiagnostics)
     } catch (error) {
       output.appendLine(`[Spyglass] ${error instanceof Error ? error.stack ?? error.message : String(error)}`)
       output.show(true)
+      if (!isCurrentValidation()) return
+
       diagnostics.set(document.uri, [
         new vscode.Diagnostic(
           new vscode.Range(0, 0, 0, 1),
@@ -142,6 +150,7 @@ export function activate(context) {
     }),
     vscode.workspace.onDidCloseTextDocument((document) => {
       diagnostics.delete(document.uri)
+      validationTokens.delete(document.uri.toString())
       const timer = timers.get(document.uri.toString())
       if (timer) clearTimeout(timer)
       timers.delete(document.uri.toString())
@@ -156,15 +165,23 @@ export async function deactivate() {
 }
 
 async function getSpyglassProject(context, output) {
-  projectPromise ??= createSpyglassProject(context, output)
-  return projectPromise
+  if (!projectPromise) projectPromise = createSpyglassProject(context, output)
+
+  const pendingProject = projectPromise
+  try {
+    return await pendingProject
+  } catch (error) {
+    if (projectPromise === pendingProject) projectPromise = undefined
+    throw error
+  }
 }
 
 async function resetSpyglassProject() {
   if (!projectPromise) return
 
-  const project = await projectPromise
+  const pendingProject = projectPromise
   projectPromise = undefined
+  const project = await pendingProject
   await project.close()
 }
 

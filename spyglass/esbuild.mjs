@@ -9,7 +9,7 @@ try {
 
 	const isDev = mode !== 'prod'
 	console.info('Start building...')
-	const result = await esbuild.build({
+	const buildOptions = {
 		entryPoints: ['./out/extension.mjs', '../language-server/lib/server.js'],
 		entryNames: '[name]',
 		format: 'cjs', // https://github.com/microsoft/vscode/issues/130367
@@ -23,8 +23,23 @@ try {
 		external: ['electron', 'fsevents', 'vscode'],
 		sourcemap: isDev,
 		minify: !isDev,
-	})
-	logResult(result)
+	}
+
+	if (mode === 'watch') {
+		const context = await esbuild.context(buildOptions)
+		const dispose = async () => {
+			await context.dispose()
+			process.exit()
+		}
+
+		process.once('SIGINT', dispose)
+		process.once('SIGTERM', dispose)
+		await context.watch()
+		console.info('Watching for changes...')
+	} else {
+		const result = await esbuild.build(buildOptions)
+		logResult(result)
+	}
 } catch (e) {
 	console.error(e)
 	process.exitCode = 1
