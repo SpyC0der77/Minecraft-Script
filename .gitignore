@@ -9,3 +9,5 @@ minecraft_script/interpreter/__pycache__/
 minecraft_script/compiler/__pycache__/test-output/
 __pycache__/
 build_test/
+highlighter/node_modules/
+highlighter/dist/
