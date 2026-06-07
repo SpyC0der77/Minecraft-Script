@@ -8,6 +8,9 @@ minecraft_script/parser/__pycache__/
 minecraft_script/interpreter/__pycache__/
 minecraft_script/compiler/__pycache__/test-output/
 __pycache__/
+build/
+dist/
+*.egg-info/
 build_test/
 highlighter/node_modules/
 highlighter/dist/

@@ -26,6 +26,6 @@ for (const [command, args] of candidates) {
 console.error(
   "Minecraft Script requires Python 3.\n" +
     "Install Python from https://www.python.org/downloads/ and run:\n" +
-    "  pip install minecraft-script"
+    "  pip install git+https://github.com/SpyC0der77/Minecraft-Script.git@main"
 );
 process.exit(1);

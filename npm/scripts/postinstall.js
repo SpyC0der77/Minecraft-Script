@@ -6,7 +6,12 @@ const packageJson = JSON.parse(
   readFileSync(join(__dirname, "..", "package.json"), "utf8")
 );
 const version = packageJson.version;
-const pipArgs = ["install", `minecraft-script==${version}`];
+const repositoryUrl =
+  packageJson.repository?.url?.replace(/^git\+/, "") ??
+  "https://github.com/SpyC0der77/Minecraft-Script.git";
+const gitUrl = repositoryUrl.replace(/\.git$/, "");
+const pipSpec = `git+${gitUrl}.git@v${version}`;
+const pipArgs = ["install", pipSpec];
 
 const candidates = [
   ["py", ["-3", "-m", "pip", ...pipArgs]],
@@ -32,11 +37,11 @@ for (const [command, args] of candidates) {
   continue;
 }
 
-const manualInstall = `  pip install minecraft-script==${version}\n`;
+const manualInstall = `  pip install git+${gitUrl}.git@v${version}\n`;
 
 if (ranCandidate) {
   console.warn(
-    "\n[minecraft-script] Failed to install the Python package via pip.\n" +
+    "\n[minecraft-script] Failed to install the Python package from GitHub.\n" +
       "Install it manually with:\n" +
       manualInstall
   );
@@ -44,7 +49,7 @@ if (ranCandidate) {
 }
 
 console.warn(
-  "\n[minecraft-script] Python was not found, so the PyPI package was not installed.\n" +
+  "\n[minecraft-script] Python was not found, so the package was not installed.\n" +
     "Install Python 3 from https://www.python.org/downloads/ and run:\n" +
     manualInstall
 );

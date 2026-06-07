@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minecraft-script"
+version = "0.3.1"
+description = "Minecraft Script programming language — compile .mcs files to Minecraft datapacks"
+readme = "readme.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Joyful-Bard" }]
+
+[project.urls]
+Homepage = "https://github.com/SpyC0der77/Minecraft-Script"
+Repository = "https://github.com/SpyC0der77/Minecraft-Script"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["minecraft_script*"]
+
+[tool.setuptools.package-data]
+minecraft_script = [
+  "config.json",
+  "versions/*.json",
+  "lexer/grammar/*.json",
+  "compiler/build_templates/**/*",
+]
