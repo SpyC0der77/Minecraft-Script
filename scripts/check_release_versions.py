@@ -13,9 +13,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def read_pyproject_version() -> str:
     text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    match = re.search(r'^version\s*=\s*"([^"]+)"', text, re.MULTILINE)
+    project_section = re.search(
+        r"^\[project\]\s*\n(.*?)(?=^\[|\Z)",
+        text,
+        re.MULTILINE | re.DOTALL,
+    )
+    if not project_section:
+        raise SystemExit("Could not find [project] section in pyproject.toml")
+
+    match = re.search(
+        r'^version\s*=\s*"([^"]+)"',
+        project_section.group(1),
+        re.MULTILINE,
+    )
     if not match:
-        raise SystemExit("Could not find version in pyproject.toml")
+        raise SystemExit('Could not find version in pyproject.toml [project] section')
     return match.group(1)
 
 

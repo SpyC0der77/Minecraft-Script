@@ -45,13 +45,13 @@ Tests that compile datapacks write output to `build_test/` at the repo root. Tha
 When checking compiler output by hand, compile into `build_test/` instead of your Minecraft world folder:
 
 ```commandline
-python -m minecraft_script compile examples/hello_world.mcs "Hello World" build_test
+python -m minecraft_script compile examples/starter_datapack.mcs "Starter Datapack" build_test
 ```
 
 Or with the npm CLI:
 
 ```commandline
-mcs compile examples/hello_world.mcs "Hello World" build_test
+mcs compile examples/starter_datapack.mcs "Starter Datapack" build_test
 ```
 
 Inspect the generated datapack under `build_test/` before deleting it.
@@ -181,7 +181,7 @@ If you are trying to add compatibility for a new version of Minecraft, here is h
 2. Copy `minecraft_script/versions/1.21.2.json` to `minecraft_script/versions/<version>.json`
 3. Update the `orchestration` section for datapack layout changes (folder names, `pack.mcmeta` format, function tags, MCS built-in feature paths). See the `breaking_changes` map in the JSON for which keys apply per game version.
 4. Update Handlebars `templates` only for compiler-generated command shapes (not user NBT in `.mcs` source).
-5. Copy `minecraft_script/compiler/build_templates/math/1.20.4/` (and `builtins/`, `tags/`) to matching `<version>/` folders; edit predefined `.mcfunction` files as needed
+5. Copy `minecraft_script/compiler/build_templates/math/1.21.2/` (and `builtins/1.21.2/`, `tags/1.21.2/`) to matching `<version>/` folders; edit predefined `.mcfunction` files as needed
 6. Add the version to `minecraft_script/versions/index.json`
 7. Add the version to `highlighter/package.json` → `contributes.configuration.properties.mcsHighlighter.minecraftVersion.enum` if command linting should support it
 8. Open a PR against `main`

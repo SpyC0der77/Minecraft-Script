@@ -76,7 +76,7 @@ To try it locally:
 2. Run `bun install`.
 3. Press `F5` to launch an Extension Development Host and open a `.mcs` file.
 
-Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd or Ctrl + P) to choose the Minecraft version used for command validation. Install the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=SpyC0der77.minecraft-script-language-support) from the Marketplace, or see `[highlighter/README.md](highlighter/README.md)` to run it locally.
+Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd+Shift+P / Ctrl+Shift+P) to choose the Minecraft version used for command validation. Install the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=SpyC0der77.minecraft-script-language-support) from the Marketplace, or see [highlighter/README.md](highlighter/README.md) to run it locally.
 
 ## Using Minecraft Script to make Datapacks
 
