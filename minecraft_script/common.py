@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from uuid import uuid4 as _uuid4
 
-version = "0.3.1"
+version = "0.3.2"
 module_folder = str(Path(__file__).resolve().parent)
 
 # load Minecraft-Script configuration
