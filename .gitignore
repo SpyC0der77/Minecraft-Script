@@ -14,5 +14,6 @@ dist/
 build_test/
 highlighter/node_modules/
 highlighter/dist/
+highlighter/*.vsix
 npm/node_modules/
 npm/*.tgz

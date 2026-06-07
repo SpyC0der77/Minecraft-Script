@@ -76,7 +76,7 @@ To try it locally:
 2. Run `bun install`.
 3. Press `F5` to launch an Extension Development Host and open a `.mcs` file.
 
-Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd or Ctrl + P) to choose the Minecraft version used for command validation. See `[highlighter/README.md](highlighter/README.md)` for more details.
+Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd or Ctrl + P) to choose the Minecraft version used for command validation. Install the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=SpyC0der77.minecraft-script-language-support) from the Marketplace, or see `[highlighter/README.md](highlighter/README.md)` to run it locally.
 
 ## Using Minecraft Script to make Datapacks
 
@@ -133,6 +133,10 @@ If you want to simplify the usage of shell commands, you can check out [the inst
 ### Configuration
 
 Use `config set default_output_path <path>` to change the default compile output directory. The directory is created if it does not exist, and the resolved absolute path is stored in `config.json`. Existing relative values (such as the default `"."`) continue to work at compile time because `compile` resolves `default_output_path` again before use.
+
+## Contributing
+
+See [contributors.md](contributors.md) for local setup, testing, the release flow, and VS Code extension publishing.
 
 ## GitHub
 
