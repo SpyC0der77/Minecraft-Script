@@ -1,15 +1,39 @@
 {
-  "name": "minecraft-script-highlighter",
-  "displayName": "Minecraft Script Highlighter",
+  "name": "minecraft-script-language-support",
+  "displayName": "Minecraft Script Language Support",
   "description": "Syntax highlighting and command() linting for Minecraft Script .mcs files.",
   "version": "0.0.1",
-  "publisher": "minecraft-script",
+  "publisher": "SpyC0der77",
   "license": "MIT",
   "type": "commonjs",
   "main": "./dist/extension.js",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpyC0der77/Minecraft-Script.git",
+    "directory": "highlighter"
+  },
+  "bugs": {
+    "url": "https://github.com/SpyC0der77/Minecraft-Script/issues"
+  },
+  "homepage": "https://github.com/SpyC0der77/Minecraft-Script#editor-support",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "keywords": [
+    "minecraft",
+    "minecraft-script",
+    "mcs",
+    "datapack",
+    "spyglass",
+    "mcfunction"
+  ],
   "scripts": {
     "build": "node esbuild.mjs",
-    "watch": "node esbuild.mjs --watch"
+    "watch": "node esbuild.mjs --watch",
+    "vscode:prepublish": "node esbuild.mjs",
+    "package": "vsce package --no-dependencies"
   },
   "engines": {
     "vscode": "^1.80.0"
@@ -101,6 +125,7 @@
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.7.1",
     "esbuild": "^0.25.2"
   },
   "dependencies": {

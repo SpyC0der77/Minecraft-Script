@@ -25,5 +25,31 @@ jobs:
       - name: Install dependencies
         run: pip install -e . -r requirements-dev.txt
 
+      - name: Check release versions
+        run: python scripts/check_release_versions.py
+
       - name: Run tests
         run: pytest -q
+
+  highlighter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: highlighter
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build extension
+        run: bun run build
+
+      - name: Package extension
+        run: bun run package

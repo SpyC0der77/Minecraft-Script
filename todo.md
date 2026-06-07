@@ -2,13 +2,13 @@
 
 ## Infrastructure
 - [x] Add GitHub Actions CI (pytest + example compiles to `build_test/`)
-- [ ] Enable GitHub Issues on the fork for user bug reports
-- [ ] Add release automation notes or scripts for npm + GitHub tags
+- [x] Enable GitHub Issues on the fork for user bug reports
+- [x] Add release automation notes or scripts for npm + GitHub tags
 
 ## Developer Experience
 - [x] Align `config set default_output_path` with `compile` (auto-create missing directories)
-- [ ] Publish VS Code extension (`highlighter/`) to the Marketplace
-- [ ] Add highlighter CI build check
+- [x] Publish VS Code extension (`highlighter/`) to the Marketplace
+- [x] Add highlighter CI build check
 
 ## Language / Compiler
 - [ ] Track Minecraft version updates and refresh version profiles as needed
@@ -17,7 +17,7 @@
 ## Documentation
 - [x] Finish syntax documentation
 - [x] Finish data types documentation
-- [ ] Add a contributor guide (local setup, test compile to `build_test/`, release flow)
+- [x] Add a contributor guide (local setup, test compile to `build_test/`, release flow)
 
 ## Completed (v0.3.x)
 

@@ -1,0 +1,12 @@
+*
+**/*
+
+!dist/*.js
+!syntaxes/
+!syntaxes/**
+!language-configuration.json
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!icon.png
