@@ -29,9 +29,7 @@ for (const [command, args] of candidates) {
     return;
   }
 
-  if (result.status != null) {
-    continue;
-  }
+  continue;
 }
 
 const manualInstall = `  pip install minecraft-script==${version}\n`;
