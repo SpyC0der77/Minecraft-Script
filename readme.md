@@ -1,9 +1,6 @@
 # Minecraft Script
 
-Minecraft script is primarily a tool to make Minecraft Datapack creation easier.
-Minecraft Script is an interpreted programming language which goes through the Python interpreter for output.
-However, interpretation is not its main feature, and is rather more of a debugging tool, as its sole
-purpose is to allow you to validate your code before building it into a full datapack.
+Minecraft Script is primarily a tool to make Minecraft Datapack creation easier. Minecraft Script is an interpreted programming language which goes through the Python interpreter for output. However, interpretation is not its main feature, and is rather more of a debugging tool, as its sole purpose is to allow you to validate your code before building it into a full datapack.
 
 Be sure to check out the [documentation](https://github.com/SpyC0der77/Minecraft-Script/tree/main/documentation) and the provided [examples](https://github.com/SpyC0der77/Minecraft-Script/tree/main/examples)!
 
@@ -26,22 +23,9 @@ Be sure to check out the [documentation](https://github.com/SpyC0der77/Minecraft
 
 ## Installation
 
-MCS can be installed using [Python's pip module](https://pip.pypa.io/en/stable/installation/).
+### npm (recommended)
 
-```commandline
-pip install minecraft-script
-```
-
-or
-
-```commandline
-python -m pip install minecraft-script
-```
-
-*Note: The package's name in pip is written with a hyphen `-`,
-whilst the actual Python package is written with an underscore `_`.*
-
-You can also install the CLI through npm. This is a thin wrapper around the Python package and still requires Python 3 and Git (pip installs the Python package from GitHub).
+Install the CLI through npm. This is a thin wrapper around the Python package and requires Python 3 and Git.
 
 ```commandline
 npm install -g minecraft-script
@@ -62,9 +46,25 @@ npx minecraft-script compile path/to/file.mcs
 
 Use `npx minecraft-script`, not bare `npx mcs` — there is an unrelated `mcs` package on npm.
 
+### Python (from GitHub)
+
+Install the Python package directly from this repository. Replace `@v<version>` with a [release tag](https://github.com/SpyC0der77/Minecraft-Script/tags) (for example `@v0.3.1`) or use `@main` for the latest commit.
+
+```commandline
+pip install git+https://github.com/SpyC0der77/Minecraft-Script.git@v<version>
+```
+
+Or clone the repo and install in editable mode for development:
+
+```commandline
+git clone https://github.com/SpyC0der77/Minecraft-Script.git
+cd Minecraft-Script
+pip install -e .
+```
+
 ## Editor Support
 
-The VS Code extension in [`highlighter/`](highlighter/) adds language support for `.mcs` files:
+The VS Code extension in `[highlighter/](highlighter/)` adds language support for `.mcs` files:
 
 - Syntax highlighting based on JavaScript, with MCS-specific keywords, selectors, and resource locations
 - Hover help for keywords, built-in functions, text component methods, and target selectors
@@ -76,7 +76,7 @@ To try it locally:
 2. Run `bun install`.
 3. Press `F5` to launch an Extension Development Host and open a `.mcs` file.
 
-Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd or Ctrl + P) to choose the Minecraft version used for command validation. See [`highlighter/README.md`](highlighter/README.md) for more details.
+Use **Minecraft Script: Select Command Lint Version** from the command palette (Cmd or Ctrl + P) to choose the Minecraft version used for command validation. See `[highlighter/README.md](highlighter/README.md)` for more details.
 
 ## Using Minecraft Script to make Datapacks
 
