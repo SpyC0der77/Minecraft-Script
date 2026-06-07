@@ -75,6 +75,10 @@ python -m minecraft_script help
 
 If you want to simplify the usage of shell commands, you can check out [the installations page in the documentation](https://github.com/Bard-Gaming/Minecraft-Script/blob/main/documentation/custom-installations.md).
 
+### Configuration
+
+Use `config set default_output_path <path>` to change the default compile output directory. The path must already exist; `config set` validates it and stores the resolved absolute path in `config.json`. Existing relative values (such as the default `"."`) continue to work at compile time because `compile` resolves `default_output_path` again before use.
+
 ## GitHub
 
 **[Link to GitHub Repository](https://github.com/Bard-Gaming/Minecraft-Script)**

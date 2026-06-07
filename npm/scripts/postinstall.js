@@ -14,6 +14,8 @@ const candidates = [
   ["python3", ["-m", "pip", ...pipArgs]],
 ];
 
+let ranCandidate = false;
+
 for (const [command, args] of candidates) {
   const result = spawnSync(command, args, { stdio: "inherit" });
 
@@ -21,22 +23,30 @@ for (const [command, args] of candidates) {
     continue;
   }
 
+  ranCandidate = true;
+
   if (result.status === 0) {
     return;
   }
 
   if (result.status != null) {
-    console.warn(
-      "\n[minecraft-script] Failed to install the Python package via pip.\n" +
-        "Install it manually with:\n" +
-        `  pip install minecraft-script==${version}\n`
-    );
-    return;
+    continue;
   }
+}
+
+const manualInstall = `  pip install minecraft-script==${version}\n`;
+
+if (ranCandidate) {
+  console.warn(
+    "\n[minecraft-script] Failed to install the Python package via pip.\n" +
+      "Install it manually with:\n" +
+      manualInstall
+  );
+  return;
 }
 
 console.warn(
   "\n[minecraft-script] Python was not found, so the PyPI package was not installed.\n" +
     "Install Python 3 from https://www.python.org/downloads/ and run:\n" +
-    `  pip install minecraft-script==${version}\n`
+    manualInstall
 );
