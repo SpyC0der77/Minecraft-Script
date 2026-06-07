@@ -1,5 +1,4 @@
 import json
-import os.path
 from pathlib import Path
 
 from .common import COMMON_CONFIG, module_folder
@@ -47,12 +46,12 @@ def config_boolean_check(value: str, setting: str) -> bool:
 
 
 def config_path_check(value: str, setting: str) -> str:
-    path = value.replace("\\", "/")
-    if not os.path.exists(path):
+    path = Path(value).expanduser().resolve()
+    if not path.exists():
         print(f"Error: path {value !r} doesn't exist for setting {setting !r}")
         exit(-1)
 
-    return path
+    return str(path)
 
 
 def config_minecraft_version_check(value: str, setting: str) -> str:

@@ -1,0 +1,36 @@
+{
+  "name": "minecraft-script",
+  "version": "0.2.2",
+  "description": "Compile and debug Minecraft Script (.mcs) files into Minecraft datapacks",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "mcs": "bin/mcs.js",
+    "minecraft-script": "bin/mcs.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "files": [
+    "bin",
+    "scripts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpyC0der77/Minecraft-Script.git",
+    "directory": "npm"
+  },
+  "homepage": "https://github.com/SpyC0der77/Minecraft-Script#readme",
+  "bugs": {
+    "url": "https://github.com/SpyC0der77/Minecraft-Script/issues"
+  },
+  "keywords": [
+    "minecraft",
+    "datapack",
+    "mcs",
+    "minecraft-script"
+  ]
+}
