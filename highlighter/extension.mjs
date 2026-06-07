@@ -9,7 +9,16 @@ import {
 } from '@spyglassmc/core'
 import { getNodeJsExternals } from '@spyglassmc/core/lib/nodejs.js'
 import { initialize as initializeJavaEdition } from '@spyglassmc/java-edition'
-import { createMcsHoverProvider } from './hover-docs.mjs'
+import { initialize as initializeMcdoc } from '@spyglassmc/mcdoc'
+import {
+  COMMAND_TRIGGER_CHARACTERS,
+  createCommandCompletionProvider,
+  createCommandSuggestTrigger,
+} from './command-completion.mjs'
+import { createChainedHoverProvider } from './command-hover.mjs'
+import { ensureProjectReady } from './command-spyglass.mjs'
+import { extractCommandCalls, mapCommandOffset } from './command-string.mjs'
+import { createMcsHoverProvider, provideMcsHover } from './hover-docs.mjs'
 
 const commandLintSource = 'mcs-spyglass-command'
 const validationDelayMs = 250
@@ -136,10 +145,21 @@ export function activate(context) {
     `Minecraft Script extension activated. Command lint version: ${getMinecraftVersion()}.`,
   )
 
+  const getProject = getSpyglassProject.bind(null, context, output)
+
   context.subscriptions.push(
     diagnostics,
     output,
-    vscode.languages.registerHoverProvider('mcs', createMcsHoverProvider()),
+    vscode.languages.registerHoverProvider(
+      'mcs',
+      createChainedHoverProvider(getProject, output, provideMcsHover),
+    ),
+    vscode.languages.registerCompletionItemProvider(
+      { language: 'mcs' },
+      createCommandCompletionProvider(getProject, output),
+      ...COMMAND_TRIGGER_CHARACTERS,
+    ),
+    createCommandSuggestTrigger(),
     vscode.commands.registerCommand('mcsHighlighter.showOutput', () => output.show(true)),
     vscode.commands.registerCommand('mcsHighlighter.selectMinecraftVersion', selectMinecraftVersion),
     vscode.workspace.onDidOpenTextDocument(queueValidation),
@@ -160,6 +180,30 @@ export function activate(context) {
   )
 
   validateOpenMcsDocuments()
+
+  const indexingStatus = vscode.window.createStatusBarItem(100)
+  indexingStatus.name = 'Minecraft Script Symbol Indexing'
+
+  void getSpyglassProject(context, output)
+    .then(async (project) => {
+      indexingStatus.text = '$(sync~spin) MCS symbols'
+      indexingStatus.tooltip = 'Loading Minecraft symbols for command() completions…'
+      indexingStatus.show()
+      output.appendLine('[Spyglass] Indexing Minecraft symbols for command() support…')
+
+      await ensureProjectReady(project)
+      output.appendLine('[Spyglass] Symbol index ready.')
+    })
+    .catch((error) => {
+      output.appendLine(
+        `[Spyglass] Preload failed: ${error instanceof Error ? error.stack ?? error.message : String(error)}`,
+      )
+    })
+    .finally(() => {
+      indexingStatus.dispose()
+    })
+
+  context.subscriptions.push(indexingStatus)
 }
 
 export async function deactivate() {
@@ -204,7 +248,7 @@ async function createSpyglassProject(context, output) {
     cacheRoot,
     defaultConfig,
     externals: getNodeJsExternals({ cacheRoot }),
-    initializers: [initializeJavaEdition],
+    initializers: [initializeMcdoc, initializeJavaEdition],
     isDebugging: false,
     logger: createOutputLogger(output),
     projectRoots,
@@ -228,7 +272,7 @@ async function createSpyglassProject(context, output) {
     )
     output.show(true)
   } else {
-    output.appendLine('[Spyglass] Command linter ready.')
+    output.appendLine('[Spyglass] Command linter ready. Symbol indexing will continue in the background.')
   }
 
   return project
@@ -328,15 +372,6 @@ function toDiagnostic(document, commandCall, error) {
   return diagnostic
 }
 
-function mapCommandOffset(commandCall, offset) {
-  if (offset <= 0) return commandCall.boundaries[0]
-  if (offset >= commandCall.boundaries.length) {
-    return commandCall.boundaries[commandCall.boundaries.length - 1]
-  }
-
-  return commandCall.boundaries[offset]
-}
-
 function toDiagnosticSeverity(severity) {
   switch (severity) {
     case ErrorSeverity.Hint:
@@ -351,166 +386,3 @@ function toDiagnosticSeverity(severity) {
   }
 }
 
-function extractCommandCalls(text) {
-  const commands = []
-  let index = 0
-
-  while (index < text.length) {
-    const char = text[index]
-    const next = text[index + 1]
-
-    if (char === '/' && next === '/') {
-      index = skipLineComment(text, index + 2)
-      continue
-    }
-
-    if (char === '/' && next === '*') {
-      index = skipBlockComment(text, index + 2)
-      continue
-    }
-
-    if (isQuote(char)) {
-      index = skipString(text, index)
-      continue
-    }
-
-    if (isIdentifierStart(char)) {
-      const identifierStart = index
-      index = readIdentifier(text, index)
-      const identifier = text.slice(identifierStart, index)
-
-      if (identifier !== 'command') continue
-
-      const call = readCommandCall(text, index)
-      if (call) {
-        commands.push(call)
-        index = call.end
-      }
-
-      continue
-    }
-
-    index += 1
-  }
-
-  return commands
-}
-
-function readCommandCall(text, index) {
-  let cursor = skipWhitespace(text, index)
-  if (text[cursor] !== '(') return undefined
-
-  cursor = skipWhitespace(text, cursor + 1)
-  if (!isQuote(text[cursor])) return undefined
-
-  return readString(text, cursor)
-}
-
-function readString(text, quoteIndex) {
-  const quote = text[quoteIndex]
-  const boundaries = [quoteIndex + 1]
-  let value = ''
-  let cursor = quoteIndex + 1
-
-  while (cursor < text.length) {
-    const char = text[cursor]
-
-    if (char === quote) {
-      boundaries[value.length] = cursor
-      return {
-        boundaries,
-        end: cursor + 1,
-        value,
-      }
-    }
-
-    if (char === '\\') {
-      const escape = readEscape(text, cursor)
-      value += escape.value
-      boundaries[value.length] = escape.end
-      cursor = escape.end
-      continue
-    }
-
-    value += char
-    boundaries[value.length] = cursor + 1
-    cursor += 1
-  }
-
-  boundaries[value.length] = cursor
-  return {
-    boundaries,
-    end: cursor,
-    value,
-  }
-}
-
-function readEscape(text, start) {
-  const escaped = text[start + 1]
-  if (escaped === undefined) return { end: start + 1, value: '\\' }
-
-  if (escaped === 'u') {
-    const hex = text.slice(start + 2, start + 6)
-    if (/^[0-9a-fA-F]{4}$/.test(hex)) {
-      return {
-        end: start + 6,
-        value: String.fromCharCode(Number.parseInt(hex, 16)),
-      }
-    }
-  }
-
-  const escapes = {
-    '"': '"',
-    "'": "'",
-    '\\': '\\',
-    b: '\b',
-    f: '\f',
-    n: '\n',
-    r: '\r',
-    t: '\t',
-    v: '\v',
-  }
-
-  return {
-    end: start + 2,
-    value: escapes[escaped] ?? escaped,
-  }
-}
-
-function skipLineComment(text, index) {
-  const newline = text.indexOf('\n', index)
-  return newline === -1 ? text.length : newline + 1
-}
-
-function skipBlockComment(text, index) {
-  const end = text.indexOf('*/', index)
-  return end === -1 ? text.length : end + 2
-}
-
-function skipString(text, quoteIndex) {
-  return readString(text, quoteIndex).end
-}
-
-function skipWhitespace(text, index) {
-  let cursor = index
-  while (/\s/.test(text[cursor] ?? '')) cursor += 1
-  return cursor
-}
-
-function readIdentifier(text, index) {
-  let cursor = index + 1
-  while (isIdentifierPart(text[cursor])) cursor += 1
-  return cursor
-}
-
-function isQuote(char) {
-  return char === '"' || char === "'" || char === '`'
-}
-
-function isIdentifierStart(char) {
-  return /[A-Za-z_]/.test(char ?? '')
-}
-
-function isIdentifierPart(char) {
-  return /[A-Za-z0-9_-]/.test(char ?? '')
-}
