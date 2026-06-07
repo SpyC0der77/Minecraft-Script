@@ -51,4 +51,4 @@
   - [x] Entity selection
 
 
-- [ ] Finish data types documentation
+- [x] Finish data types documentation
