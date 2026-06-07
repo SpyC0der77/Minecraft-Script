@@ -96,9 +96,11 @@ def sh_compile(*args) -> None:
         print(f"Error: Could not find file at {args[0] !r}")
         exit(-1)
 
-    if not output_path.is_dir():
+    if output_path.exists() and not output_path.is_dir():
         print(f"Error: Output path is not a directory ({str(output_path) !r})")
         exit(-1)
+
+    output_path.mkdir(parents=True, exist_ok=True)
 
     # Build datapack
     with open(source_path, 'rt', encoding='utf-8') as mcs_file:
