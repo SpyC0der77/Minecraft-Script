@@ -48,7 +48,7 @@ Use `npx minecraft-script`, not bare `npx mcs` — there is an unrelated `mcs` p
 
 ### Python (from GitHub)
 
-Install the Python package directly from this repository. Replace `@v<version>` with a [release tag](https://github.com/SpyC0der77/Minecraft-Script/tags) (for example `@v0.3.3`) or use `@main` for the latest commit.
+Install the Python package directly from this repository. Replace `@v<version>` with a [release tag](https://github.com/SpyC0der77/Minecraft-Script/tags) (for example `@v0.3.4`) or use `@main` for the latest commit.
 
 ```commandline
 pip install git+https://github.com/SpyC0der77/Minecraft-Script.git@v<version>
