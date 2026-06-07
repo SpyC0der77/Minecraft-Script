@@ -83,4 +83,4 @@ Source code, documentation, and examples, can all be found on the GitHub.
 
 ## Compatibility
 
-This python package **does not work on Linux / macOS**.
+This Python package runs on **Windows**, **macOS**, and **Linux**. You can pass file paths in either relative or absolute form using your platform's native separators.

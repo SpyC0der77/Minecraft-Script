@@ -17,7 +17,7 @@ const candidates = [
 for (const [command, args] of candidates) {
   const result = spawnSync(command, args, { stdio: "inherit" });
 
-  if (result.error?.code === "ENOENT") {
+  if (result.error) {
     continue;
   }
 
@@ -25,12 +25,14 @@ for (const [command, args] of candidates) {
     return;
   }
 
-  console.warn(
-    "\n[minecraft-script] Failed to install the Python package via pip.\n" +
-      "Install it manually with:\n" +
-      `  pip install minecraft-script==${version}\n`
-  );
-  return;
+  if (result.status != null) {
+    console.warn(
+      "\n[minecraft-script] Failed to install the Python package via pip.\n" +
+        "Install it manually with:\n" +
+        `  pip install minecraft-script==${version}\n`
+    );
+    return;
+  }
 }
 
 console.warn(

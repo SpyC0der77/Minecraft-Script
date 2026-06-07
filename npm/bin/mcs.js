@@ -14,11 +14,13 @@ const candidates = [
 for (const [command, args] of candidates) {
   const result = spawnSync(command, args, { stdio: "inherit" });
 
-  if (result.error?.code === "ENOENT") {
+  if (result.error) {
     continue;
   }
 
-  process.exit(result.status ?? 1);
+  if (result.status != null) {
+    process.exit(result.status);
+  }
 }
 
 console.error(

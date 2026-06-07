@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bard-Gaming/Minecraft-Script.git",
+    "url": "git+https://github.com/SpyC0der77/Minecraft-Script.git",
     "directory": "npm"
   },
-  "homepage": "https://github.com/Bard-Gaming/Minecraft-Script#readme",
+  "homepage": "https://github.com/SpyC0der77/Minecraft-Script#readme",
   "bugs": {
-    "url": "https://github.com/Bard-Gaming/Minecraft-Script/issues"
+    "url": "https://github.com/SpyC0der77/Minecraft-Script/issues"
   },
   "keywords": [
     "minecraft",

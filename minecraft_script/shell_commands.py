@@ -4,7 +4,6 @@ from .common import COMMON_CONFIG, version
 from .config_utils import update_config, reset_config
 from .version_config import breaking_changes_between
 from pathlib import Path
-import os.path
 
 
 def handle_arguments(arguments: list):
@@ -78,35 +77,34 @@ def sh_compile(*args) -> None:
         print("No path specified to compile.")
         exit()
 
-    path: str = args[0]
-    source_path = Path(path).resolve()
+    source_path = Path(args[0]).resolve()
     datapack_name: str = (
-        "-".join(args[0].split("\\")[-1].split("/")[-1].split(".")[:-1]).replace("_", " ").title()
+        "-".join(source_path.name.split(".")[:-1]).replace("_", " ").title()
         if arg_count < 2 else
         args[1]
     )
-    output_path: str = (
-        COMMON_CONFIG["default_output_path"]
+    output_path = (
+        Path(COMMON_CONFIG["default_output_path"]).resolve()
         if arg_count < 3 else
-        args[2].replace("\\", '/').rstrip("/")
+        Path(args[2]).expanduser().resolve()
     )
 
     verbose = COMMON_CONFIG["verbose"]
 
     # Check if given paths are valid:
-    if not os.path.isfile(path):
-        print(f"Error: Could not find file at {path !r}")
+    if not source_path.is_file():
+        print(f"Error: Could not find file at {args[0] !r}")
         exit(-1)
 
-    if not os.path.isdir(output_path):
-        print(f"Error: Output path is not a directory ({output_path !r})")
+    if not output_path.is_dir():
+        print(f"Error: Output path is not a directory ({str(output_path) !r})")
         exit(-1)
 
     # Build datapack
     with open(source_path, 'rt', encoding='utf-8') as mcs_file:
         code = mcs_file.read()
 
-    build_datapack(code, datapack_name, output_path, verbose, source_path=source_path)
+    build_datapack(code, datapack_name, str(output_path), verbose, source_path=source_path)
 
 
 def sh_config(*args) -> None:
