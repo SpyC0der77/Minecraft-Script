@@ -47,10 +47,11 @@ def config_boolean_check(value: str, setting: str) -> bool:
 
 def config_path_check(value: str, setting: str) -> str:
     path = Path(value).expanduser().resolve()
-    if not path.exists():
-        print(f"Error: path {value !r} doesn't exist for setting {setting !r}")
+    if path.exists() and not path.is_dir():
+        print(f"Error: path is not a directory ({str(path) !r}) for setting {setting !r}")
         exit(-1)
 
+    path.mkdir(parents=True, exist_ok=True)
     return str(path)
 
 
