@@ -45,7 +45,9 @@ def lint_code(
             source_path=source_path,
             import_base_dir=import_base_dir,
         )
-    except BaseException as error:
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except Exception as error:
         return [diagnostic_from_exception(error)]
 
     return []

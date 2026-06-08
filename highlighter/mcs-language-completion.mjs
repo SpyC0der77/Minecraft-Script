@@ -68,14 +68,20 @@ function buildGeneralCompletions(document, filter) {
     seen.add(name)
   }
 
-  for (const name of collectUserSymbols(document)) {
-    if (seen.has(name) || (filter && !name.startsWith(filter))) continue
-    const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function)
-    item.detail = 'user function'
-    item.documentation = `User-defined function \`${name}\` in this file.`
-    item.sortText = `2_${name}`
+  for (const symbol of collectUserSymbols(document)) {
+    if (seen.has(symbol.name) || (filter && !symbol.name.startsWith(filter))) continue
+    const isFunction = symbol.kind === 'function'
+    const item = new vscode.CompletionItem(
+      symbol.name,
+      isFunction ? vscode.CompletionItemKind.Function : vscode.CompletionItemKind.Variable,
+    )
+    item.detail = isFunction ? 'user function' : 'user variable'
+    item.documentation = isFunction
+      ? `User-defined function \`${symbol.name}\` in this file.`
+      : `User-defined variable \`${symbol.name}\` in this file.`
+    item.sortText = `2_${symbol.name}`
     items.push(item)
-    seen.add(name)
+    seen.add(symbol.name)
   }
 
   return items
@@ -99,7 +105,7 @@ async function buildImportPathCompletions(document, partialPath) {
         ? toImportPath(sourceDir, file.fsPath)
         : `./${vscode.workspace.asRelativePath(file).replace(/\\/g, '/')}`
 
-      if (normalizedPartial && !completionPath.startsWith(normalizedPartial) && !completionPath.includes(normalizedPartial)) {
+      if (normalizedPartial && !matchesImportPartial(completionPath, normalizedPartial)) {
         return undefined
       }
 
@@ -118,22 +124,37 @@ function toImportPath(sourceDir, targetPath) {
 }
 
 /**
+ * @param {string} completionPath
+ * @param {string} normalizedPartial
+ * @returns {boolean}
+ */
+function matchesImportPartial(completionPath, normalizedPartial) {
+  return completionPath === normalizedPartial
+    || completionPath.startsWith(normalizedPartial)
+    || completionPath.startsWith(`${normalizedPartial}/`)
+    || completionPath.includes(`/${normalizedPartial}/`)
+    || completionPath.endsWith(`/${normalizedPartial}`)
+}
+
+/**
  * @param {vscode.TextDocument} document
- * @returns {string[]}
+ * @returns {Array<{ name: string, kind: 'function' | 'variable' }>}
  */
 function collectUserSymbols(document) {
   const text = document.getText()
-  const names = new Set()
+  const symbols = new Map()
 
   for (const match of text.matchAll(FUNCTION_PATTERN)) {
-    names.add(match[1])
+    symbols.set(match[1], { name: match[1], kind: 'function' })
   }
 
   for (const match of text.matchAll(VARIABLE_PATTERN)) {
-    names.add(match[1])
+    if (!symbols.has(match[1])) {
+      symbols.set(match[1], { name: match[1], kind: 'variable' })
+    }
   }
 
-  return [...names].sort()
+  return [...symbols.values()].sort((left, right) => left.name.localeCompare(right.name))
 }
 
 /**

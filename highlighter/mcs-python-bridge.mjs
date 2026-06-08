@@ -111,13 +111,13 @@ function runPythonProcess(command, args, stdinText) {
  * @returns {vscode.Diagnostic}
  */
 export function toMcsLanguageDiagnostic(document, diagnostic) {
-  const line = Math.max(diagnostic.line - 1, 0)
+  const line = Math.min(Math.max(diagnostic.line - 1, 0), document.lineCount - 1)
   const column = Math.max(diagnostic.column, 0)
   const lineText = document.lineAt(line).text
   const endColumn = Math.min(column + 1, lineText.length)
 
   const result = new vscode.Diagnostic(
-    new vscode.Range(line, column, line, Math.max(endColumn, column + 1)),
+    new vscode.Range(line, column, line, endColumn),
     diagnostic.message,
     vscode.DiagnosticSeverity.Error,
   )

@@ -4,10 +4,15 @@ from minecraft_script.errors import MCSIllegalCharacterError, MCSSyntaxError
 from tests._parse_helpers import token_types, token_values, tokenize
 
 
-def test_tokenizes_numbers():
-    tokens = tokenize("0 42 3.14")
-    assert token_types("0 42 3.14") == ["TT_NUMBER", "TT_NUMBER", "TT_NUMBER", "TT_DOT", "TT_NUMBER"]
-    assert [token.value for token in tokens] == ["0", "42", "3", ".", "14"]
+def test_tokenizes_integer_literals():
+    assert token_types("0 42") == ["TT_NUMBER", "TT_NUMBER"]
+    assert token_values("0 42") == ["0", "42"]
+
+
+def test_tokenizes_decimal_like_sequences_as_separate_tokens():
+    # "." is TT_DOT (attribute access), not part of a numeric literal.
+    assert token_types("3.14") == ["TT_NUMBER", "TT_DOT", "TT_NUMBER"]
+    assert token_values("3.14") == ["3", ".", "14"]
 
 
 def test_tokenizes_strings_with_single_and_double_quotes():

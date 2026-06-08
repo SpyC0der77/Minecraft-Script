@@ -28,7 +28,7 @@ Language support for [Minecraft Script](https://github.com/SpyC0der77/Minecraft-
 
 The first Spyglass lint run downloads Minecraft command data from the network. Dynamic commands such as `command(myVar)` are skipped because their final text is not known in the editor.
 
-MCS syntax validation runs `python -m minecraft_script lint --json --stdin`. Install the package with `pip install -e .` from the repository root, or use the npm CLI after installing `minecraft-script`.
+MCS syntax validation runs `python -m minecraft_script lint --json --stdin`. Install the Python package with `pip install -e .` from the repository root, or install the npm wrapper (`npm install -g minecraft-script`), which auto-installs the matching Python package and exposes the same commands as `mcs lint path/to/file.mcs`.
 
 ## Spyglass
 

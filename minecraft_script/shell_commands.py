@@ -216,17 +216,19 @@ def sh_lint(*args) -> None:
             exit(1)
         code = source_path.read_text(encoding="utf-8")
 
+    display_path = str(source_path) if source_path is not None else "<stdin>"
+
     diagnostics = lint_code(code, source_path=source_path)
     if use_json:
         print(json.dumps([diagnostic.to_dict() for diagnostic in diagnostics]))
         exit(0 if not diagnostics else 1)
 
     if not diagnostics:
-        print(f"{source_path}: no issues found")
+        print(f"{display_path}: no issues found")
         exit(0)
 
     for diagnostic in diagnostics:
-        print(f"{source_path}:{diagnostic.line}:{diagnostic.column}: {diagnostic.message}")
+        print(f"{display_path}:{diagnostic.line}:{diagnostic.column}: {diagnostic.message}")
     exit(1)
 
 
