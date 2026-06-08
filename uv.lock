@@ -1,0 +1,29 @@
+version = 1
+revision = 3
+requires-python = ">=3.10"
+
+[[package]]
+name = "minecraft-script"
+version = "0.3.5"
+source = { editable = "." }
+dependencies = [
+    { name = "pybars3" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pybars3", specifier = ">=0.9.7" }]
+
+[[package]]
+name = "pybars3"
+version = "0.9.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pymeta3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ec/1a/2fb847db017f9f89ab8519d96e35fb3dacb6170a0643fddba3b366af0af1/pybars3-0.9.7.tar.gz", hash = "sha256:6ac847e905e53b9c5b936af112c910475e27bf767f79f4528c16f9af1ec0e252", size = 29203, upload-time = "2019-11-05T09:45:24.07Z" }
+
+[[package]]
+name = "pymeta3"
+version = "0.5.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/af/409edba35fc597f1e386e3860303791ab5a28d6cc9a8aecbc567051b19a9/PyMeta3-0.5.1.tar.gz", hash = "sha256:18bda326d9a9bbf587bfc0ee0bc96864964d78b067288bcf55d4d98681d05bcb", size = 29566, upload-time = "2015-02-22T16:30:06.858Z" }

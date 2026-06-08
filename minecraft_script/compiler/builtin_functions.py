@@ -129,6 +129,10 @@ def raycast_block(interpreter, args, context) -> function_output:
     raycast_range: mcs_type = args[1]
     raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
 
+    interpreter.schedule_function_generation(raycast_function)
+    if raycast_loop_function is not None:
+        interpreter.schedule_function_generation(raycast_loop_function)
+
     interpreter.add_commands(
         local_context.mcfunction_name,
         version.render_lines(
@@ -164,6 +168,10 @@ def raycast_entity(interpreter, args, context) -> function_output:
     raycast_function: MCSFunction = args[0]
     raycast_range: mcs_type = args[1]
     raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
+
+    interpreter.schedule_function_generation(raycast_function)
+    if raycast_loop_function is not None:
+        interpreter.schedule_function_generation(raycast_loop_function)
 
     interpreter.add_commands(
         local_context.mcfunction_name,
@@ -329,6 +337,8 @@ def give_clickable_item(interpreter, args, context) -> function_output:
     click_function: MCSFunction = args[0]
     name: MCSString = args[1] if len(args) > 1 else None
     custom_model_data: MCSNumber = args[2] if len(args) > 2 else None
+
+    interpreter.schedule_function_generation(click_function)
 
     click_function_id = interpreter.click_item_lookup.get(click_function.name)
     if click_function_id is None:
