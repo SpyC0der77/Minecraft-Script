@@ -9,7 +9,8 @@ This fork is maintained at [SpyC0der77/Minecraft-Script](https://github.com/SpyC
 ```commandline
 git clone https://github.com/SpyC0der77/Minecraft-Script.git
 cd Minecraft-Script
-pip install -e . -r requirements-dev.txt
+uv venv
+uv pip install -r requirements.txt -r requirements-dev.txt -e .
 ```
 
 2. Confirm the CLI works:
@@ -33,7 +34,7 @@ Open `highlighter/` in VS Code and press `F5` to launch an Extension Development
 From the repository root:
 
 ```commandline
-pytest -q
+uv run pytest -q
 ```
 
 CI runs the same suite on Python 3.10 and 3.12, plus a highlighter build check.
@@ -82,7 +83,11 @@ git push origin main
 git push origin v0.3.5
 ```
 
-Create a GitHub release from the tag on [SpyC0der77/Minecraft-Script/releases](https://github.com/SpyC0der77/Minecraft-Script/releases). Use the tag name as the release title (for example `v0.3.5`).
+Pushing a `v*` tag triggers the [Release workflow](.github/workflows/release.yml). It verifies aligned versions, runs tests, creates a GitHub release with generated notes, and publishes the npm package.
+
+Add an `NPM_TOKEN` repository secret (npm access token with publish rights) before the first automated publish.
+
+You can still create or edit releases manually on [SpyC0der77/Minecraft-Script/releases](https://github.com/SpyC0der77/Minecraft-Script/releases) if needed.
 
 The npm wrapper installs the matching Python package with:
 
@@ -94,7 +99,7 @@ So the GitHub tag must exist before users install that npm version.
 
 ### Publish to npm
 
-From the `npm/` directory:
+The Release workflow publishes automatically when a matching `v*` tag is pushed. To publish manually from the `npm/` directory:
 
 ```commandline
 cd npm
@@ -115,8 +120,8 @@ npm install -g minecraft-script
 - [ ] `pyproject.toml` and `npm/package.json` versions match
 - [ ] `python scripts/check_release_versions.py` passes
 - [ ] Tag pushed (`v<version>`)
-- [ ] GitHub release created from the tag
-- [ ] `npm publish` from `npm/` succeeded
+- [ ] Release workflow succeeded (GitHub release + npm publish)
+- [ ] Or, if publishing manually: GitHub release created and `npm publish` from `npm/` succeeded
 
 The VS Code extension (`highlighter/`) uses publisher **`SpyC0der77`** and is published to the Marketplace separately — see [Publishing the VS Code extension](#publishing-the-vs-code-extension).
 

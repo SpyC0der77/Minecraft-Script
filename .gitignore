@@ -1,4 +1,5 @@
 .idea/
+.venv/
 twine_upload
 setup.py
 test_file.py

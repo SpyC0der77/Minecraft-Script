@@ -330,6 +330,8 @@ def give_clickable_item(interpreter, args, context) -> function_output:
     name: MCSString = args[1] if len(args) > 1 else None
     custom_model_data: MCSNumber = args[2] if len(args) > 2 else None
 
+    interpreter.schedule_function_generation(click_function)
+
     click_function_id = interpreter.click_item_lookup.get(click_function.name)
     if click_function_id is None:
         click_function_id = (

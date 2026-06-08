@@ -36,7 +36,26 @@ def read_npm_version() -> str:
     return data["version"]
 
 
-def main() -> int:
+def normalize_tag_version(tag: str) -> str:
+    if not tag.startswith("v"):
+        raise SystemExit(f"Release tag must start with 'v', got {tag!r}")
+    return tag[1:]
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = list(sys.argv[1:] if argv is None else argv)
+    tag = None
+    if "--tag" in args:
+        index = args.index("--tag")
+        try:
+            tag = args[index + 1]
+        except IndexError:
+            raise SystemExit("Missing value for --tag") from None
+        del args[index:index + 2]
+
+    if args:
+        raise SystemExit(f"Unknown arguments: {' '.join(args)}")
+
     pyproject_version = read_pyproject_version()
     npm_version = read_npm_version()
 
@@ -48,6 +67,18 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
+
+    if tag is not None:
+        tag_version = normalize_tag_version(tag)
+        if tag_version != pyproject_version:
+            print(
+                "Tag version mismatch:\n"
+                f"  git tag:          {tag_version}\n"
+                f"  pyproject.toml:   {pyproject_version}\n"
+                f"  npm/package.json: {npm_version}",
+                file=sys.stderr,
+            )
+            return 1
 
     print(f"Release versions aligned at {pyproject_version}")
     return 0

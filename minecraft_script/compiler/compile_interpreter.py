@@ -134,11 +134,36 @@ class CompileInterpreter:
         self.version = get_version_context()
         self.commands = CompileCommands()
         self.used_context_ids = set()
-        self.functions_to_generate = set()
+        self.defined_functions: dict[str, MCSFunction] = {}
+        self.generated_functions: set[MCSFunction] = set()
+        self.pending_function_generation: list[MCSFunction] = []
         self.click_item_lookup = dict()
         self.used_math_builtins = set()
         self.used_builtin_functions = set()
         self.scoreboard_event_functions = []
+
+    def schedule_function_generation(self, function: MCSFunction) -> None:
+        if function.body is None:
+            return
+        if function in self.generated_functions:
+            return
+        if function not in self.pending_function_generation:
+            self.pending_function_generation.append(function)
+
+    def generate_scheduled_functions(self) -> None:
+        for entry_name in ("init", "main", "kill"):
+            function = self.defined_functions.get(entry_name)
+            if function is not None:
+                self.schedule_function_generation(function)
+        for function in self.scoreboard_event_functions:
+            self.schedule_function_generation(function)
+
+        while self.pending_function_generation:
+            function = self.pending_function_generation.pop(0)
+            if function in self.generated_functions:
+                continue
+            self.generated_functions.add(function)
+            function.generate_function(self)
 
     def get_scoreboard_event_hooks(self) -> list[dict[str, str]]:
         hooks = []
@@ -206,9 +231,10 @@ class CompileInterpreter:
             if SCOREBOARD_CRITERIA_PATTERN.fullmatch(event_criteria) is None:
                 raise ValueError(f"Invalid scoreboard criteria {event_criteria!r}")
         function = MCSFunction(context.get_function_name(fnc_name), fnc_body, fnc_parameter_names, context, event_criteria)
-        self.functions_to_generate.add(function)
+        self.defined_functions[function.name] = function
         if event_criteria is not None:
             self.scoreboard_event_functions.append(function)
+            self.schedule_function_generation(function)
         context.declare(fnc_name, function)
         return CompileResult(function)
     def visit_VariableDeclareNode(self, node, context: CompileContext) -> CompileResult:
@@ -459,11 +485,13 @@ class CompileInterpreter:
     def visit_FunctionCallNode(self, node, context: CompileContext) -> CompileResult:
         fnc: MCSFunction = self.visit(node.get_root(), context).get_value()
         arguments: tuple[mcs_type, ...] = tuple(map(lambda x: self.visit(x, context).get_value(), node.get_arguments()))
-        commands, return_value = fnc.call(self, arguments, context)
-        is_builtin = ( 
-            hasattr(fnc.call, "__module__") and 
-            fnc.call.__module__.endswith(".builtin_functions")
+        is_builtin = (
+            hasattr(fnc.call, "__module__")
+            and fnc.call.__module__.endswith(".builtin_functions")
         )
+        if not is_builtin and fnc.body is not None:
+            self.schedule_function_generation(fnc)
+        commands, return_value = fnc.call(self, arguments, context)
         if is_builtin:
             self.used_builtin_functions.add(fnc.call.__name__)
         if commands is not None:
@@ -533,8 +561,7 @@ def _mcs_compile(ast, functions_dir: str, datapack_id):
     context = CompileContext('init', top_level=True)
     interpreter = CompileInterpreter(datapack_id)
     interpreter.visit(ast, context)
-    for mcs_fnc in interpreter.functions_to_generate:
-        mcs_fnc.generate_function(interpreter)
+    interpreter.generate_scheduled_functions()
     version = get_version_context()
     for context_id in interpreter.used_context_ids:
         commands = []
