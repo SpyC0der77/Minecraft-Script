@@ -95,3 +95,32 @@ function main() {
     assert datapack.has_function("user_functions", "use_item.mcfunction")
     assert datapack.has_function("clickable_items", "0.mcfunction")
     assert not datapack.has_function("user_functions", "unused_click_handler.mcfunction")
+
+
+def test_raycast_callback_functions_are_generated_when_referenced(compile_datapack):
+    source = """
+function on_hit() {
+    log("hit");
+}
+
+function on_loop() {
+    log("loop");
+}
+
+function unused_raycast_handler() {
+    log("unused");
+}
+
+function init() {
+    @a raycast_block(on_hit, 10, on_loop);
+}
+
+function main() {
+}
+"""
+
+    datapack = compile_datapack(source, "Test Tree Shake Raycast")
+
+    assert datapack.has_function("user_functions", "on_hit.mcfunction")
+    assert datapack.has_function("user_functions", "on_loop.mcfunction")
+    assert not datapack.has_function("user_functions", "unused_raycast_handler.mcfunction")

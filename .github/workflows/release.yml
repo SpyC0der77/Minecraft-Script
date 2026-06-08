@@ -62,7 +62,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   github-release:
-    needs: verify
+    needs: [verify, publish-npm]
     runs-on: ubuntu-latest
     permissions:
       contents: write

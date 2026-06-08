@@ -129,6 +129,10 @@ def raycast_block(interpreter, args, context) -> function_output:
     raycast_range: mcs_type = args[1]
     raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
 
+    interpreter.schedule_function_generation(raycast_function)
+    if raycast_loop_function is not None:
+        interpreter.schedule_function_generation(raycast_loop_function)
+
     interpreter.add_commands(
         local_context.mcfunction_name,
         version.render_lines(
@@ -164,6 +168,10 @@ def raycast_entity(interpreter, args, context) -> function_output:
     raycast_function: MCSFunction = args[0]
     raycast_range: mcs_type = args[1]
     raycast_loop_function: MCSFunction | None = args[2] if len(args) > 2 else None
+
+    interpreter.schedule_function_generation(raycast_function)
+    if raycast_loop_function is not None:
+        interpreter.schedule_function_generation(raycast_loop_function)
 
     interpreter.add_commands(
         local_context.mcfunction_name,
