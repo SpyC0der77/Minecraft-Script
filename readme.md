@@ -25,13 +25,13 @@ Be sure to check out the [documentation](https://github.com/SpyC0der77/Minecraft
 
 ### npm (recommended)
 
-Install the CLI through npm. This is a thin wrapper around the Python package and requires Python 3 and Git.
+Install the CLI through npm. This is a wrapper around the Python package and requires Python 3 and Git.
 
 ```commandline
 npm install -g minecraft-script
 ```
 
-On install, npm runs `pip install git+https://github.com/SpyC0der77/Minecraft-Script.git@v<version>` automatically when it can find Python. After that, use `mcs` or `minecraft-script` on your PATH:
+After that, use `mcs` or `minecraft-script` on your PATH:
 
 ```commandline
 mcs help
@@ -41,12 +41,12 @@ mcs compile path/to/file.mcs
 Or run it once without installing globally:
 
 ```commandline
-npx minecraft-script compile path/to/file.mcs
+npx minecraft-script compile file.mcs
 ```
 
-Use `npx minecraft-script`, not bare `npx mcs` — there is an unrelated `mcs` package on npm.
+NOTE: Use `npx minecraft-script`, not bare `npx mcs` — there is an unrelated `mcs` package on npm.
 
-### Python (from GitHub)
+### Pip (From GitHub)
 
 Install the Python package directly from this repository. Replace `@v<version>` with a [release tag](https://github.com/SpyC0der77/Minecraft-Script/tags) (for example `@v0.3.4`) or use `@main` for the latest commit.
 
@@ -62,9 +62,9 @@ cd Minecraft-Script
 pip install -e .
 ```
 
-## Editor Support
+## VSCode Language Support
 
-The VS Code extension in [highlighter/](highlighter/) adds language support for `.mcs` files:
+The VS Code extension available in this repo at [highlighter/](highlighter/) and on the [VSCode Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=SpyC0der77.minecraft-script-language-support) adds language support for `.mcs` files:
 
 - Syntax highlighting based on JavaScript, with MCS-specific keywords, selectors, and resource locations
 - Hover help for keywords, built-in functions, text component methods, and target selectors
@@ -91,7 +91,7 @@ python -m minecraft_script debug <path>
 
 *where `<path>` is a relative or absolute path to your `.mcs` file*
 
-With npm installed globally, the equivalent is:
+With the npm package installed globally, the equivalent is:
 
 ```commandline
 mcs debug <path>
@@ -142,8 +142,4 @@ See [contributors.md](contributors.md) for local setup, testing, the release flo
 
 **[Link to GitHub Repository](https://github.com/SpyC0der77/Minecraft-Script)**
 
-Source code, documentation, and examples can all be found on GitHub. Upstream development also continues at [Bard-Gaming/Minecraft-Script](https://github.com/Bard-Gaming/Minecraft-Script).
-
-## Compatibility
-
-This Python package runs on **Windows**, **macOS**, and **Linux**. You can pass file paths in either relative or absolute form using your platform's native separators. The npm wrapper requires **Node.js 18+** in addition to Python 3.
+Source code, documentation, and examples can all be found on GitHub.
