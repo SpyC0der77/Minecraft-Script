@@ -1,6 +1,6 @@
 # Minecraft Script
 
-Minecraft Script is primarily a tool to make Minecraft Datapack creation easier. Minecraft Script is an interpreted programming language which goes through the Python interpreter for output. However, interpretation is not its main feature, and is rather more of a debugging tool, as its sole purpose is to allow you to validate your code before building it into a full datapack.
+Minecraft Script is a tool to make Minecraft Datapack creation easier. Minecraft Script is an interpreted programming language which goes through the Python interpreter for output.
 
 Be sure to check out the [documentation](https://github.com/SpyC0der77/Minecraft-Script/tree/main/documentation) and the provided [examples](https://github.com/SpyC0der77/Minecraft-Script/tree/main/examples)!
 
