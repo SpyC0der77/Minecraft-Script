@@ -12,7 +12,7 @@
 
 ## Language / Compiler
 - [ ] Track Minecraft version updates and refresh version profiles as needed
-- [ ] Expand test coverage for lexer/parser edge cases
+- [x] Expand test coverage for lexer/parser edge cases
 
 ## Documentation
 - [x] Finish syntax documentation

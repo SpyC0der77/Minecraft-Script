@@ -6,6 +6,8 @@ Language support for [Minecraft Script](https://github.com/SpyC0der77/Minecraft-
 
 - **Syntax highlighting** for MCS keywords, selectors, resource locations, built-in helpers, text components, and `command()` strings
 - **Hover help** for keywords, built-in functions, text component methods, and target selectors (`@a`, `@s`, …)
+- **MCS syntax diagnostics** via the Python `minecraft_script lint` command (requires Python 3 with the package installed)
+- **Autocomplete** for keywords, builtins, TextComponent methods, user-defined functions, and import paths
 - **Command linting and completion** inside literal `command("...")` and `command('...')` calls via [Spyglass](https://github.com/SpyglassMC/Spyglass)
 - **Version picker** for command validation across supported Minecraft releases
 
@@ -21,8 +23,12 @@ Language support for [Minecraft Script](https://github.com/SpyC0der77/Minecraft-
 | Setting | Default | Description |
 | --- | --- | --- |
 | `mcsHighlighter.minecraftVersion` | `1.21.2` | Minecraft version used when linting literal `command()` strings |
+| `mcsHighlighter.pythonPath` | *(auto)* | Python executable for MCS syntax validation |
+| `mcsHighlighter.lintSourcePath` | *(empty)* | Fallback file path for resolving relative imports in unsaved buffers |
 
-The first lint run downloads Minecraft command data from the network. Dynamic commands such as `command(myVar)` are skipped because their final text is not known in the editor.
+The first Spyglass lint run downloads Minecraft command data from the network. Dynamic commands such as `command(myVar)` are skipped because their final text is not known in the editor.
+
+MCS syntax validation runs `python -m minecraft_script lint --json --stdin`. Install the Python package with `pip install -e .` from the repository root, or install the npm wrapper (`npm install -g minecraft-script`), which auto-installs the matching Python package and exposes the same commands as `mcs lint path/to/file.mcs`.
 
 ## Spyglass
 

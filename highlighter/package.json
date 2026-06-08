@@ -2,7 +2,7 @@
   "name": "minecraft-script-language-support",
   "displayName": "Minecraft Script Language Support",
   "description": "Syntax highlighting and command() linting for Minecraft Script .mcs files.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "SpyC0der77",
   "license": "MIT",
   "type": "commonjs",
@@ -119,6 +119,16 @@
           ],
           "default": "1.21.2",
           "markdownDescription": "Minecraft version used by Spyglass when linting literal `command()` strings."
+        },
+        "mcsHighlighter.pythonPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Python executable used for MCS syntax validation. Leave empty to auto-detect (`py -3` on Windows, `python3` elsewhere)."
+        },
+        "mcsHighlighter.lintSourcePath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Fallback file path used to resolve relative `import` statements when linting unsaved buffers."
         }
       }
     }
