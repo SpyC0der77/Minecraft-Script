@@ -18,6 +18,8 @@ import {
 import { createChainedHoverProvider } from './command-hover.mjs'
 import { ensureProjectReady } from './command-spyglass.mjs'
 import { extractCommandCalls, mapCommandOffset } from './command-string.mjs'
+import { createMcsLanguageCompletionProvider } from './mcs-language-completion.mjs'
+import { lintMcsDocument, toMcsLanguageDiagnostic } from './mcs-python-bridge.mjs'
 import { createMcsHoverProvider, provideMcsHover } from './hover-docs.mjs'
 
 const commandLintSource = 'mcs-spyglass-command'
@@ -52,45 +54,53 @@ export function activate(context) {
     validationTokens.set(uriKey, validationToken)
     const isCurrentValidation = () => validationTokens.get(uriKey) === validationToken
 
-    const commandCalls = extractCommandCalls(document.getText())
-    if (commandCalls.length === 0) {
-      if (isCurrentValidation()) diagnostics.set(document.uri, [])
-      return
-    }
+    const nextDiagnostics = []
 
     try {
-      const project = await getSpyglassProject(context, output)
-      if (!project.meta.hasParser('mcfunction:command')) {
-        throw new Error(
-          'Spyglass command parser is not available. Open View > Output > Minecraft Script for initialization logs.',
-        )
-      }
-
-      const commandParser = project.meta.getParser('mcfunction:command')
-
-      const nextDiagnostics = []
-
-      for (const commandCall of commandCalls) {
-        const errors = parseCommand(project, commandParser, commandCall.value)
-        nextDiagnostics.push(
-          ...errors.map((error) => toDiagnostic(document, commandCall, error)),
-        )
-      }
-
-      if (isCurrentValidation()) diagnostics.set(document.uri, nextDiagnostics)
-    } catch (error) {
-      output.appendLine(`[Spyglass] ${error instanceof Error ? error.stack ?? error.message : String(error)}`)
-      output.show(true)
+      const languageDiagnostics = await lintMcsDocument(document, output)
       if (!isCurrentValidation()) return
 
-      diagnostics.set(document.uri, [
-        new vscode.Diagnostic(
-          new vscode.Range(0, 0, 0, 1),
-          'Spyglass command linting is unavailable. See the Minecraft Script output channel for details.',
-          vscode.DiagnosticSeverity.Warning,
-        ),
-      ])
+      nextDiagnostics.push(
+        ...languageDiagnostics.map((diagnostic) => toMcsLanguageDiagnostic(document, diagnostic)),
+      )
+    } catch (error) {
+      output.appendLine(`[MCS] ${error instanceof Error ? error.stack ?? error.message : String(error)}`)
     }
+
+    const commandCalls = extractCommandCalls(document.getText())
+    if (commandCalls.length > 0) {
+      try {
+        const project = await getSpyglassProject(context, output)
+        if (!project.meta.hasParser('mcfunction:command')) {
+          throw new Error(
+            'Spyglass command parser is not available. Open View > Output > Minecraft Script for initialization logs.',
+          )
+        }
+
+        const commandParser = project.meta.getParser('mcfunction:command')
+
+        for (const commandCall of commandCalls) {
+          const errors = parseCommand(project, commandParser, commandCall.value)
+          nextDiagnostics.push(
+            ...errors.map((error) => toDiagnostic(document, commandCall, error)),
+          )
+        }
+      } catch (error) {
+        output.appendLine(`[Spyglass] ${error instanceof Error ? error.stack ?? error.message : String(error)}`)
+        output.show(true)
+        if (!isCurrentValidation()) return
+
+        nextDiagnostics.push(
+          new vscode.Diagnostic(
+            new vscode.Range(0, 0, 0, 1),
+            'Spyglass command linting is unavailable. See the Minecraft Script output channel for details.',
+            vscode.DiagnosticSeverity.Warning,
+          ),
+        )
+      }
+    }
+
+    if (isCurrentValidation()) diagnostics.set(document.uri, nextDiagnostics)
   }
 
   function queueValidation(document) {
@@ -158,6 +168,14 @@ export function activate(context) {
       { language: 'mcs' },
       createCommandCompletionProvider(getProject, output),
       ...COMMAND_TRIGGER_CHARACTERS,
+    ),
+    vscode.languages.registerCompletionItemProvider(
+      { language: 'mcs' },
+      createMcsLanguageCompletionProvider(),
+      '.',
+      '"',
+      "'",
+      '/',
     ),
     createCommandSuggestTrigger(),
     vscode.commands.registerCommand('mcsHighlighter.showOutput', () => output.show(true)),

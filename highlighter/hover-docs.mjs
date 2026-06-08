@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 /** @typedef {{ syntax: string, detail?: string, description: string }} HoverDoc */
 
 /** @type {Record<string, HoverDoc>} */
-const KEYWORDS = {
+export const KEYWORDS = {
   var: {
     syntax: 'var <name> = <value>',
     detail: 'keyword',
@@ -92,7 +92,7 @@ const KEYWORDS = {
 }
 
 /** @type {Record<string, HoverDoc>} */
-const BUILTINS = {
+export const BUILTINS = {
   command: {
     syntax: 'function command(command: string): null',
     detail: 'builtin',
@@ -171,7 +171,7 @@ const BUILTINS = {
 }
 
 /** @type {Record<string, HoverDoc>} */
-const METHODS = {
+export const METHODS = {
   text: {
     syntax: '.text(content: string): TextComponent',
     detail: 'TextComponent method',

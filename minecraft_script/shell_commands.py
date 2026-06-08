@@ -1,7 +1,11 @@
+import json
+import sys
+
 from . import debug_code
 from .compiler import build_datapack
 from .common import COMMON_CONFIG, version
 from .config_utils import update_config, reset_config
+from .lint import lint_code
 from .version_config import breaking_changes_between
 from pathlib import Path
 
@@ -31,6 +35,10 @@ sh_help_message = """
 mcs file into a datapack. The resulting datapack folder will be named after
 the mcs file, unless a datapack name is specified. The output path argument
 specifies where the datapack should be generated (default to current path).
+
+- lint <path> [--json]: validate MCS syntax and imports for the given file.
+Use --stdin to read code from standard input and pass --source <path> so
+relative imports resolve correctly.
 
 - config set <setting> <value>: Overwrite specified setting in config
 to the new value. Use ``minecraft_version`` (e.g. ``1.20.4``) to select
@@ -179,6 +187,49 @@ def sh_config_get(args: list) -> None:
     )
 
 
+def sh_lint(*args) -> None:
+    use_json = "--json" in args
+    use_stdin = "--stdin" in args
+    filtered_args = [arg for arg in args if arg not in {"--json", "--stdin"}]
+
+    source_path = None
+    if "--source" in filtered_args:
+        source_index = filtered_args.index("--source")
+        if source_index + 1 >= len(filtered_args):
+            print("No path specified after --source.")
+            exit(1)
+        source_path = Path(filtered_args[source_index + 1]).resolve()
+        del filtered_args[source_index:source_index + 2]
+
+    if use_stdin:
+        code = sys.stdin.read()
+        if source_path is None and filtered_args:
+            source_path = Path(filtered_args[0]).resolve()
+    else:
+        if not filtered_args:
+            print("No path specified to lint.")
+            exit(1)
+
+        source_path = Path(filtered_args[0]).resolve()
+        if not source_path.is_file():
+            print(f"Path {str(source_path)!r} does not exist.")
+            exit(1)
+        code = source_path.read_text(encoding="utf-8")
+
+    diagnostics = lint_code(code, source_path=source_path)
+    if use_json:
+        print(json.dumps([diagnostic.to_dict() for diagnostic in diagnostics]))
+        exit(0 if not diagnostics else 1)
+
+    if not diagnostics:
+        print(f"{source_path}: no issues found")
+        exit(0)
+
+    for diagnostic in diagnostics:
+        print(f"{source_path}:{diagnostic.line}:{diagnostic.column}: {diagnostic.message}")
+    exit(1)
+
+
 def sh_config_default(args: list) -> None:
     confirm = input("Reset whole config to default values? (Y/N): ").lower().strip(" ")
     if confirm != "y":
@@ -192,5 +243,6 @@ shell_functions = {
     'help': sh_help,
     'debug': sh_debug,
     'compile': sh_compile,
+    'lint': sh_lint,
     'config': sh_config,
 }

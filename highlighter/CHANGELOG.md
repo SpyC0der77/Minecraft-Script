@@ -2,6 +2,14 @@
 
 All notable changes to the Minecraft Script Language Support extension are documented here.
 
+## [0.1.0] - 2026-06-08
+
+### Added
+
+- MCS syntax and import diagnostics via the Python `minecraft_script lint` command
+- Autocomplete for keywords, builtins, TextComponent methods, user-defined functions, and import paths
+- Settings: `mcsHighlighter.pythonPath` and `mcsHighlighter.lintSourcePath`
+
 ## [0.0.1] - 2026-06-07
 
 ### Added
