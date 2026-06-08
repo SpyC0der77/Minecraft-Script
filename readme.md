@@ -64,7 +64,7 @@ pip install -e .
 
 ## Editor Support
 
-The VS Code extension in `[highlighter/](highlighter/)` adds language support for `.mcs` files:
+The VS Code extension in [highlighter/](highlighter/) adds language support for `.mcs` files:
 
 - Syntax highlighting based on JavaScript, with MCS-specific keywords, selectors, and resource locations
 - Hover help for keywords, built-in functions, text component methods, and target selectors
