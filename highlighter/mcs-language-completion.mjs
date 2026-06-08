@@ -18,15 +18,20 @@ export function createMcsLanguageCompletionProvider() {
       const linePrefix = document.lineAt(position.line).text.slice(0, position.character)
       const importMatch = linePrefix.match(IMPORT_PATTERN)
       if (importMatch) {
-        const items = await buildImportPathCompletions(document, importMatch[2])
+        const partialStart = linePrefix.length - importMatch[2].length
+        const replaceRange = new vscode.Range(
+          position.line,
+          partialStart,
+          position.line,
+          position.character,
+        )
+        const items = await buildImportPathCompletions(document, importMatch[2], replaceRange)
         return new vscode.CompletionList(items, false)
       }
 
       const wordRange = document.getWordRangeAtPosition(position, /[A-Za-z_][A-Za-z0-9_-]*/)
       const currentWord = wordRange ? document.getText(wordRange) : ''
-      const charBefore = wordRange && wordRange.start.character > 0
-        ? linePrefix[wordRange.start.character - 1]
-        : ''
+      const charBefore = position.character > 0 ? linePrefix[position.character - 1] : ''
 
       const items = charBefore === '.'
         ? buildMethodCompletions(currentWord)
@@ -90,9 +95,10 @@ function buildGeneralCompletions(document, filter) {
 /**
  * @param {vscode.TextDocument} document
  * @param {string} partialPath
+ * @param {vscode.Range} replaceRange
  * @returns {Promise<vscode.CompletionItem[]>}
  */
-async function buildImportPathCompletions(document, partialPath) {
+async function buildImportPathCompletions(document, partialPath, replaceRange) {
   const files = await vscode.workspace.findFiles('**/*.mcs', '**/node_modules/**', 100)
   const sourceDir = document.uri.scheme === 'file'
     ? path.dirname(document.uri.fsPath)
@@ -112,6 +118,7 @@ async function buildImportPathCompletions(document, partialPath) {
       const item = new vscode.CompletionItem(completionPath, vscode.CompletionItemKind.File)
       item.detail = 'import path'
       item.insertText = completionPath
+      item.range = replaceRange
       item.sortText = `0_${completionPath}`
       return item
     })

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from .imports import parse_code_with_imports
 
-_POSITION_PATTERN = re.compile(r"\(line (\d+), (\d+)\)")
+_POSITION_PATTERN = re.compile(r"(?:\(line|at line|starting at line) (\d+), (\d+)")
 
 
 @dataclass(frozen=True)

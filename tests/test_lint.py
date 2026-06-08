@@ -2,7 +2,8 @@ import json
 import subprocess
 import sys
 
-from minecraft_script.lint import lint_code
+from minecraft_script.lint import diagnostic_from_exception, lint_code
+from minecraft_script.errors import MCSIllegalCharacterError
 
 
 def test_lint_code_returns_no_diagnostics_for_valid_source():
@@ -14,7 +15,20 @@ def test_lint_code_returns_positioned_diagnostic_for_syntax_error():
     diagnostics = lint_code('var x = "unfinished')
     assert len(diagnostics) == 1
     assert diagnostics[0].line == 1
+    assert diagnostics[0].column == 9
     assert "Unmatched string" in diagnostics[0].message
+
+
+def test_diagnostic_from_exception_parses_parenthesized_positions():
+    diagnostic = diagnostic_from_exception(MCSIllegalCharacterError("#", (4, 2)))
+    assert diagnostic.line == 2
+    assert diagnostic.column == 4
+
+
+def test_diagnostic_from_exception_parses_at_line_positions():
+    diagnostic = diagnostic_from_exception(Exception("Malformed entity selector at line 3, 12"))
+    assert diagnostic.line == 3
+    assert diagnostic.column == 12
 
 
 def test_lint_code_reports_missing_import(tmp_path):
