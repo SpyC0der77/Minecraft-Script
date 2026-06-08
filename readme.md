@@ -4,21 +4,23 @@ Minecraft Script is a tool to make Minecraft Datapack creation easier. Minecraft
 
 Be sure to check out the [documentation](https://github.com/SpyC0der77/Minecraft-Script/tree/main/documentation) and the provided [examples](https://github.com/SpyC0der77/Minecraft-Script/tree/main/examples)!
 
+Special thanks to the [Spyglass](https://github.com/spyglassmc/spyglass) team for making an amazing VSCode extension for syntax highlighting, autocomplete for datapacks, and other useful datapack tools.
+
+Of course, thanks to [Bard-Gaming](https://github.com/Bard-Gaming) for creating the original [Minecraft-Script project](https://github.com/Bard-Gaming/Minecraft-Script) that this fork is based on.
+
 ## Supported Versions
 
 
-| Version Number | Development Status |
-| -------------- | ------------------ |
-| 1.21.2         | Continued Support  |
-| 1.21.4         | Continued Support  |
-| 1.21.5         | Continued Support  |
-| 1.21.6         | Continued Support  |
-| 1.21.7         | Continued Support  |
-| 1.21.8         | Continued Support  |
-| 1.21.9         | Continued Support  |
-| 1.21.10        | Continued Support  |
-| 1.21.11        | Continued Support  |
-| 26.1           | Continued Support  |
+| Version Number | Development Status   | Version Profile                                        |
+| -------------- | ------------------- | ------------------------------------------------------ |
+| 1.21.2         | Continued Support   | [View](minecraft_script/versions/1.21.2.json)          |
+| 1.21.4         | Continued Support   | [View](minecraft_script/versions/1.21.4.json)          |
+| 1.21.5         | Continued Support   | [View](minecraft_script/versions/1.21.5.json)          |
+| 1.21.6         | Continued Support   | [View](minecraft_script/versions/1.21.6.json)          |
+| 1.21.7-8       | Continued Support   | [View](minecraft_script/versions/1.21.7-8.json)        |
+| 1.21.9-10      | Continued Support   | [View](minecraft_script/versions/1.21.9-10.json)       |
+| 1.21.11        | Continued Support   | [View](minecraft_script/versions/1.21.11.json)         |
+| 26.1           | Continued Support   | [View](minecraft_script/versions/26.1.json)            |
 
 
 ## Installation
