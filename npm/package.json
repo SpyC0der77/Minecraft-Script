@@ -1,6 +1,6 @@
 {
   "name": "minecraft-script",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Compile and debug Minecraft Script (.mcs) files into Minecraft datapacks",
   "license": "MIT",
   "type": "commonjs",

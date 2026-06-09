@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "minecraft-script"
-version = "0.3.6"
+version = "0.3.7"
 description = "Minecraft Script programming language — compile .mcs files to Minecraft datapacks"
 readme = "readme.md"
 requires-python = ">=3.10"
