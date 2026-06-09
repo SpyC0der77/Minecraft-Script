@@ -51,6 +51,15 @@ def _parse_flag_args(
     return parsed, positional
 
 
+def _validate_datapack_name(datapack_name: str) -> None:
+    if not datapack_name or datapack_name in {".", ".."}:
+        print("Error: Invalid datapack name.")
+        exit(-1)
+    if ".." in datapack_name or "/" in datapack_name or "\\" in datapack_name:
+        print("Error: Datapack name must not contain path separators or '..'.")
+        exit(-1)
+
+
 def handle_arguments(arguments: list):
     if not arguments:
         sh_default()
@@ -156,9 +165,18 @@ def sh_compile(*args) -> None:
         exit(-1)
 
     output_path.mkdir(parents=True, exist_ok=True)
+    resolved_output = output_path.resolve()
 
-    datapack_folder = output_path / datapack_name
+    _validate_datapack_name(datapack_name)
+
+    datapack_folder = (resolved_output / datapack_name).resolve()
+    if not datapack_folder.is_relative_to(resolved_output):
+        print("Error: Datapack output path escapes output directory.")
+        exit(-1)
     if "--force" in flags and datapack_folder.exists():
+        if not datapack_folder.is_dir():
+            print(f"Error: Output path is not a directory ({str(datapack_folder) !r})")
+            exit(-1)
         shutil.rmtree(datapack_folder)
 
     overrides: dict[str, object] = {}

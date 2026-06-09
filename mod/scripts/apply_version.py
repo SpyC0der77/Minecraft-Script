@@ -10,6 +10,18 @@ from pathlib import Path
 MOD_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = MOD_ROOT / "versions" / "manifest.json"
 GRADLE_PROPERTIES = MOD_ROOT / "gradle.properties"
+DEFAULT_ENABLED_PLATFORMS = "fabric,forge,neoforge"
+
+
+def read_enabled_platforms() -> str:
+    if not GRADLE_PROPERTIES.exists():
+        return DEFAULT_ENABLED_PLATFORMS
+    for line in GRADLE_PROPERTIES.read_text(encoding="utf-8").splitlines():
+        if line.startswith("enabled_platforms="):
+            value = line.split("=", 1)[1].strip()
+            if value and value != "fabric":
+                return value
+    return DEFAULT_ENABLED_PLATFORMS
 
 
 def main() -> int:
@@ -48,7 +60,7 @@ def main() -> int:
         f"neoforge_version={profile['neoforge_version']}",
         f"architectury_api_version={profile['architectury_api_version']}",
         "",
-        "enabled_platforms=fabric",
+        f"enabled_platforms={read_enabled_platforms()}",
     ]
     GRADLE_PROPERTIES.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote {GRADLE_PROPERTIES} for profile {args.profile}")

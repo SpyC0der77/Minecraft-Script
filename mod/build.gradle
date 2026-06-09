@@ -7,6 +7,7 @@ plugins {
 }
 
 def manifest = new JsonSlurper().parse(file('versions/manifest.json'))
+def mcsProfileFromCli = gradle.startParameter.projectProperties.containsKey('mcs_profile')
 def activeProfileName = findProperty('mcs_profile') ?: '1.21.11'
 def activeProfile = manifest.profiles[activeProfileName]
 if (activeProfile == null) {
@@ -15,8 +16,25 @@ if (activeProfile == null) {
 
 ext {
     mcsProfileName = activeProfileName
-    mcsMinecraftProfile = activeProfile.mcs_profile
-    supportedGameVersions = (activeProfile.supported_game_versions as List).join(',')
+    if (mcsProfileFromCli) {
+        minecraft_version = activeProfile.minecraft_version
+        mcsMinecraftProfile = activeProfile.mcs_profile
+        supportedGameVersions = (activeProfile.supported_game_versions as List).join(',')
+        fabric_loader_version = activeProfile.fabric_loader_version
+        fabric_api_version = activeProfile.fabric_api_version
+        forge_version = activeProfile.forge_version
+        neoforge_version = activeProfile.neoforge_version
+        architectury_api_version = activeProfile.architectury_api_version
+    } else {
+        minecraft_version = findProperty('minecraft_version')
+        mcsMinecraftProfile = findProperty('mcs_minecraft_profile')
+        supportedGameVersions = findProperty('supported_game_versions')
+        fabric_loader_version = findProperty('fabric_loader_version')
+        fabric_api_version = findProperty('fabric_api_version')
+        forge_version = findProperty('forge_version')
+        neoforge_version = findProperty('neoforge_version')
+        architectury_api_version = findProperty('architectury_api_version')
+    }
 }
 
 allprojects {

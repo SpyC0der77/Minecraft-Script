@@ -2,6 +2,7 @@ package dev.spyc0der77.mcspacks.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
 import dev.spyc0der77.mcspacks.util.McsPaths;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,8 +23,12 @@ public final class ModConfigManager {
             String json = Files.readString(McsPaths.configFile());
             ModConfig config = GSON.fromJson(json, ModConfig.class);
             return config == null ? new ModConfig() : config;
+        } catch (JsonParseException error) {
+            System.err.println("[MCS Packs] Invalid config JSON, using defaults: " + error.getMessage());
+            return new ModConfig();
         } catch (IOException error) {
-            throw new IllegalStateException("Failed to read mod config", error);
+            System.err.println("[MCS Packs] Failed to read config, using defaults: " + error.getMessage());
+            return new ModConfig();
         }
     }
 

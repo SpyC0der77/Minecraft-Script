@@ -151,7 +151,7 @@ public final class PackWatcher {
                     }
                     long modified = Files.getLastModifiedTime(entry).toMillis();
                     Long previous = lastModified.put(entry, modified);
-                    if (previous != null && modified > previous) {
+                    if (previous == null || modified > previous) {
                         schedule(packFolder);
                     }
                 }
@@ -177,23 +177,25 @@ public final class PackWatcher {
             return null;
         }
 
-        Path packFolder;
+        Path current;
         if (Files.isDirectory(changedPath)) {
-            packFolder = changedPath;
+            current = changedPath;
         } else {
             String fileName = changedPath.getFileName().toString().toLowerCase(Locale.ROOT);
             if (!fileName.endsWith(".mcs")) {
                 return null;
             }
-            packFolder = changedPath.getParent();
+            current = changedPath.getParent();
         }
 
-        if (packFolder == null || !isPackFolder(packFolder)) {
-            return null;
+        while (current != null && current.startsWith(packsRoot) && !packsRoot.equals(current)) {
+            if (isPackFolder(current)) {
+                Path entry = current.resolve(McsPaths.DEFAULT_ENTRY);
+                return Files.exists(entry) ? current : null;
+            }
+            current = current.getParent();
         }
-
-        Path entry = packFolder.resolve(McsPaths.DEFAULT_ENTRY);
-        return Files.exists(entry) ? packFolder : null;
+        return null;
     }
 
     private boolean isPackFolder(Path packFolder) {
@@ -220,7 +222,9 @@ public final class PackWatcher {
         if (!Files.exists(root)) {
             Files.createDirectories(root);
         }
-        Files.walk(root).filter(Files::isDirectory).forEach(dir -> registerDirectory(watchService, dir));
+        try (var stream = Files.walk(root)) {
+            stream.filter(Files::isDirectory).forEach(dir -> registerDirectory(watchService, dir));
+        }
     }
 
     private static void registerDirectory(WatchService watchService, Path directory) {

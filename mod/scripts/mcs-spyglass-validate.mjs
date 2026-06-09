@@ -1,10 +1,6 @@
-#!/usr/bin/env node
-import { mkdirSync } from 'node:fs'
-import { mkdtempSync } from 'node:fs'
-import { readFileSync } from 'node:fs'
-import { readdirSync, statSync } from 'node:fs'
-import { join, relative, resolve } from 'node:path'
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs'
 import { tmpdir } from 'node:os'
+import { join, relative, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 import {
@@ -44,7 +40,7 @@ function parseArgs(argv) {
   }
 
   if (positional.length < 1) {
-    throw new Error('Usage: node mcs-spyglass-validate.mjs [--json] [--mc-version <version>] <datapack_dir>')
+    throw new Error('Usage: node mcs-spyglass-validate.js [--json] [--mc-version <version>] <datapack_dir>')
   }
 
   return { flags, datapackDir: resolve(positional[0]) }
@@ -102,66 +98,71 @@ async function main() {
     throw new Error(`Expected a datapack directory containing pack.mcmeta at ${datapackDir}`)
   }
 
-  const cacheRoot = toRootUri(mkdtempSync(join(tmpdir(), 'mcs-spyglass-')))
+  const cacheDir = mkdtempSync(join(tmpdir(), 'mcs-spyglass-'))
+  const cacheRoot = toRootUri(cacheDir)
   mkdirSync(new URL(cacheRoot), { recursive: true })
   const projectRoot = toRootUri(datapackDir)
   const gameVersion = flags.mcVersion
   const diagnostics = []
 
-  const project = new Project({
-    cacheRoot,
-    defaultConfig: {
-      ...VanillaConfig,
-      env: {
-        ...VanillaConfig.env,
-        ...(gameVersion ? { gameVersion } : {}),
+  try {
+    const project = new Project({
+      cacheRoot,
+      defaultConfig: {
+        ...VanillaConfig,
+        env: {
+          ...VanillaConfig.env,
+          ...(gameVersion ? { gameVersion } : {}),
+        },
       },
-    },
-    externals: getNodeJsExternals({ cacheRoot }),
-    initializers: [initializeMcdoc, initializeJavaEdition],
-    isDebugging: false,
-    logger: Logger.create('warn'),
-    projectRoots: [projectRoot],
-  })
+      externals: getNodeJsExternals({ cacheRoot }),
+      initializers: [initializeMcdoc, initializeJavaEdition],
+      isDebugging: false,
+      logger: Logger.create('warn'),
+      projectRoots: [projectRoot],
+    })
 
-  project.on('documentErrored', ({ uri, errors }) => {
-    for (const error of errors) {
-      const filePath = decodeURIComponent(new URL(uri).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
-      const relativePath = relative(datapackDir, filePath).replace(/\\/g, '/')
-      const start = error.posRange?.start
-      diagnostics.push({
-        file: relativePath,
-        line: (start?.line ?? 0) + 1,
-        column: (start?.character ?? 0) + 1,
-        message: error.message,
-        severity: severityName(error.severity),
-      })
+    project.on('documentErrored', ({ uri, errors }) => {
+      for (const error of errors) {
+        const filePath = decodeURIComponent(new URL(uri).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
+        const relativePath = relative(datapackDir, filePath).replace(/\\/g, '/')
+        const start = error.posRange?.start
+        diagnostics.push({
+          file: relativePath,
+          line: (start?.line ?? 0) + 1,
+          column: (start?.character ?? 0) + 1,
+          message: error.message,
+          severity: severityName(error.severity),
+        })
+      }
+    })
+
+    await project.init()
+    await project.ready()
+
+    for (const filePath of walkFiles(datapackDir)) {
+      const languageId = languageIdFor(filePath)
+      if (!languageId) continue
+      const uri = pathToFileURL(filePath).href
+      const content = readFileSync(filePath, 'utf8')
+      await project.onDidOpen(uri, languageId, 1, content)
+      const managed = await project.ensureClientManagedChecked(uri)
+      if (!managed) continue
+      for (const error of FileNode.getErrors(managed.node)) {
+        diagnostics.push({
+          file: relative(datapackDir, filePath).replace(/\\/g, '/'),
+          line: error.range.start.line + 1,
+          column: error.range.start.character + 1,
+          message: error.message,
+          severity: severityName(error.severity),
+        })
+      }
     }
-  })
 
-  await project.init()
-  await project.ready()
-
-  for (const filePath of walkFiles(datapackDir)) {
-    const languageId = languageIdFor(filePath)
-    if (!languageId) continue
-    const uri = pathToFileURL(filePath).href
-    const content = readFileSync(filePath, 'utf8')
-    await project.onDidOpen(uri, languageId, 1, content)
-    const managed = await project.ensureClientManagedChecked(uri)
-    if (!managed) continue
-    for (const error of FileNode.getErrors(managed.node)) {
-      diagnostics.push({
-        file: relative(datapackDir, filePath).replace(/\\/g, '/'),
-        line: error.range.start.line + 1,
-        column: error.range.start.character + 1,
-        message: error.message,
-        severity: severityName(error.severity),
-      })
-    }
+    await project.close()
+  } finally {
+    rmSync(cacheDir, { recursive: true, force: true })
   }
-
-  await project.close()
 
   const unique = new Map()
   for (const diagnostic of diagnostics) {
@@ -185,7 +186,7 @@ async function main() {
   }
 
   const hasErrors = result.some((diagnostic) => diagnostic.severity === 'error')
-  process.exit(hasErrors ? 1 : 0)
+  process.exitCode = hasErrors ? 1 : 0
 }
 
 main().catch((error) => {
@@ -195,5 +196,5 @@ main().catch((error) => {
   } else {
     process.stderr.write(`${message}\n`)
   }
-  process.exit(1)
+  process.exitCode = 1
 })

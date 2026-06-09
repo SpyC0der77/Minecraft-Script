@@ -2,9 +2,15 @@
   "name": "mcs-mod-scripts",
   "private": true,
   "type": "module",
+  "scripts": {
+    "bundle:spyglass": "esbuild mcs-spyglass-validate.mjs --bundle --platform=node --format=cjs --packages=bundle --outfile=../common/src/main/resources/scripts/mcs-spyglass-validate.js --banner:js=\"#!/usr/bin/env node\""
+  },
   "dependencies": {
     "@spyglassmc/core": "^0.4.47",
     "@spyglassmc/java-edition": "^0.3.60",
     "@spyglassmc/mcdoc": "^0.3.51"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5"
   }
 }

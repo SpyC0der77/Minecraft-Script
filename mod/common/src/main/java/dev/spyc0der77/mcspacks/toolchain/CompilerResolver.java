@@ -118,8 +118,8 @@ public final class CompilerResolver {
 
     private static boolean canRun(CompilerCommand compiler, String... args) {
         try {
-            SubprocessRunner.run(compiler.toProcessCommand(List.of(args)), null, 15);
-            return true;
+            ProcessResult result = SubprocessRunner.run(compiler.toProcessCommand(List.of(args)), null, 15);
+            return result.success();
         } catch (Exception ignored) {
             return false;
         }
@@ -140,9 +140,29 @@ public final class CompilerResolver {
     }
 
     private static String quoteForCmd(String arg) {
-        if (!arg.contains(" ") && !arg.contains("\"")) {
+        if (!needsCmdQuoting(arg)) {
             return arg;
         }
         return "\"" + arg.replace("\"", "\\\"") + "\"";
+    }
+
+    private static boolean needsCmdQuoting(String arg) {
+        if (arg.isEmpty()) {
+            return true;
+        }
+        for (int index = 0; index < arg.length(); index++) {
+            char character = arg.charAt(index);
+            if (Character.isWhitespace(character)
+                    || character == '"'
+                    || character == '&'
+                    || character == '|'
+                    || character == '<'
+                    || character == '>'
+                    || character == '^'
+                    || character == '%') {
+                return true;
+            }
+        }
+        return false;
     }
 }

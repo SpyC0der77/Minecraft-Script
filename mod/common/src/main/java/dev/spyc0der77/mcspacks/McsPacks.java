@@ -26,8 +26,6 @@ public final class McsPacks {
         pipeline = new PackPipeline(config, versionMapper, registry, PlayerFeedback::broadcast);
         watcher = new PackWatcher(McsPaths.packsRoot(), pipeline::handlePackChange, config.debounceMs);
 
-        pipeline.warmCompileAllPacks();
-
         LifecycleEvent.SERVER_STARTING.register(McsPacks::onServerStarting);
         LifecycleEvent.SERVER_STARTED.register(McsPacks::onServerStarted);
         LifecycleEvent.SERVER_STOPPING.register(McsPacks::onServerStopping);

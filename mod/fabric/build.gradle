@@ -41,6 +41,8 @@ remapJar {
 
 processResources {
     inputs.property 'mod_version', project.version
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+    inputs.property 'supported_game_versions', rootProject.supportedGameVersions
     filesMatching('fabric.mod.json') {
         expand 'mod_version': project.version,
                 'minecraft_version': rootProject.minecraft_version,

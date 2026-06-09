@@ -1,7 +1,9 @@
 package dev.spyc0der77.mcspacks.registry;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import dev.spyc0der77.mcspacks.util.McsPaths;
+import dev.spyc0der77.mcspacks.util.SafePaths;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,11 +53,12 @@ public final class PackRegistry {
         String displayName = overrides.displayName == null
                 ? titleCase(id)
                 : overrides.displayName;
+        SafePaths.validateSafeName(displayName);
         return new PackDefinition(
                 id,
                 folder,
                 entry,
-                compiledRoot.resolve(displayName),
+                SafePaths.resolveChild(compiledRoot, displayName),
                 displayName
         );
     }
@@ -65,7 +68,12 @@ public final class PackRegistry {
         if (Files.notExists(config)) {
             return new PackOverrides();
         }
-        return new Gson().fromJson(Files.readString(config), PackOverrides.class);
+        try {
+            PackOverrides overrides = new Gson().fromJson(Files.readString(config), PackOverrides.class);
+            return overrides == null ? new PackOverrides() : overrides;
+        } catch (JsonParseException error) {
+            return new PackOverrides();
+        }
     }
 
     private static String titleCase(String value) {

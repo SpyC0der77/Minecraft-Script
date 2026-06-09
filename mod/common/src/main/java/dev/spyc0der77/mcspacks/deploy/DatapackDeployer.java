@@ -1,5 +1,6 @@
 package dev.spyc0der77.mcspacks.deploy;
 
+import dev.spyc0der77.mcspacks.util.SafePaths;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -17,7 +18,7 @@ public final class DatapackDeployer {
     public static void syncPack(MinecraftServer server, Path compiledPack, String packFolderName) throws IOException {
         Path worldDatapacks = server.getWorldPath(LevelResource.DATAPACK_DIR);
         Files.createDirectories(worldDatapacks);
-        Path target = worldDatapacks.resolve(packFolderName);
+        Path target = SafePaths.resolveChild(worldDatapacks, packFolderName);
         if (Files.exists(target)) {
             deleteRecursive(target);
         }

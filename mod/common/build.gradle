@@ -19,15 +19,46 @@ sourceSets {
 }
 
 architectury {
-    common rootProject.enabled_platforms.split(',')
+    common rootProject.enabled_platforms.split(',').collect { it.trim() }.findAll { !it.isEmpty() }
 }
+
+def generatedResourcesDir = layout.buildDirectory.dir('generated/resources/main')
+
+sourceSets.main.resources.srcDir(generatedResourcesDir)
+
+tasks.register('syncMcsVersions', Copy) {
+    from rootProject.file('../minecraft_script/versions/index.json')
+    into generatedResourcesDir
+    rename { 'mcs-versions.json' }
+}
+
+processResources.dependsOn syncMcsVersions
 
 dependencies {
     modImplementation "dev.architectury:architectury:${rootProject.architectury_api_version}"
     implementation 'com.google.code.gson:gson:2.11.0'
 }
 
+def spyglassSourceScript = file("${rootProject.projectDir}/scripts/mcs-spyglass-validate.mjs")
+def spyglassBundledScript = file('src/main/resources/scripts/mcs-spyglass-validate.js')
+
+tasks.register('bundleSpyglassScript') {
+    onlyIf { spyglassSourceScript.exists() }
+    inputs.file(spyglassSourceScript)
+    inputs.file("${rootProject.projectDir}/scripts/package.json")
+    inputs.file("${rootProject.projectDir}/scripts/bun.lock")
+    outputs.file(spyglassBundledScript)
+
+    doLast {
+        exec {
+            workingDir "${rootProject.projectDir}/scripts"
+            commandLine 'bun', 'run', 'bundle:spyglass'
+        }
+    }
+}
+
 processResources {
+    dependsOn tasks.named('bundleSpyglassScript')
     inputs.property 'mod_version', project.version
     inputs.property 'minecraft_version', rootProject.minecraft_version
     inputs.property 'mcs_profile', rootProject.mcsProfileName

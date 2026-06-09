@@ -116,6 +116,10 @@ public final class McsToolchain {
     }
 
     private static void deleteRecursive(Path path) throws IOException {
+        if (Files.isSymbolicLink(path)) {
+            Files.delete(path);
+            return;
+        }
         if (Files.isDirectory(path)) {
             try (var stream = Files.list(path)) {
                 for (Path child : stream.toList()) {

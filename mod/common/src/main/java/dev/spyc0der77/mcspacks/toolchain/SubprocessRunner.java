@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public final class SubprocessRunner {
@@ -17,13 +18,21 @@ public final class SubprocessRunner {
         }
         builder.redirectErrorStream(false);
         Process process = builder.start();
+        CompletableFuture<String> stdoutFuture = CompletableFuture.supplyAsync(() -> readStream(process.getInputStream()));
+        CompletableFuture<String> stderrFuture = CompletableFuture.supplyAsync(() -> readStream(process.getErrorStream()));
         boolean finished = process.waitFor(timeoutSeconds, TimeUnit.SECONDS);
         if (!finished) {
             process.destroyForcibly();
             return new ProcessResult(-1, "", "Process timed out after " + timeoutSeconds + "s");
         }
-        String stdout = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-        String stderr = new String(process.getErrorStream().readAllBytes(), StandardCharsets.UTF_8);
-        return new ProcessResult(process.exitValue(), stdout, stderr);
+        return new ProcessResult(process.exitValue(), stdoutFuture.join(), stderrFuture.join());
+    }
+
+    private static String readStream(java.io.InputStream stream) {
+        try {
+            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException ignored) {
+            return "";
+        }
     }
 }

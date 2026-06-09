@@ -46,9 +46,13 @@ remapJar {
 
 processResources {
     inputs.property 'mod_version', project.version
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+    inputs.property 'supported_game_versions', rootProject.supportedGameVersions
+    inputs.property 'forge_version', rootProject.forge_version
     filesMatching('META-INF/mods.toml') {
         expand 'mod_version': project.version,
                 'minecraft_version': rootProject.minecraft_version,
+                'forge_version': rootProject.forge_version,
                 'supported_game_versions': rootProject.supportedGameVersions
     }
 }

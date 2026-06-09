@@ -24,6 +24,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - uses: oven-sh/setup-bun@v2
+      - name: Install Spyglass bundle dependencies
+        working-directory: mod/scripts
+        run: bun install --frozen-lockfile
       - name: Apply version profile
         run: python mod/scripts/apply_version.py ${{ matrix.profile }}
       - name: Build ${{ matrix.loader }} for ${{ matrix.profile }}

@@ -65,7 +65,11 @@ public final class PackPipeline {
         bindServer(server);
         try {
             for (PackDefinition pack : registry.discover()) {
-                processPack(server, pack, false);
+                try {
+                    processPack(server, pack, false);
+                } catch (RuntimeException error) {
+                    messenger.accept(server, "[MCS] Failed to prepare " + pack.id() + ": " + error.getMessage());
+                }
             }
         } catch (IOException error) {
             messenger.accept(server, "[MCS] Failed to prepare packs: " + error.getMessage());
@@ -119,45 +123,53 @@ public final class PackPipeline {
     }
 
     private boolean runToolchain(PackDefinition pack, long generation) {
-        String mcsProfile = versionMapper.resolveMcsProfile(Platform.getMinecraftVersion(), config.minecraftVersion);
-        McsToolchain toolchain = new McsToolchain(config, mcsProfile);
+        try {
+            String mcsProfile = versionMapper.resolveMcsProfile(Platform.getMinecraftVersion(), config.minecraftVersion);
+            McsToolchain toolchain = new McsToolchain(config, mcsProfile);
 
-        List<Diagnostic> lintDiagnostics = toolchain.lint(pack);
-        if (!lintDiagnostics.isEmpty()) {
-            MinecraftServer server = activeServer;
-            if (server != null) {
-                PlayerFeedback.diagnostics(server, "[MCS]", lintDiagnostics);
+            List<Diagnostic> lintDiagnostics = toolchain.lint(pack);
+            if (!lintDiagnostics.isEmpty()) {
+                MinecraftServer server = activeServer;
+                if (server != null) {
+                    PlayerFeedback.diagnostics(server, "[MCS]", lintDiagnostics);
+                }
+                if (config.blockCompileOnLintErrors && lintDiagnostics.stream().anyMatch(Diagnostic::isError)) {
+                    return false;
+                }
             }
-            if (config.blockCompileOnLintErrors && lintDiagnostics.stream().anyMatch(Diagnostic::isError)) {
+            if (generation != 0L && generation != generations.get(pack.id())) {
                 return false;
             }
-        }
-        if (generation != 0L && generation != generations.get(pack.id())) {
-            return false;
-        }
 
-        List<Diagnostic> compileDiagnostics = toolchain.compile(pack);
-        if (!compileDiagnostics.isEmpty()) {
-            MinecraftServer server = activeServer;
-            if (server != null) {
-                PlayerFeedback.diagnostics(server, "[MCS]", compileDiagnostics);
-            }
-            return false;
-        }
-        if (generation != 0L && generation != generations.get(pack.id())) {
-            return false;
-        }
-
-        List<Diagnostic> spyglassDiagnostics = toolchain.validateWithSpyglass(pack, Platform.getMinecraftVersion());
-        if (!spyglassDiagnostics.isEmpty()) {
-            MinecraftServer server = activeServer;
-            if (server != null) {
-                PlayerFeedback.diagnostics(server, "[Spyglass]", spyglassDiagnostics);
-            }
-            if (config.blockReloadOnSpyglassErrors && spyglassDiagnostics.stream().anyMatch(Diagnostic::isError)) {
+            List<Diagnostic> compileDiagnostics = toolchain.compile(pack);
+            if (!compileDiagnostics.isEmpty()) {
+                MinecraftServer server = activeServer;
+                if (server != null) {
+                    PlayerFeedback.diagnostics(server, "[MCS]", compileDiagnostics);
+                }
                 return false;
             }
+            if (generation != 0L && generation != generations.get(pack.id())) {
+                return false;
+            }
+
+            List<Diagnostic> spyglassDiagnostics = toolchain.validateWithSpyglass(pack, Platform.getMinecraftVersion());
+            if (!spyglassDiagnostics.isEmpty()) {
+                MinecraftServer server = activeServer;
+                if (server != null) {
+                    PlayerFeedback.diagnostics(server, "[Spyglass]", spyglassDiagnostics);
+                }
+                if (config.blockReloadOnSpyglassErrors && spyglassDiagnostics.stream().anyMatch(Diagnostic::isError)) {
+                    return false;
+                }
+            }
+            return generation == 0L || generation == generations.get(pack.id());
+        } catch (RuntimeException error) {
+            MinecraftServer server = activeServer;
+            if (server != null) {
+                messenger.accept(server, "[MCS] Toolchain failed for " + pack.id() + ": " + error.getMessage());
+            }
+            return false;
         }
-        return generation == 0L || generation == generations.get(pack.id());
     }
 }

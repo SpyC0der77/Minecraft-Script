@@ -13,7 +13,7 @@ authors = "SpyC0der77"
 [[dependencies.mcs_packs]]
 modId = "forge"
 mandatory = true
-versionRange = "[${minecraft_version},)"
+versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
