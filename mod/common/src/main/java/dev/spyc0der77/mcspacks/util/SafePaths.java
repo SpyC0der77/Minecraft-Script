@@ -11,7 +11,7 @@ public final class SafePaths {
         if (name == null || name.isBlank()) {
             throw new IOException("Name must not be blank");
         }
-        if (name.contains("/") || name.contains("\\") || name.contains("..")) {
+        if (name.equals(".") || name.contains("/") || name.contains("\\") || name.contains("..")) {
             throw new IOException("Unsafe path name: " + name);
         }
     }
@@ -20,7 +20,7 @@ public final class SafePaths {
         validateSafeName(childName);
         Path normalizedParent = parent.toAbsolutePath().normalize();
         Path resolved = normalizedParent.resolve(childName).normalize();
-        if (!resolved.startsWith(normalizedParent)) {
+        if (resolved.equals(normalizedParent) || !resolved.startsWith(normalizedParent)) {
             throw new IOException("Path escapes parent directory: " + childName);
         }
         return resolved;

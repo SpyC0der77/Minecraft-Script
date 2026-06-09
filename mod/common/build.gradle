@@ -32,7 +32,13 @@ tasks.register('syncMcsVersions', Copy) {
     rename { 'mcs-versions.json' }
 }
 
-processResources.dependsOn syncMcsVersions
+tasks.register('syncStarterPack', Copy) {
+    from rootProject.file('../examples/starter_datapack.mcs')
+    into generatedResourcesDir.map { it.dir('starter') }
+    rename { 'pack.mcs' }
+}
+
+processResources.dependsOn syncMcsVersions, syncStarterPack
 
 dependencies {
     modImplementation "dev.architectury:architectury:${rootProject.architectury_api_version}"
@@ -50,9 +56,23 @@ tasks.register('bundleSpyglassScript') {
     outputs.file(spyglassBundledScript)
 
     doLast {
+        def scriptsDir = file("${rootProject.projectDir}/scripts")
+        def bunAvailable = providers.exec {
+            workingDir scriptsDir
+            commandLine 'bun', '--version'
+            ignoreExitValue true
+        }.result.get().exitValue == 0
+
         exec {
-            workingDir "${rootProject.projectDir}/scripts"
-            commandLine 'bun', 'run', 'bundle:spyglass'
+            workingDir scriptsDir
+            if (bunAvailable) {
+                commandLine 'bun', 'run', 'bundle:spyglass'
+            } else {
+                commandLine 'npx', '--yes', 'esbuild', 'mcs-spyglass-validate.mjs',
+                        '--bundle', '--platform=node', '--format=cjs', '--packages=bundle',
+                        '--outfile=../common/src/main/resources/scripts/mcs-spyglass-validate.js',
+                        '--banner:js=#!/usr/bin/env node'
+            }
         }
     }
 }

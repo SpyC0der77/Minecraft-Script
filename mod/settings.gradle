@@ -2,7 +2,7 @@ pluginManagement {
     repositories {
         maven { url = 'https://maven.fabricmc.net/' }
         maven { url = 'https://maven.architectury.dev/' }
-        maven { url = 'https://files.minecraftforge.net/maven/' }
+        maven { url = 'https://maven.minecraftforge.net/' }
         gradlePluginPortal()
     }
 }
@@ -14,7 +14,13 @@ def propertiesFile = file('gradle.properties')
 if (propertiesFile.exists()) {
     propertiesFile.withInputStream { properties.load(it) }
 }
-def enabledPlatforms = (properties.getProperty('enabled_platforms', 'fabric') ?: 'fabric')
+
+def enabledPlatformsProperty = gradle.startParameter.projectProperties.get('enabled_platforms')
+if (enabledPlatformsProperty == null) {
+    enabledPlatformsProperty = properties.getProperty('enabled_platforms', 'fabric,forge,neoforge')
+}
+
+def enabledPlatforms = (enabledPlatformsProperty ?: 'fabric,forge,neoforge')
         .split(',')
         .collect { it.trim() }
         .findAll { !it.isEmpty() }

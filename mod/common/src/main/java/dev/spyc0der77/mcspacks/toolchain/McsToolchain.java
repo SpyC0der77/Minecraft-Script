@@ -112,7 +112,12 @@ public final class McsToolchain {
     }
 
     private static String relative(PackDefinition pack, Path file) {
-        return pack.folder().relativize(file).toString().replace('\\', '/');
+        Path folder = pack.folder().toAbsolutePath().normalize();
+        Path absolute = file.toAbsolutePath().normalize();
+        if (!absolute.startsWith(folder)) {
+            return absolute.toString().replace('\\', '/');
+        }
+        return folder.relativize(absolute).toString().replace('\\', '/');
     }
 
     private static void deleteRecursive(Path path) throws IOException {

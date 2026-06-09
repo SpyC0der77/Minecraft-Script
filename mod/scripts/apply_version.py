@@ -27,6 +27,11 @@ def read_enabled_platforms() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", help="MCS profile key from versions/manifest.json")
+    parser.add_argument(
+        "--loader",
+        choices=["fabric", "forge", "neoforge"],
+        help="Enable only this loader platform in gradle.properties (default: all loaders)",
+    )
     args = parser.parse_args()
 
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -60,7 +65,7 @@ def main() -> int:
         f"neoforge_version={profile['neoforge_version']}",
         f"architectury_api_version={profile['architectury_api_version']}",
         "",
-        f"enabled_platforms={read_enabled_platforms()}",
+        f"enabled_platforms={args.loader if args.loader else read_enabled_platforms()}",
     ]
     GRADLE_PROPERTIES.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote {GRADLE_PROPERTIES} for profile {args.profile}")

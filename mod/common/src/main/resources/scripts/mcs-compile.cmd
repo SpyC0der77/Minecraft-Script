@@ -1,11 +1,5 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-for %%P in (313 312 311 310) do (
-    if exist "C:\Python%%P\python.exe" (
-        call :run_python "C:\Python%%P\python.exe" %*
-        exit /b !ERRORLEVEL!
-    )
-)
 where mcs >nul 2>&1 && (
     call :run_mcs %*
     exit /b !ERRORLEVEL!
@@ -21,6 +15,12 @@ where py >nul 2>&1 && (
 if defined PYTHON if exist "%PYTHON%" (
     call :run_python "%PYTHON%" %*
     exit /b !ERRORLEVEL!
+)
+for %%P in (313 312 311 310) do (
+    if exist "C:\Python%%P\python.exe" (
+        call :run_python "C:\Python%%P\python.exe" %*
+        exit /b !ERRORLEVEL!
+    )
 )
 echo MCS compiler not found. Install minecraft-script ^(pip install -e .^) or set compilerPath in config/mcs-packs.json. 1>&2
 exit /b 1

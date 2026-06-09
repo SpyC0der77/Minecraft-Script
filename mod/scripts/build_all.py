@@ -19,7 +19,24 @@ def load_manifest() -> dict:
 
 
 def run_build(profile: str, loader: str, skip_tests: bool) -> int:
-    command = [str(GRADLEW), f":{loader}:build", f"-Pmcs_profile={profile}"]
+    apply = [
+        sys.executable,
+        str(MOD_ROOT / "scripts" / "apply_version.py"),
+        profile,
+        "--loader",
+        loader,
+    ]
+    print(f"\n==> {' '.join(apply)}", flush=True)
+    apply_code = subprocess.run(apply, cwd=MOD_ROOT, check=False).returncode
+    if apply_code != 0:
+        return apply_code
+
+    command = [
+        str(GRADLEW),
+        f":{loader}:build",
+        f"-Pmcs_profile={profile}",
+        f"-Penabled_platforms={loader}",
+    ]
     if skip_tests:
         command.append("-x")
         command.append("test")

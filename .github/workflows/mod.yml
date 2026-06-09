@@ -5,10 +5,12 @@ on:
     paths:
       - 'mod/**'
       - 'minecraft_script/versions/**'
+      - '.github/workflows/mod.yml'
   pull_request:
     paths:
       - 'mod/**'
       - 'minecraft_script/versions/**'
+      - '.github/workflows/mod.yml'
 
 jobs:
   build-matrix:
@@ -29,7 +31,7 @@ jobs:
         working-directory: mod/scripts
         run: bun install --frozen-lockfile
       - name: Apply version profile
-        run: python mod/scripts/apply_version.py ${{ matrix.profile }}
+        run: python mod/scripts/apply_version.py ${{ matrix.profile }} --loader ${{ matrix.loader }}
       - name: Build ${{ matrix.loader }} for ${{ matrix.profile }}
         working-directory: mod
-        run: ./gradlew :${{ matrix.loader }}:build -Pmcs_profile=${{ matrix.profile }} -x test
+        run: ./gradlew :${{ matrix.loader }}:build -Pmcs_profile=${{ matrix.profile }} -Penabled_platforms=${{ matrix.loader }} -x test

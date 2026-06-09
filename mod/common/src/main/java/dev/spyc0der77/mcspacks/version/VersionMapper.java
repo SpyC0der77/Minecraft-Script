@@ -2,7 +2,6 @@ package dev.spyc0der77.mcspacks.version;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import dev.architectury.platform.Platform;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +32,7 @@ public final class VersionMapper {
     public String resolveMcsProfile(String gameVersion, String configuredVersion) {
         String version = configuredVersion;
         if (version == null || version.isBlank() || "auto".equalsIgnoreCase(version)) {
-            version = Platform.getMinecraftVersion();
+            version = gameVersion;
         }
         if (profiles.containsKey(version)) {
             return profiles.get(version);

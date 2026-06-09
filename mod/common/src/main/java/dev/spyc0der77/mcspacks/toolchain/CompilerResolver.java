@@ -143,7 +143,7 @@ public final class CompilerResolver {
         if (!needsCmdQuoting(arg)) {
             return arg;
         }
-        return "\"" + arg.replace("\"", "\\\"") + "\"";
+        return "\"" + arg.replace("\"", "\\\"").replace("%", "%%") + "\"";
     }
 
     private static boolean needsCmdQuoting(String arg) {
