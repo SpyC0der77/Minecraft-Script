@@ -13,6 +13,11 @@ build/
 dist/
 *.egg-info/
 build_test/
+mod/.gradle/
+mod/build/
+mod/out/
+mod/run/
+mod/scripts/node_modules/
 highlighter/node_modules/
 highlighter/dist/
 highlighter/*.vsix

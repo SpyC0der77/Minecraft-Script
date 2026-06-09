@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/SpyC0der77/Minecraft-Script/issues"
+
+[[mods]]
+modId = "mcs_packs"
+version = "${mod_version}"
+displayName = "MCS Packs"
+description = "Compile and hot-reload Minecraft Script datapacks from mcs_packs/"
+authors = "SpyC0der77"
+
+[[dependencies.mcs_packs]]
+modId = "forge"
+mandatory = true
+versionRange = "[${minecraft_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mcs_packs]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[${minecraft_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mcs_packs]]
+modId = "architectury"
+mandatory = true
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"

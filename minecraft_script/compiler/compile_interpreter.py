@@ -493,7 +493,9 @@ class CompileInterpreter:
             self.schedule_function_generation(fnc)
         commands, return_value = fnc.call(self, arguments, context)
         if is_builtin:
-            self.used_builtin_functions.add(fnc.call.__name__)
+            builtin_name = fnc.call.__name__
+            if builtin_name != "log" or self.version.orchestration.get("mcs_features", {}).get("log", {}).get("style") != "direct_tellraw":
+                self.used_builtin_functions.add(builtin_name)
         if commands is not None:
             commands = add_comment(tuple(commands), "Function call")
             self.add_commands(context.mcfunction_name, commands)

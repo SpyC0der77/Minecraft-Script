@@ -1,0 +1,31 @@
+name: Mod
+
+on:
+  push:
+    paths:
+      - 'mod/**'
+      - 'minecraft_script/versions/**'
+  pull_request:
+    paths:
+      - 'mod/**'
+      - 'minecraft_script/versions/**'
+
+jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [1.21.2, 1.21.4, 1.21.5, 1.21.6, 1.21.7-8, 1.21.9-10, 1.21.11, 26.1]
+        loader: [fabric, forge, neoforge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Apply version profile
+        run: python mod/scripts/apply_version.py ${{ matrix.profile }}
+      - name: Build ${{ matrix.loader }} for ${{ matrix.profile }}
+        working-directory: mod
+        run: ./gradlew :${{ matrix.loader }}:build -Pmcs_profile=${{ matrix.profile }} -x test

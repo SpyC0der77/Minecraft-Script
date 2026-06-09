@@ -1,13 +1,54 @@
 import json
+import shutil
 import sys
 
 from . import debug_code
 from .compiler import build_datapack
 from .common import COMMON_CONFIG, version
-from .config_utils import update_config, reset_config
+from .config_utils import config_minecraft_version_check, temporary_config, update_config, reset_config
 from .lint import lint_code
 from .version_config import breaking_changes_between
 from pathlib import Path
+
+
+def _parse_flag_args(
+    args: list,
+    *,
+    boolean_flags: set[str],
+    value_flags: set[str],
+) -> tuple[dict[str, str | bool], list[str]]:
+    parsed: dict[str, str | bool] = {}
+    positional: list[str] = []
+    supported_flags = boolean_flags | value_flags
+    index = 0
+    while index < len(args):
+        arg = args[index]
+        if arg.startswith("--") and "=" in arg:
+            flag, value = arg.split("=", 1)
+            if flag in value_flags:
+                parsed[flag] = value
+                index += 1
+                continue
+        if arg in boolean_flags:
+            parsed[arg] = True
+            index += 1
+            continue
+        if arg in value_flags:
+            next_arg = args[index + 1] if index + 1 < len(args) else None
+            if next_arg is None or next_arg.startswith("--"):
+                print(f"Error: {arg} requires a value.")
+                exit(-1)
+            parsed[arg] = next_arg
+            index += 2
+            continue
+        if arg.startswith("--"):
+            if arg not in supported_flags:
+                positional.append(arg)
+            index += 1
+            continue
+        positional.append(arg)
+        index += 1
+    return parsed, positional
 
 
 def handle_arguments(arguments: list):
@@ -31,10 +72,10 @@ sh_help_message = """
     
 - debug <path>: debug the minecraft script file found at the given path.
     
-- compile <path> [<datapack name>] [<output path>]: compile the associated
-mcs file into a datapack. The resulting datapack folder will be named after
-the mcs file, unless a datapack name is specified. The output path argument
-specifies where the datapack should be generated (default to current path).
+- compile [--mc-version <version>] [--force] [--verbose|--no-verbose] <path>
+[<datapack name>] [<output path>]: compile the associated mcs file into a
+datapack. --mc-version selects the Minecraft version profile without changing
+config.json. --force deletes an existing output datapack folder before building.
 
 - lint <path> [--json]: validate MCS syntax and imports for the given file.
 Use --stdin to read code from standard input and pass --source <path> so
@@ -79,29 +120,35 @@ def sh_debug(*args) -> None:
 
 
 def sh_compile(*args) -> None:
-    # Manage args & parameters:
-    arg_count = len(args)
-    if arg_count < 1:
+    flags, positional = _parse_flag_args(
+        list(args),
+        boolean_flags={"--force", "--verbose", "--no-verbose"},
+        value_flags={"--mc-version"},
+    )
+    if len(positional) < 1:
         print("No path specified to compile.")
         exit()
 
-    source_path = Path(args[0]).resolve()
+    source_path = Path(positional[0]).resolve()
     datapack_name: str = (
         "-".join(source_path.name.split(".")[:-1]).replace("_", " ").title()
-        if arg_count < 2 else
-        args[1]
+        if len(positional) < 2 else
+        positional[1]
     )
     output_path = (
         Path(COMMON_CONFIG["default_output_path"]).resolve()
-        if arg_count < 3 else
-        Path(args[2]).expanduser().resolve()
+        if len(positional) < 3 else
+        Path(positional[2]).expanduser().resolve()
     )
 
     verbose = COMMON_CONFIG["verbose"]
+    if "--verbose" in flags:
+        verbose = True
+    if "--no-verbose" in flags:
+        verbose = False
 
-    # Check if given paths are valid:
     if not source_path.is_file():
-        print(f"Error: Could not find file at {args[0] !r}")
+        print(f"Error: Could not find file at {positional[0] !r}")
         exit(-1)
 
     if output_path.exists() and not output_path.is_dir():
@@ -110,11 +157,27 @@ def sh_compile(*args) -> None:
 
     output_path.mkdir(parents=True, exist_ok=True)
 
-    # Build datapack
+    datapack_folder = output_path / datapack_name
+    if "--force" in flags and datapack_folder.exists():
+        shutil.rmtree(datapack_folder)
+
+    overrides: dict[str, object] = {}
+    if "--mc-version" in flags:
+        mc_version = flags["--mc-version"]
+        if not isinstance(mc_version, str) or mc_version is True:
+            print("Error: --mc-version requires a value.")
+            exit(-1)
+        overrides["minecraft_version"] = config_minecraft_version_check(mc_version, "minecraft_version")
+    if "--verbose" in flags:
+        overrides["verbose"] = True
+    if "--no-verbose" in flags:
+        overrides["verbose"] = False
+
     with open(source_path, 'rt', encoding='utf-8') as mcs_file:
         code = mcs_file.read()
 
-    build_datapack(code, datapack_name, str(output_path), verbose, source_path=source_path)
+    with temporary_config(**overrides):
+        build_datapack(code, datapack_name, str(output_path), verbose, source_path=source_path)
 
 
 def sh_config(*args) -> None:

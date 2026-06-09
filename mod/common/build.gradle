@@ -1,0 +1,32 @@
+architectury {
+    common rootProject.enabled_platforms.split(',')
+}
+
+dependencies {
+    modImplementation "dev.architectury:architectury:${rootProject.architectury_api_version}"
+    implementation 'com.google.code.gson:gson:2.11.0'
+}
+
+processResources {
+    inputs.property 'mod_version', project.version
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+    inputs.property 'mcs_profile', rootProject.mcsProfileName
+    inputs.property 'mcs_minecraft_profile', rootProject.mcsMinecraftProfile
+    inputs.property 'supported_game_versions', rootProject.supportedGameVersions
+
+    filesMatching('fabric.mod.json') {
+        expand 'mod_version': project.version,
+                'minecraft_version': rootProject.minecraft_version,
+                'supported_game_versions': rootProject.supportedGameVersions
+    }
+    filesMatching('META-INF/mods.toml') {
+        expand 'mod_version': project.version,
+                'minecraft_version': rootProject.minecraft_version,
+                'supported_game_versions': rootProject.supportedGameVersions
+    }
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'mod_version': project.version,
+                'minecraft_version': rootProject.minecraft_version,
+                'supported_game_versions': rootProject.supportedGameVersions
+    }
+}

@@ -1,0 +1,66 @@
+import groovy.json.JsonSlurper
+
+plugins {
+    id 'dev.architectury.loom' version "${architectury_loom_version}" apply false
+    id 'architectury-plugin' version "${architectury_plugin_version}"
+    id 'maven-publish'
+}
+
+def manifest = new JsonSlurper().parse(file('versions/manifest.json'))
+def activeProfileName = findProperty('mcs_profile') ?: '1.21.11'
+def activeProfile = manifest.profiles[activeProfileName]
+if (activeProfile == null) {
+    throw new GradleException("Unknown mcs_profile '${activeProfileName}'. See versions/manifest.json")
+}
+
+ext {
+    mcsProfileName = activeProfileName
+    mcsMinecraftProfile = activeProfile.mcs_profile
+    supportedGameVersions = (activeProfile.supported_game_versions as List).join(',')
+}
+
+allprojects {
+    group = rootProject.maven_group
+    version = rootProject.mod_version
+}
+
+subprojects {
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        mavenCentral()
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.architectury.dev/' }
+        maven { url = 'https://files.minecraftforge.net/maven/' }
+        maven { url = 'https://maven.neoforged.net/releases' }
+    }
+
+    base {
+        archivesName = "${rootProject.archives_base_name}-${rootProject.mcsProfileName}-${project.name}"
+    }
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    dependencies {
+        minecraft "net.minecraft:minecraft:${rootProject.minecraft_version}"
+        mappings loom.officialMojangMappings()
+    }
+
+    java {
+        withSourcesJar()
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = 21
+    }
+}
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}

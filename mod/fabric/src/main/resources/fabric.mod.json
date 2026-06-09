@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "mcs_packs",
+  "version": "${mod_version}",
+  "name": "MCS Packs",
+  "description": "Compile and hot-reload Minecraft Script datapacks from mcs_packs/",
+  "authors": ["SpyC0der77"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.spyc0der77.mcspacks.fabric.McsPacksFabric"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "${minecraft_version}",
+    "java": ">=21",
+    "architectury": "*",
+    "fabric-api": "*"
+  }
+}

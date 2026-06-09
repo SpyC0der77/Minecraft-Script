@@ -1,8 +1,21 @@
 import json
+from contextlib import contextmanager
 from pathlib import Path
 
 from .common import COMMON_CONFIG, module_folder
 from .version_config import list_supported_versions, load_version_profile
+
+
+@contextmanager
+def temporary_config(**overrides):
+    saved = {key: COMMON_CONFIG[key] for key in overrides}
+    try:
+        for key, value in overrides.items():
+            COMMON_CONFIG[key] = value
+        yield
+    finally:
+        for key, value in saved.items():
+            COMMON_CONFIG[key] = value
 
 
 def _write_config() -> None:

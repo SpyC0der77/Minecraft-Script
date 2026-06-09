@@ -1,0 +1,31 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.architectury.dev/' }
+        maven { url = 'https://files.minecraftforge.net/maven/' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'mcs-packs'
+
+def properties = new Properties()
+def propertiesFile = file('gradle.properties')
+if (propertiesFile.exists()) {
+    propertiesFile.withInputStream { properties.load(it) }
+}
+def enabledPlatforms = (properties.getProperty('enabled_platforms', 'fabric') ?: 'fabric')
+        .split(',')
+        .collect { it.trim() }
+        .findAll { !it.isEmpty() }
+
+include 'common'
+if (enabledPlatforms.contains('fabric')) {
+    include 'fabric'
+}
+if (enabledPlatforms.contains('forge')) {
+    include 'forge'
+}
+if (enabledPlatforms.contains('neoforge')) {
+    include 'neoforge'
+}

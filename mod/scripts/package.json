@@ -1,0 +1,10 @@
+{
+  "name": "mcs-mod-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@spyglassmc/core": "^0.4.47",
+    "@spyglassmc/java-edition": "^0.3.60",
+    "@spyglassmc/mcdoc": "^0.3.51"
+  }
+}
