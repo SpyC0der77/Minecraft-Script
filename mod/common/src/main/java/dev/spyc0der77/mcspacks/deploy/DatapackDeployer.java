@@ -8,7 +8,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.level.storage.LevelResource;
 
 public final class DatapackDeployer {
@@ -27,7 +26,7 @@ public final class DatapackDeployer {
 
     public static void reload(MinecraftServer server) {
         server.submit(() -> server.getCommands().performPrefixedCommand(
-                server.createCommandSourceStack().withPermission(PermissionSet.ALL_PERMISSIONS),
+                CommandSources.withAllPermissions(server.createCommandSourceStack()),
                 "reload"
         ));
     }

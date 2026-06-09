@@ -1,3 +1,23 @@
+def usesPermissionSetApi = {
+    def version = rootProject.minecraft_version
+    if (version ==~ /2[6-9]\..+/) {
+        return true
+    }
+    def match = (version =~ /^1\.21\.(\d+)/)
+    if (match.matches()) {
+        return match[0][1].toInteger() >= 11
+    }
+    return false
+}()
+
+sourceSets {
+    main {
+        java {
+            srcDir usesPermissionSetApi ? 'src/modern/java' : 'src/legacy/java'
+        }
+    }
+}
+
 architectury {
     common rootProject.enabled_platforms.split(',')
 }
