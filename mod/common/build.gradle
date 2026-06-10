@@ -68,7 +68,7 @@ tasks.register('bundleSpyglassScript') {
             if (bunAvailable) {
                 commandLine 'bun', 'run', 'bundle:spyglass'
             } else {
-                commandLine 'npx', '--no-install', 'esbuild', 'mcs-spyglass-validate.mjs',
+                commandLine 'npx', '--yes', 'esbuild@0.25.5', 'mcs-spyglass-validate.mjs',
                         '--bundle', '--platform=node', '--format=cjs', '--packages=bundle',
                         "--outfile=${spyglassBundledScript.get().asFile}",
                         '--banner:js=#!/usr/bin/env node'

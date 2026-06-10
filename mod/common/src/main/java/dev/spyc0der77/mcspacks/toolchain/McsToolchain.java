@@ -127,13 +127,10 @@ public final class McsToolchain {
         }
         if (Files.isDirectory(path)) {
             try (var stream = Files.list(path)) {
-                stream.forEach(child -> {
-                    try {
-                        deleteRecursive(child);
-                    } catch (IOException error) {
-                        throw new RuntimeException(error);
-                    }
-                });
+                var iterator = stream.iterator();
+                while (iterator.hasNext()) {
+                    deleteRecursive(iterator.next());
+                }
             }
         }
         Files.deleteIfExists(path);

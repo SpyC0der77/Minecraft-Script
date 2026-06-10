@@ -57,17 +57,13 @@ def nextMinecraftVersion = {
     return version
 }()
 
-def nextNeoForgeVersion = {
-    def version = rootProject.neoforge_version
-    def match = (version =~ /^(\d+)\./)
-    return match.matches() ? "${match[0][1].toInteger() + 1}.0.0-beta" : version
-}()
+def nextMajorVersion = { String version, String suffix = '' ->
+    def major = version.tokenize('.')[0]
+    major.isInteger() ? "${major.toInteger() + 1}${suffix}" : version
+}
 
-def nextArchitecturyVersion = {
-    def version = rootProject.architectury_api_version
-    def match = (version =~ /^(\d+)\./)
-    return match.matches() ? "${match[0][1].toInteger() + 1}.0.0" : version
-}()
+def nextNeoForgeVersion = nextMajorVersion(rootProject.neoforge_version, '.0.0-beta')
+def nextArchitecturyVersion = nextMajorVersion(rootProject.architectury_api_version, '.0.0')
 
 processResources {
     inputs.property 'mod_version', project.version

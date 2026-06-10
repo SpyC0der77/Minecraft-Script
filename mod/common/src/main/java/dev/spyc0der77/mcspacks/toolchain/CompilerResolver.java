@@ -117,7 +117,6 @@ public final class CompilerResolver {
             candidates.add(Path.of("C:\\Python" + version + "\\python.exe"));
             if (localAppData != null) {
                 candidates.add(Path.of(localAppData, "Programs", "Python", "Python" + version, "python.exe"));
-                candidates.add(Path.of(localAppData, "Microsoft", "WindowsApps", "python.exe"));
             }
             if (programFiles != null) {
                 candidates.add(Path.of(programFiles, "Python" + version, "python.exe"));

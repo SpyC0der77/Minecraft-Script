@@ -22,10 +22,6 @@ for %%P in (313 312 311 310) do (
         exit /b !ERRORLEVEL!
     )
 )
-if exist "%LOCALAPPDATA%\Microsoft\WindowsApps\python.exe" (
-    call :run_python "%LOCALAPPDATA%\Microsoft\WindowsApps\python.exe" %*
-    exit /b !ERRORLEVEL!
-)
 where python >nul 2>&1 && (
     call :run_python python %*
     exit /b !ERRORLEVEL!

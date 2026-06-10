@@ -10,12 +10,15 @@ if [ -n "$PYTHON" ] && [ -x "$PYTHON" ]; then
 fi
 
 for version in 313 312 311 310; do
+  dotted_version="${version%??}.${version#?}"
   for candidate in \
     "/c/Python${version}/python.exe" \
     "$LOCALAPPDATA/Programs/Python/Python${version}/python.exe" \
     "$PROGRAMFILES/Python${version}/python.exe" \
-    "/usr/local/bin/python${version}" \
-    "/usr/bin/python${version}"; do
+    "/usr/local/bin/python${dotted_version}" \
+    "/usr/bin/python${dotted_version}" \
+    "/usr/local/bin/python3.${version#?}" \
+    "/usr/bin/python3.${version#?}"; do
     if [ -x "$candidate" ]; then
       exec "$candidate" -m minecraft_script "$@"
     fi

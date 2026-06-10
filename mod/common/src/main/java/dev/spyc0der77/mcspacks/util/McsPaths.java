@@ -45,8 +45,8 @@ public final class McsPaths {
             }
             Files.copy(stream, wrapper, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         }
-        if (!windows) {
-            wrapper.toFile().setExecutable(true, false);
+        if (!windows && !wrapper.toFile().setExecutable(true, false)) {
+            throw new IOException("Failed to mark MCS compiler wrapper as executable: " + wrapper);
         }
         return wrapper;
     }
