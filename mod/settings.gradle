@@ -9,26 +9,20 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        maven { url = "https://maven.fabricmc.net/" }
-        maven { url = "https://maven.minecraftforge.net/" }
-        maven { url = "https://maven.neoforged.net/releases/" }
-        maven { url = "https://maven.architectury.dev/" }
-        mavenCentral()
-    }
-}
-
 rootProject.name = "minecraft-script-mod"
 
 include(":common")
 
-def versions = ["1.21.2", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11"]
+def versionsIndex = new groovy.json.JsonSlurper().parse(file("../minecraft_script/versions/index.json"))
+def versions = versionsIndex.supported.findAll { it != "26.1" }
 def loaders = ["fabric", "forge", "neoforge"]
+def unsupportedForgeVersions = ["1.21.2"]
 
 versions.each { mcVersion ->
     loaders.each { loader ->
+        if (loader == "forge" && unsupportedForgeVersions.contains(mcVersion)) {
+            return
+        }
         def versionPath = mcVersion.replace(".", "_")
         include(":versions:mc_${versionPath}:${loader}")
         project(":versions:mc_${versionPath}:${loader}").projectDir = file("versions/mc_${versionPath}/${loader}")

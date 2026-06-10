@@ -19,3 +19,5 @@ highlighter/*.vsix
 npm/node_modules/
 npm/*.tgz
 mod/.gradle/
+mod/build/
+mod/**/build/
