@@ -44,26 +44,38 @@ remapJar {
     archiveClassifier = null
 }
 
-def nextMinecraftVersion = {
-    def version = rootProject.minecraft_version
-    def modern = (version =~ /^2[6-9]\.(\d+)$/)
-    if (modern.matches()) {
-        return "${modern[0][0].split('\\.')[0]}.${modern[0][1].toInteger() + 1}"
-    }
-    def release = (version =~ /^(\d+)\.(\d+)\.(\d+)$/)
-    if (release.matches()) {
-        return "${release[0][1]}.${release[0][2]}.${release[0][3].toInteger() + 1}"
-    }
-    return version
-}()
-
-def nextMajorVersion = { String version, String suffix = '' ->
-    def major = version.tokenize('.')[0]
-    major.isInteger() ? "${major.toInteger() + 1}${suffix}" : version
+def stripPreReleaseSuffix = { String version ->
+    version.replaceFirst(/-(?:beta|alpha|rc\d*|snapshot|pre).*$/, '')
 }
 
-def nextNeoForgeVersion = nextMajorVersion(rootProject.neoforge_version, '.0.0-beta')
-def nextArchitecturyVersion = nextMajorVersion(rootProject.architectury_api_version, '.0.0')
+def warnVersionFallback = { String name, String version, String reason ->
+    logger.warn("Using fallback upper bound for ${name} '${version}': ${reason}")
+    version
+}
+
+def nextMinecraftVersion = {
+    def version = stripPreReleaseSuffix(rootProject.minecraft_version)
+    def parts = version.tokenize('.')
+    if (parts.size() == 2 && parts[0].isInteger() && parts[1].isInteger() && parts[0].toInteger() >= 26) {
+        return "${parts[0]}.${parts[1].toInteger() + 1}"
+    }
+    if (parts.size() == 3 && parts.every { it.isInteger() }) {
+        return "${parts[0]}.${parts[1]}.${parts[2].toInteger() + 1}"
+    }
+    warnVersionFallback('minecraft_version', rootProject.minecraft_version, "unrecognized format after normalization '${version}'")
+}()
+
+def nextMajorVersion = { String version, String suffix = '', String name = 'version' ->
+    def normalized = stripPreReleaseSuffix(version)
+    def major = normalized.tokenize('.')[0]
+    if (major.isInteger()) {
+        return "${major.toInteger() + 1}${suffix}"
+    }
+    warnVersionFallback(name, version, "unrecognized major component '${major}'")
+}
+
+def nextNeoForgeVersion = nextMajorVersion(rootProject.neoforge_version, '.0.0-beta', 'neoforge_version')
+def nextArchitecturyVersion = nextMajorVersion(rootProject.architectury_api_version, '.0.0', 'architectury_api_version')
 
 processResources {
     inputs.property 'mod_version', project.version
