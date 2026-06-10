@@ -1,0 +1,10 @@
+def requestedTasks = gradle.startParameter.taskNames
+def isMatrixProjectRequested = requestedTasks.any { taskName ->
+    taskName == project.path ||
+            taskName.startsWith("${project.path}:") ||
+            taskName.contains(project.path)
+}
+
+if (isMatrixProjectRequested) {
+    apply from: rootProject.file("loader.gradle")
+}

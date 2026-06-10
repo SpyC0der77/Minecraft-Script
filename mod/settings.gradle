@@ -1,0 +1,30 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url = "https://maven.architectury.dev/" }
+        maven { url = "https://maven.fabricmc.net/" }
+        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://maven.neoforged.net/releases/" }
+        mavenCentral()
+    }
+}
+
+rootProject.name = "minecraft-script-mod"
+
+include(":common")
+
+def versionsIndex = new groovy.json.JsonSlurper().parse(file("../minecraft_script/versions/index.json"))
+def versions = versionsIndex.supported.findAll { it != "26.1" }
+def loaders = ["fabric", "forge", "neoforge"]
+def unsupportedForgeVersions = ["1.21.2"]
+
+versions.each { mcVersion ->
+    loaders.each { loader ->
+        if (loader == "forge" && unsupportedForgeVersions.contains(mcVersion)) {
+            return
+        }
+        def versionPath = mcVersion.replace(".", "_")
+        include(":versions:mc_${versionPath}:${loader}")
+        project(":versions:mc_${versionPath}:${loader}").projectDir = file("versions/mc_${versionPath}/${loader}")
+    }
+}

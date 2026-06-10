@@ -1,0 +1,3 @@
+ext.minecraftVersion = "1.21.11"
+ext.loader = "forge"
+apply from: rootProject.file("matrix-project.gradle")

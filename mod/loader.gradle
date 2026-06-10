@@ -1,0 +1,118 @@
+apply plugin: "dev.architectury.loom"
+
+def minecraftVersion = project.ext.minecraftVersion
+def loader = project.ext.loader
+def platformJavaSuffix = "mc_legacy"
+if (minecraftVersion == "1.21.11") {
+    platformJavaSuffix = "mc_1_21_11"
+} else if (minecraftVersion == "1.21.9" || minecraftVersion == "1.21.10") {
+    platformJavaSuffix = "mc_1_21_9"
+}
+def forgeJavaSuffix = (minecraftVersion == "1.21.4" || minecraftVersion == "1.21.5") ? "forge_legacy" : "forge_modern"
+def generatedBuildInfoDir = layout.buildDirectory.dir("generated/sources/mcsBuildInfo/java")
+
+sourceSets {
+    main {
+        java {
+            srcDir rootProject.file("common/src/main/java")
+            srcDir rootProject.file("platform/${loader}/src/main/java")
+            srcDir rootProject.file("platform/${loader}/src/${platformJavaSuffix}/java")
+            if (loader == "forge") {
+                srcDir rootProject.file("platform/forge/src/${forgeJavaSuffix}/java")
+            }
+            srcDir generatedBuildInfoDir
+        }
+        resources {
+            srcDir rootProject.file("platform/${loader}/src/main/resources")
+        }
+    }
+}
+
+base {
+    archivesName = "${mod_id}-${loader}-${minecraftVersion}"
+}
+
+loom {
+    silentMojangMappingsLicense()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraftVersion}"
+    mappings loom.officialMojangMappings()
+}
+
+if (loader == "fabric") {
+    dependencies {
+        modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabricApiVersions[minecraftVersion]}"
+    }
+} else if (loader == "forge") {
+    def forgeVersion = rootProject.forgeVersions[minecraftVersion]
+    if (forgeVersion == null) {
+        throw new GradleException("Forge does not publish a ${minecraftVersion} artifact. Remove this matrix project from settings.gradle.")
+    }
+    dependencies {
+        forge "net.minecraftforge:forge:${forgeVersion}"
+    }
+    tasks.named("remapJar") {
+        enabled = false
+    }
+    tasks.named("build") {
+        dependsOn tasks.named("jar")
+    }
+} else if (loader == "neoforge") {
+    dependencies {
+        neoForge "net.neoforged:neoforge:${rootProject.neoForgeVersions[minecraftVersion]}"
+    }
+}
+
+tasks.register("generateMcsBuildInfo") {
+    def outputDir = generatedBuildInfoDir
+    outputs.dir(outputDir)
+    doLast {
+        def packageDir = outputDir.get().asFile.toPath().resolve("dev/spyc0der/minecraftscript")
+        java.nio.file.Files.createDirectories(packageDir)
+        packageDir.resolve("McsBuildInfo.java").toFile().text = """package dev.spyc0der.minecraftscript;
+
+public final class McsBuildInfo {
+    public static final String MINECRAFT_VERSION = "${minecraftVersion}";
+    public static final String LOADER = "${loader}";
+
+    private McsBuildInfo() {
+    }
+}
+"""
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    dependsOn tasks.named("generateMcsBuildInfo")
+}
+
+processResources {
+    inputs.property("mod_id", mod_id)
+    inputs.property("mod_name", mod_name)
+    inputs.property("mod_version", mod_version)
+    inputs.property("mod_description", mod_description)
+    inputs.property("minecraft_version", minecraftVersion)
+    inputs.property("loader", loader)
+
+    filesMatching(["fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml"]) {
+        expand(
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_version: mod_version,
+            mod_description: mod_description,
+            minecraft_version: minecraftVersion,
+            loader: loader,
+        )
+    }
+}
+
+tasks.register("printMatrixContext") {
+    doLast {
+        println("loader=${loader}")
+        println("minecraftVersion=${minecraftVersion}")
+        println("project=${project.path}")
+    }
+}
