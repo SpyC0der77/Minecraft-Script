@@ -2,7 +2,13 @@ apply plugin: "dev.architectury.loom"
 
 def minecraftVersion = project.ext.minecraftVersion
 def loader = project.ext.loader
-def platformJavaSuffix = minecraftVersion == "1.21.11" ? "mc_1_21_11" : "mc_legacy"
+def platformJavaSuffix = "mc_legacy"
+if (minecraftVersion == "1.21.11") {
+    platformJavaSuffix = "mc_1_21_11"
+} else if (minecraftVersion == "1.21.9" || minecraftVersion == "1.21.10") {
+    platformJavaSuffix = "mc_1_21_9"
+}
+def forgeJavaSuffix = (minecraftVersion == "1.21.4" || minecraftVersion == "1.21.5") ? "forge_legacy" : "forge_modern"
 def generatedBuildInfoDir = layout.buildDirectory.dir("generated/sources/mcsBuildInfo/java")
 
 sourceSets {
@@ -11,6 +17,9 @@ sourceSets {
             srcDir rootProject.file("common/src/main/java")
             srcDir rootProject.file("platform/${loader}/src/main/java")
             srcDir rootProject.file("platform/${loader}/src/${platformJavaSuffix}/java")
+            if (loader == "forge") {
+                srcDir rootProject.file("platform/forge/src/${forgeJavaSuffix}/java")
+            }
             srcDir generatedBuildInfoDir
         }
         resources {
