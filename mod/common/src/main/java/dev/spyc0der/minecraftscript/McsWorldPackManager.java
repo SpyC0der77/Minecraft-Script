@@ -70,6 +70,10 @@ public final class McsWorldPackManager {
         return changed;
     }
 
+    public void notifyPackChangePending(Path packFolder) {
+        report("Detected changes in " + packFolder.getFileName() + ", recompiling...");
+    }
+
     public boolean refreshPack(Path packFolder) {
         Path packFile = packFolder.resolve(McsPaths.PACK_FILE);
         if (Files.isRegularFile(packFile)) {

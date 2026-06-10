@@ -13,9 +13,11 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -23,16 +25,25 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class McsPackWatcher implements Closeable {
-    private static final long COMPILE_DEBOUNCE_MILLIS = 750;
-    private static final long RELOAD_DEBOUNCE_MILLIS = 250;
+    private static final long PACK_SETTLE_MILLIS = 150;
+    private static final long PACK_MAX_WAIT_MILLIS = 400;
+    private static final long RELOAD_SETTLE_MILLIS = 75;
+    private static final long MTIME_POLL_INTERVAL_MILLIS = 200;
 
     private final McsWorldPackManager packManager;
     private final McsServerAccess serverAccess;
     private final WatchService watchService;
     private final Map<WatchKey, Path> keys = new ConcurrentHashMap<>();
     private final Map<Path, ScheduledFuture<?>> pendingCompiles = new ConcurrentHashMap<>();
-    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(runnable -> {
-        Thread thread = new Thread(runnable, "mcs-pack-watcher-worker");
+    private final Map<Path, Long> firstChangeAt = new ConcurrentHashMap<>();
+    private final Map<Path, Long> lastSeenMtime = new ConcurrentHashMap<>();
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
+        Thread thread = new Thread(runnable, "mcs-pack-watcher-scheduler");
+        thread.setDaemon(true);
+        return thread;
+    });
+    private final ExecutorService compileExecutor = Executors.newSingleThreadExecutor(runnable -> {
+        Thread thread = new Thread(runnable, "mcs-pack-watcher-compiler");
         thread.setDaemon(true);
         return thread;
     });
@@ -45,12 +56,27 @@ public final class McsPackWatcher implements Closeable {
         this.serverAccess = serverAccess;
         this.watchService = packManager.mcsRoot().getFileSystem().newWatchService();
         registerRecursively(packManager.mcsRoot());
+        seedPackMtines();
+        scheduler.scheduleAtFixedRate(
+                this::pollPackMtines,
+                MTIME_POLL_INTERVAL_MILLIS,
+                MTIME_POLL_INTERVAL_MILLIS,
+                TimeUnit.MILLISECONDS
+        );
         this.watcherThread = new Thread(this::watchLoop, "mcs-pack-watcher");
         this.watcherThread.setDaemon(true);
     }
 
     public void start() {
         watcherThread.start();
+    }
+
+    static long computeCompileDelayMillis(long firstChangeAtMillis, long nowMillis) {
+        long elapsed = nowMillis - firstChangeAtMillis;
+        if (elapsed >= PACK_MAX_WAIT_MILLIS) {
+            return 0;
+        }
+        return Math.min(PACK_SETTLE_MILLIS, PACK_MAX_WAIT_MILLIS - elapsed);
     }
 
     private void watchLoop() {
@@ -78,6 +104,10 @@ public final class McsPackWatcher implements Closeable {
                 }
 
                 Path changed = directory.resolve((Path) event.context());
+                if (shouldIgnoreChange(changed)) {
+                    continue;
+                }
+
                 if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE && Files.isDirectory(changed)) {
                     try {
                         registerRecursively(changed);
@@ -97,26 +127,33 @@ public final class McsPackWatcher implements Closeable {
     }
 
     private void scheduleFullScan() {
-        executor.schedule(() -> {
+        scheduler.schedule(() -> compileExecutor.execute(() -> {
             if (packManager.compileAll()) {
                 scheduleReload();
             }
-        }, COMPILE_DEBOUNCE_MILLIS, TimeUnit.MILLISECONDS);
+        }), PACK_SETTLE_MILLIS, TimeUnit.MILLISECONDS);
     }
 
     private void schedulePackRefresh(Path packFolder) {
         Path normalized = packFolder.toAbsolutePath().normalize();
+        long now = System.currentTimeMillis();
+        if (firstChangeAt.putIfAbsent(normalized, now) == null) {
+            packManager.notifyPackChangePending(packFolder);
+        }
+
         ScheduledFuture<?> existing = pendingCompiles.remove(normalized);
         if (existing != null) {
             existing.cancel(false);
         }
 
-        ScheduledFuture<?> future = executor.schedule(() -> {
+        long delay = computeCompileDelayMillis(firstChangeAt.get(normalized), now);
+        ScheduledFuture<?> future = scheduler.schedule(() -> compileExecutor.execute(() -> {
             pendingCompiles.remove(normalized);
+            firstChangeAt.remove(normalized);
             if (packManager.refreshPack(normalized)) {
                 scheduleReload();
             }
-        }, COMPILE_DEBOUNCE_MILLIS, TimeUnit.MILLISECONDS);
+        }), delay, TimeUnit.MILLISECONDS);
         pendingCompiles.put(normalized, future);
     }
 
@@ -124,10 +161,63 @@ public final class McsPackWatcher implements Closeable {
         if (!reloadPending.compareAndSet(false, true)) {
             return;
         }
-        executor.schedule(() -> {
+        scheduler.schedule(() -> {
             reloadPending.set(false);
             serverAccess.executeReload();
-        }, RELOAD_DEBOUNCE_MILLIS, TimeUnit.MILLISECONDS);
+        }, RELOAD_SETTLE_MILLIS, TimeUnit.MILLISECONDS);
+    }
+
+    private void seedPackMtines() {
+        try {
+            for (Path packFolder : packManager.discoverPackFolders()) {
+                rememberPackMtime(packFolder);
+            }
+        } catch (IOException error) {
+            System.out.println("[Minecraft Script] Could not seed pack mtimes: " + error.getMessage());
+        }
+    }
+
+    private void pollPackMtines() {
+        if (!running) {
+            return;
+        }
+        try {
+            List<Path> packFolders = packManager.discoverPackFolders();
+            for (Path packFolder : packFolders) {
+                Path packFile = packFolder.resolve(McsPaths.PACK_FILE);
+                if (!Files.isRegularFile(packFile)) {
+                    continue;
+                }
+                long mtime = Files.getLastModifiedTime(packFile).toMillis();
+                Path normalized = packFolder.toAbsolutePath().normalize();
+                Long previous = lastSeenMtime.get(normalized);
+                if (previous != null && mtime > previous) {
+                    lastSeenMtime.put(normalized, mtime);
+                    schedulePackRefresh(packFolder);
+                    continue;
+                }
+                lastSeenMtime.put(normalized, mtime);
+            }
+        } catch (IOException error) {
+            System.out.println("[Minecraft Script] Could not poll pack mtimes: " + error.getMessage());
+        }
+    }
+
+    private void rememberPackMtime(Path packFolder) throws IOException {
+        Path packFile = packFolder.resolve(McsPaths.PACK_FILE);
+        if (!Files.isRegularFile(packFile)) {
+            return;
+        }
+        Path normalized = packFolder.toAbsolutePath().normalize();
+        lastSeenMtime.put(normalized, Files.getLastModifiedTime(packFile).toMillis());
+    }
+
+    private static boolean shouldIgnoreChange(Path changed) {
+        String fileName = changed.getFileName().toString();
+        return fileName.endsWith("~")
+                || fileName.endsWith(".swp")
+                || fileName.endsWith(".tmp")
+                || fileName.startsWith(".#");
     }
 
     private void registerRecursively(Path root) throws IOException {
@@ -155,7 +245,8 @@ public final class McsPackWatcher implements Closeable {
         for (ScheduledFuture<?> future : new HashMap<>(pendingCompiles).values()) {
             future.cancel(false);
         }
-        executor.shutdownNow();
+        scheduler.shutdownNow();
+        compileExecutor.shutdownNow();
         watchService.close();
     }
 }
