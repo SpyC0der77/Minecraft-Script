@@ -48,9 +48,9 @@ def stripPreReleaseSuffix = { String version ->
     version.replaceFirst(/-(?:beta|alpha|rc\d*|snapshot|pre).*$/, '')
 }
 
-def warnVersionFallback = { String name, String version, String reason ->
-    logger.warn("Using fallback upper bound for ${name} '${version}': ${reason}")
-    version
+def warnVersionFallback = { String name, String version, String reason, String safeUpper ->
+    logger.warn("Using fallback upper bound for ${name} '${version}': ${reason}. Using '${safeUpper}'")
+    safeUpper
 }
 
 def nextMinecraftVersion = {
@@ -62,20 +62,20 @@ def nextMinecraftVersion = {
     if (parts.size() == 3 && parts.every { it.isInteger() }) {
         return "${parts[0]}.${parts[1]}.${parts[2].toInteger() + 1}"
     }
-    warnVersionFallback('minecraft_version', rootProject.minecraft_version, "unrecognized format after normalization '${version}'")
+    warnVersionFallback('minecraft_version', rootProject.minecraft_version, "unrecognized format after normalization '${version}'", '99.99.99')
 }()
 
-def nextMajorVersion = { String version, String suffix = '', String name = 'version' ->
+def nextMajorVersion = { String version, String suffix = '', String name = 'version', String safeUpper = '99.0.0' ->
     def normalized = stripPreReleaseSuffix(version)
     def major = normalized.tokenize('.')[0]
     if (major.isInteger()) {
         return "${major.toInteger() + 1}${suffix}"
     }
-    warnVersionFallback(name, version, "unrecognized major component '${major}'")
+    warnVersionFallback(name, version, "unrecognized major component '${major}'", safeUpper)
 }
 
-def nextForgeVersion = nextMajorVersion(rootProject.forge_version, '.0.0', 'forge_version')
-def nextArchitecturyVersion = nextMajorVersion(rootProject.architectury_api_version, '.0.0', 'architectury_api_version')
+def nextForgeVersion = nextMajorVersion(rootProject.forge_version, '.0.0', 'forge_version', '99.0.0')
+def nextArchitecturyVersion = nextMajorVersion(rootProject.architectury_api_version, '.0.0', 'architectury_api_version', '99.0.0')
 
 processResources {
     inputs.property 'mod_version', project.version

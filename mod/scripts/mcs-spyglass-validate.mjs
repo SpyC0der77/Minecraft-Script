@@ -37,7 +37,11 @@ function parseArgs(argv) {
       continue
     }
     if (arg.startsWith('--mc-version=')) {
-      flags.mcVersion = arg.slice('--mc-version='.length)
+      const value = arg.slice('--mc-version='.length)
+      if (!value) {
+        throw new Error('Missing value for --mc-version=')
+      }
+      flags.mcVersion = value
       continue
     }
     positional.push(arg)

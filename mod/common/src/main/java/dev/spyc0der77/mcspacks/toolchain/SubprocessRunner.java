@@ -8,6 +8,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public final class SubprocessRunner {
+    private static final long REAP_TIMEOUT_SECONDS = 5;
+
     private SubprocessRunner() {
     }
 
@@ -24,16 +26,20 @@ public final class SubprocessRunner {
             boolean finished = process.waitFor(timeoutSeconds, TimeUnit.SECONDS);
             if (!finished) {
                 process.destroyForcibly();
-                process.waitFor();
+                reapProcess(process);
                 return new ProcessResult(-1, "", "Process timed out after " + timeoutSeconds + "s");
             }
             return new ProcessResult(process.exitValue(), stdoutFuture.join(), stderrFuture.join());
         } catch (InterruptedException error) {
             process.destroyForcibly();
-            process.waitFor();
+            reapProcess(process);
             Thread.currentThread().interrupt();
             return new ProcessResult(-1, "", "Process interrupted");
         }
+    }
+
+    private static void reapProcess(Process process) throws InterruptedException {
+        process.waitFor(REAP_TIMEOUT_SECONDS, TimeUnit.SECONDS);
     }
 
     private static String readStream(java.io.InputStream stream) {

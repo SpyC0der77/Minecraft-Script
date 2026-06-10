@@ -13,7 +13,7 @@
   "depends": {
     "fabricloader": ">=0.16.0",
     "minecraft": "${minecraft_version}",
-    "java": ">=21",
+    "java": ">=${java_version}",
     "architectury": ">=${architectury_api_version}",
     "fabric-api": ">=${fabric_api_version}"
   }

@@ -122,8 +122,11 @@ public final class CompilerResolver {
                 candidates.add(Path.of(programFiles, "Python" + version, "python.exe"));
             }
         } else {
-            candidates.add(Path.of("/usr/local/bin/python" + version));
-            candidates.add(Path.of("/usr/bin/python" + version));
+            String dottedVersion = version.charAt(0) + "." + version.substring(1);
+            candidates.add(Path.of("/usr/local/bin/python" + dottedVersion));
+            candidates.add(Path.of("/usr/bin/python" + dottedVersion));
+            candidates.add(Path.of("/usr/local/bin/python3." + version.substring(1)));
+            candidates.add(Path.of("/usr/bin/python3." + version.substring(1)));
         }
         return candidates;
     }

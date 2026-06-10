@@ -66,7 +66,7 @@ public final class McsToolchain {
             args.add("--no-verbose");
         }
         args.add(pack.entryFile().toString());
-        args.add(pack.displayName());
+        args.add(pack.id());
         args.add(McsPaths.compiledRoot().toString());
         try {
             ProcessResult result = SubprocessRunner.run(compiler.toProcessCommand(args), pack.folder(), 300);
@@ -127,9 +127,8 @@ public final class McsToolchain {
         }
         if (Files.isDirectory(path)) {
             try (var stream = Files.list(path)) {
-                var iterator = stream.iterator();
-                while (iterator.hasNext()) {
-                    deleteRecursive(iterator.next());
+                for (Path child : stream.toList()) {
+                    deleteRecursive(child);
                 }
             }
         }

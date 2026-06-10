@@ -1,6 +1,6 @@
 def usesPermissionSetApi = {
     def version = rootProject.minecraft_version
-    if (version ==~ /2[6-9]\..+/) {
+    if (version ==~ /^(?:2[6-9]|[3-9]\d*)\..+/) {
         return true
     }
     def match = (version =~ /^1\.21\.(\d+)/)

@@ -55,14 +55,14 @@ public final class McsPaths {
         Path scriptsDir = gameRoot().resolve("mcs-packs-scripts");
         Files.createDirectories(scriptsDir);
         Path script = scriptsDir.resolve("mcs-spyglass-validate.js");
-        InputStream stream = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.mjs");
-        if (stream == null) {
-            stream = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.js");
+        InputStream bundled = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.mjs");
+        if (bundled == null) {
+            bundled = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.js");
         }
-        if (stream == null) {
+        if (bundled == null) {
             throw new IOException("Bundled Spyglass validator script is missing from the mod JAR");
         }
-        try (stream) {
+        try (InputStream stream = bundled) {
             Files.copy(stream, script, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         }
         return script;
