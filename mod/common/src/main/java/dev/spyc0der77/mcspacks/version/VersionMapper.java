@@ -23,6 +23,12 @@ public final class VersionMapper {
                 throw new IllegalStateException("Missing mcs-versions.json resource");
             }
             Index index = new Gson().fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), Index.class);
+            if (index == null || index.supported == null || index.supported.isEmpty()) {
+                throw new IllegalStateException("mcs-versions.json must define a non-empty supported version list");
+            }
+            if (index.profiles == null || index.profiles.isEmpty()) {
+                throw new IllegalStateException("mcs-versions.json must define a non-empty profiles map");
+            }
             return new VersionMapper(index.supported, index.profiles);
         } catch (Exception error) {
             throw new IllegalStateException("Failed to load MCS version index", error);

@@ -58,7 +58,7 @@ public final class PackRegistry {
                 id,
                 folder,
                 entry,
-                SafePaths.resolveChild(compiledRoot, displayName),
+                SafePaths.resolveChild(compiledRoot, id),
                 displayName
         );
     }

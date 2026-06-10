@@ -6,6 +6,8 @@ import com.google.gson.JsonParseException;
 import dev.spyc0der77.mcspacks.util.McsPaths;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public final class ModConfigManager {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -33,7 +35,14 @@ public final class ModConfigManager {
     }
 
     public static void save(ModConfig config) throws IOException {
-        Files.createDirectories(McsPaths.configFile().getParent());
-        Files.writeString(McsPaths.configFile(), GSON.toJson(config));
+        Path configFile = McsPaths.configFile();
+        Files.createDirectories(configFile.getParent());
+        Path tempFile = Files.createTempFile(configFile.getParent(), "mcs-packs-", ".json.tmp");
+        try {
+            Files.writeString(tempFile, GSON.toJson(config));
+            Files.move(tempFile, configFile, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        } finally {
+            Files.deleteIfExists(tempFile);
+        }
     }
 }

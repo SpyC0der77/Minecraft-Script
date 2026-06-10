@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[1,)"
+loaderVersion = "[1,2)"
 license = "MIT"
 issueTrackerURL = "https://github.com/SpyC0der77/Minecraft-Script/issues"
 
@@ -13,20 +13,20 @@ authors = "SpyC0der77"
 [[dependencies.mcs_packs]]
 modId = "neoforge"
 type = "required"
-versionRange = "[${neoforge_version},)"
+versionRange = "[${neoforge_version},${neoforge_version_upper})"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.mcs_packs]]
 modId = "minecraft"
 type = "required"
-versionRange = "[${minecraft_version},)"
+versionRange = "[${minecraft_version},${minecraft_version_upper})"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.mcs_packs]]
 modId = "architectury"
 type = "required"
-versionRange = "[0,)"
+versionRange = "[${architectury_api_version},${architectury_api_version_upper})"
 ordering = "AFTER"
 side = "BOTH"

@@ -20,12 +20,20 @@ public final class SubprocessRunner {
         Process process = builder.start();
         CompletableFuture<String> stdoutFuture = CompletableFuture.supplyAsync(() -> readStream(process.getInputStream()));
         CompletableFuture<String> stderrFuture = CompletableFuture.supplyAsync(() -> readStream(process.getErrorStream()));
-        boolean finished = process.waitFor(timeoutSeconds, TimeUnit.SECONDS);
-        if (!finished) {
+        try {
+            boolean finished = process.waitFor(timeoutSeconds, TimeUnit.SECONDS);
+            if (!finished) {
+                process.destroyForcibly();
+                process.waitFor();
+                return new ProcessResult(-1, "", "Process timed out after " + timeoutSeconds + "s");
+            }
+            return new ProcessResult(process.exitValue(), stdoutFuture.join(), stderrFuture.join());
+        } catch (InterruptedException error) {
             process.destroyForcibly();
-            return new ProcessResult(-1, "", "Process timed out after " + timeoutSeconds + "s");
+            process.waitFor();
+            Thread.currentThread().interrupt();
+            return new ProcessResult(-1, "", "Process interrupted");
         }
-        return new ProcessResult(process.exitValue(), stdoutFuture.join(), stderrFuture.join());
     }
 
     private static String readStream(java.io.InputStream stream) {

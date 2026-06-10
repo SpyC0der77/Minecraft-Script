@@ -23,7 +23,7 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
-    modImplementation "dev.architectury:architectury-forge:${rootProject.architectury_api_version}"
+    modImplementation "dev.architectury:architectury-neoforge:${rootProject.architectury_api_version}"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowCommon(project(path: ':common', configuration: 'transformProductionForge')) { transitive false }
@@ -44,15 +44,45 @@ remapJar {
     archiveClassifier = null
 }
 
+def nextMinecraftVersion = {
+    def version = rootProject.minecraft_version
+    def modern = (version =~ /^2[6-9]\.(\d+)$/)
+    if (modern.matches()) {
+        return "${modern[0][0].split('\\.')[0]}.${modern[0][1].toInteger() + 1}"
+    }
+    def release = (version =~ /^(\d+)\.(\d+)\.(\d+)$/)
+    if (release.matches()) {
+        return "${release[0][1]}.${release[0][2]}.${release[0][3].toInteger() + 1}"
+    }
+    return version
+}()
+
+def nextForgeVersion = {
+    def version = rootProject.forge_version
+    def match = (version =~ /^(\d+)\./)
+    return match.matches() ? "${match[0][1].toInteger() + 1}.0.0" : version
+}()
+
+def nextArchitecturyVersion = {
+    def version = rootProject.architectury_api_version
+    def match = (version =~ /^(\d+)\./)
+    return match.matches() ? "${match[0][1].toInteger() + 1}.0.0" : version
+}()
+
 processResources {
     inputs.property 'mod_version', project.version
     inputs.property 'minecraft_version', rootProject.minecraft_version
     inputs.property 'supported_game_versions', rootProject.supportedGameVersions
     inputs.property 'forge_version', rootProject.forge_version
+    inputs.property 'architectury_api_version', rootProject.architectury_api_version
     filesMatching('META-INF/mods.toml') {
         expand 'mod_version': project.version,
                 'minecraft_version': rootProject.minecraft_version,
                 'forge_version': rootProject.forge_version,
+                'minecraft_version_upper': nextMinecraftVersion,
+                'forge_version_upper': nextForgeVersion,
+                'architectury_api_version': rootProject.architectury_api_version,
+                'architectury_api_version_upper': nextArchitecturyVersion,
                 'supported_game_versions': rootProject.supportedGameVersions
     }
 }

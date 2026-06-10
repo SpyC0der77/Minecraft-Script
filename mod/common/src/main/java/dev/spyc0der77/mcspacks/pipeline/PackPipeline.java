@@ -66,7 +66,8 @@ public final class PackPipeline {
         try {
             for (PackDefinition pack : registry.discover()) {
                 try {
-                    processPack(server, pack, false);
+                    long generation = generations.merge(pack.id(), 1L, Long::sum);
+                    processPack(server, pack, false, generation);
                 } catch (RuntimeException error) {
                     messenger.accept(server, "[MCS] Failed to prepare " + pack.id() + ": " + error.getMessage());
                 }
@@ -81,21 +82,27 @@ public final class PackPipeline {
         if (server == null) {
             return;
         }
+        PackDefinition pack;
+        try {
+            pack = registry.resolvePack(packFolder);
+        } catch (IOException error) {
+            messenger.accept(server, "[MCS] Failed to resolve " + packFolder.getFileName() + ": " + error.getMessage());
+            return;
+        }
+        if (pack == null) {
+            return;
+        }
+        long generation = generations.merge(pack.id(), 1L, Long::sum);
         executor.submit(() -> {
             try {
-                PackDefinition pack = registry.resolvePack(packFolder);
-                if (pack == null) {
-                    return;
-                }
-                processPack(server, pack, true);
+                processPack(server, pack, true, generation);
             } catch (Exception error) {
                 messenger.accept(server, "[MCS] Failed to process " + packFolder.getFileName() + ": " + error.getMessage());
             }
         });
     }
 
-    private void processPack(MinecraftServer server, PackDefinition pack, boolean reloadAfterDeploy) {
-        long generation = generations.merge(pack.id(), 1L, Long::sum);
+    private void processPack(MinecraftServer server, PackDefinition pack, boolean reloadAfterDeploy, long generation) {
         messenger.accept(server, "[MCS] Processing " + pack.id() + "…");
         if (!runToolchain(pack, generation)) {
             return;

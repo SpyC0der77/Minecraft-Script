@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Locale;
 
 public final class CompilerResolver {
-    private static String cachedKey;
-    private static CompilerCommand cachedCommand;
+    private static final Object CACHE_LOCK = new Object();
+    private static volatile String cachedKey;
+    private static volatile CompilerCommand cachedCommand;
 
     private CompilerResolver() {
     }
@@ -32,13 +33,15 @@ public final class CompilerResolver {
 
     public static CompilerCommand resolve(ModConfig config) {
         String key = (config.compiler == null ? "auto" : config.compiler) + "|" + config.compilerPath;
-        if (key.equals(cachedKey) && cachedCommand != null) {
-            return cachedCommand;
+        synchronized (CACHE_LOCK) {
+            if (key.equals(cachedKey) && cachedCommand != null) {
+                return cachedCommand;
+            }
+            CompilerCommand resolved = resolveUncached(config);
+            cachedKey = key;
+            cachedCommand = resolved;
+            return resolved;
         }
-        CompilerCommand resolved = resolveUncached(config);
-        cachedKey = key;
-        cachedCommand = resolved;
-        return resolved;
     }
 
     private static CompilerCommand resolveUncached(ModConfig config) {
@@ -79,7 +82,21 @@ public final class CompilerResolver {
 
     private static CompilerCommand resolvePython() {
         if (System.getenv("PYTHON") != null && Files.isExecutable(Path.of(System.getenv("PYTHON")))) {
-            return pythonCommand(System.getenv("PYTHON"));
+            CompilerCommand resolved = pythonCommand(System.getenv("PYTHON"));
+            if (canRun(resolved, "lint", "--help")) {
+                return resolved;
+            }
+        }
+        for (String version : List.of("313", "312", "311", "310")) {
+            for (Path candidate : knownPythonInstalls(version)) {
+                if (!Files.isExecutable(candidate)) {
+                    continue;
+                }
+                CompilerCommand resolved = pythonCommand(candidate.toString());
+                if (canRun(resolved, "lint", "--help")) {
+                    return resolved;
+                }
+            }
         }
         for (String candidate : List.of("python", "python3", "py")) {
             CompilerCommand resolved = "py".equals(candidate)
@@ -89,17 +106,27 @@ public final class CompilerResolver {
                 return resolved;
             }
         }
-        for (String version : List.of("313", "312", "311", "310")) {
-            Path candidate = Path.of("C:\\Python" + version + "\\python.exe");
-            if (!Files.isExecutable(candidate)) {
-                continue;
-            }
-            CompilerCommand resolved = pythonCommand(candidate.toString());
-            if (canRun(resolved, "lint", "--help")) {
-                return resolved;
-            }
-        }
         return pythonCommand("python");
+    }
+
+    private static List<Path> knownPythonInstalls(String version) {
+        List<Path> candidates = new ArrayList<>();
+        if (isWindows()) {
+            String localAppData = System.getenv("LOCALAPPDATA");
+            String programFiles = System.getenv("PROGRAMFILES");
+            candidates.add(Path.of("C:\\Python" + version + "\\python.exe"));
+            if (localAppData != null) {
+                candidates.add(Path.of(localAppData, "Programs", "Python", "Python" + version, "python.exe"));
+                candidates.add(Path.of(localAppData, "Microsoft", "WindowsApps", "python.exe"));
+            }
+            if (programFiles != null) {
+                candidates.add(Path.of(programFiles, "Python" + version, "python.exe"));
+            }
+        } else {
+            candidates.add(Path.of("/usr/local/bin/python" + version));
+            candidates.add(Path.of("/usr/bin/python" + version));
+        }
+        return candidates;
     }
 
     private static CompilerCommand pythonCommand(String executable) {
@@ -120,6 +147,9 @@ public final class CompilerResolver {
         try {
             ProcessResult result = SubprocessRunner.run(compiler.toProcessCommand(List.of(args)), null, 15);
             return result.success();
+        } catch (InterruptedException error) {
+            Thread.currentThread().interrupt();
+            return false;
         } catch (Exception ignored) {
             return false;
         }

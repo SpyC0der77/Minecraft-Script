@@ -147,6 +147,9 @@ public final class PackWatcher {
                     }
                     Path entry = packFolder.resolve(McsPaths.DEFAULT_ENTRY);
                     if (!Files.exists(entry)) {
+                        if (lastModified.remove(entry) != null) {
+                            schedule(packFolder);
+                        }
                         continue;
                     }
                     long modified = Files.getLastModifiedTime(entry).toMillis();
@@ -191,7 +194,13 @@ public final class PackWatcher {
         while (current != null && current.startsWith(packsRoot) && !packsRoot.equals(current)) {
             if (isPackFolder(current)) {
                 Path entry = current.resolve(McsPaths.DEFAULT_ENTRY);
-                return Files.exists(entry) ? current : null;
+                if (Files.exists(entry)) {
+                    return current;
+                }
+                if (lastModified.containsKey(entry)) {
+                    return current;
+                }
+                return null;
             }
             current = current.getParent();
         }

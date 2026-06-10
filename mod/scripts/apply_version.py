@@ -13,17 +13,6 @@ GRADLE_PROPERTIES = MOD_ROOT / "gradle.properties"
 DEFAULT_ENABLED_PLATFORMS = "fabric,forge,neoforge"
 
 
-def read_enabled_platforms() -> str:
-    if not GRADLE_PROPERTIES.exists():
-        return DEFAULT_ENABLED_PLATFORMS
-    for line in GRADLE_PROPERTIES.read_text(encoding="utf-8").splitlines():
-        if line.startswith("enabled_platforms="):
-            value = line.split("=", 1)[1].strip()
-            if value and value != "fabric":
-                return value
-    return DEFAULT_ENABLED_PLATFORMS
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", help="MCS profile key from versions/manifest.json")
@@ -65,7 +54,7 @@ def main() -> int:
         f"neoforge_version={profile['neoforge_version']}",
         f"architectury_api_version={profile['architectury_api_version']}",
         "",
-        f"enabled_platforms={args.loader if args.loader else read_enabled_platforms()}",
+        f"enabled_platforms={args.loader if args.loader else DEFAULT_ENABLED_PLATFORMS}",
     ]
     GRADLE_PROPERTIES.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote {GRADLE_PROPERTIES} for profile {args.profile}")

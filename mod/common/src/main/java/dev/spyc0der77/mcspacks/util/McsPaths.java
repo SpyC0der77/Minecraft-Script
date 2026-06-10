@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 public final class McsPaths {
     public static final String PACKS_DIR = "mcs_packs";
@@ -32,14 +33,20 @@ public final class McsPaths {
     }
 
     public static Path compilerWrapper() throws IOException {
+        boolean windows = isWindows();
+        String resourceName = windows ? "/scripts/mcs-compile.cmd" : "/scripts/mcs-compile.sh";
+        String fileName = windows ? "mcs-compile.cmd" : "mcs-compile.sh";
         Path scriptsDir = gameRoot().resolve("mcs-packs-scripts");
         Files.createDirectories(scriptsDir);
-        Path wrapper = scriptsDir.resolve("mcs-compile.cmd");
-        try (InputStream stream = McsPaths.class.getResourceAsStream("/scripts/mcs-compile.cmd")) {
+        Path wrapper = scriptsDir.resolve(fileName);
+        try (InputStream stream = McsPaths.class.getResourceAsStream(resourceName)) {
             if (stream == null) {
-                throw new IOException("Bundled MCS compiler wrapper is missing from the mod JAR");
+                throw new IOException("Bundled MCS compiler wrapper is missing from the mod JAR: " + resourceName);
             }
             Files.copy(stream, wrapper, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+        if (!windows) {
+            wrapper.toFile().setExecutable(true, false);
         }
         return wrapper;
     }
@@ -48,10 +55,14 @@ public final class McsPaths {
         Path scriptsDir = gameRoot().resolve("mcs-packs-scripts");
         Files.createDirectories(scriptsDir);
         Path script = scriptsDir.resolve("mcs-spyglass-validate.js");
-        try (InputStream stream = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.js")) {
-            if (stream == null) {
-                throw new IOException("Bundled Spyglass validator script is missing from the mod JAR");
-            }
+        InputStream stream = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.mjs");
+        if (stream == null) {
+            stream = McsPaths.class.getResourceAsStream("/scripts/mcs-spyglass-validate.js");
+        }
+        if (stream == null) {
+            throw new IOException("Bundled Spyglass validator script is missing from the mod JAR");
+        }
+        try (stream) {
             Files.copy(stream, script, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         }
         return script;
@@ -85,5 +96,10 @@ public final class McsPaths {
         } catch (IOException error) {
             throw new IllegalStateException("Failed to initialize mcs_packs folders", error);
         }
+    }
+
+    private static boolean isWindows() {
+        String os = System.getProperty("os.name", "");
+        return os.toLowerCase(Locale.ROOT).contains("win");
     }
 }

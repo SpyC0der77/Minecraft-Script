@@ -28,7 +28,11 @@ function parseArgs(argv) {
       continue
     }
     if (arg === '--mc-version') {
-      flags.mcVersion = argv[index + 1]
+      const value = argv[index + 1]
+      if (!value || value.startsWith('-')) {
+        throw new Error('Missing value for --mc-version')
+      }
+      flags.mcVersion = value
       index += 1
       continue
     }
@@ -166,7 +170,7 @@ async function main() {
 
   const unique = new Map()
   for (const diagnostic of diagnostics) {
-    const key = `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}:${diagnostic.message}`
+    const key = `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}:${diagnostic.severity || diagnostic.level}:${diagnostic.message}`
     unique.set(key, diagnostic)
   }
   const result = [...unique.values()].sort((left, right) => {

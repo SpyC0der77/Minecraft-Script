@@ -43,9 +43,13 @@ processResources {
     inputs.property 'mod_version', project.version
     inputs.property 'minecraft_version', rootProject.minecraft_version
     inputs.property 'supported_game_versions', rootProject.supportedGameVersions
+    inputs.property 'architectury_api_version', rootProject.architectury_api_version
+    inputs.property 'fabric_api_version', rootProject.fabric_api_version
     filesMatching('fabric.mod.json') {
         expand 'mod_version': project.version,
                 'minecraft_version': rootProject.minecraft_version,
-                'supported_game_versions': rootProject.supportedGameVersions
+                'supported_game_versions': rootProject.supportedGameVersions,
+                'architectury_api_version': rootProject.architectury_api_version,
+                'fabric_api_version': rootProject.fabric_api_version
     }
 }

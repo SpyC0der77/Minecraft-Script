@@ -18,6 +18,9 @@ public final class DatapackDeployer {
     public static void syncPack(MinecraftServer server, Path compiledPack, String packFolderName) throws IOException {
         Path worldDatapacks = server.getWorldPath(LevelResource.DATAPACK_DIR);
         Files.createDirectories(worldDatapacks);
+        if (!Files.exists(compiledPack) || !Files.isDirectory(compiledPack) || !Files.isReadable(compiledPack)) {
+            throw new IOException("Compiled pack is missing or unreadable: " + compiledPack);
+        }
         Path target = SafePaths.resolveChild(worldDatapacks, packFolderName);
         if (Files.exists(target)) {
             deleteRecursive(target);

@@ -43,7 +43,8 @@ def _parse_flag_args(
             continue
         if arg.startswith("--"):
             if arg not in supported_flags:
-                positional.append(arg)
+                print(f"Error: Unknown flag {arg}.")
+                exit(-1)
             index += 1
             continue
         positional.append(arg)

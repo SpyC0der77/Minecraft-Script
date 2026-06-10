@@ -46,14 +46,14 @@ dependencies {
 }
 
 def spyglassSourceScript = file("${rootProject.projectDir}/scripts/mcs-spyglass-validate.mjs")
-def spyglassBundledScript = file('src/main/resources/scripts/mcs-spyglass-validate.js')
+def spyglassBundledScript = layout.buildDirectory.file('generated/resources/main/scripts/mcs-spyglass-validate.js')
 
 tasks.register('bundleSpyglassScript') {
     onlyIf { spyglassSourceScript.exists() }
     inputs.file(spyglassSourceScript)
     inputs.file("${rootProject.projectDir}/scripts/package.json")
     inputs.file("${rootProject.projectDir}/scripts/bun.lock")
-    outputs.file(spyglassBundledScript)
+    outputs.file(spyglassBundledScript.get().asFile)
 
     doLast {
         def scriptsDir = file("${rootProject.projectDir}/scripts")
@@ -68,9 +68,9 @@ tasks.register('bundleSpyglassScript') {
             if (bunAvailable) {
                 commandLine 'bun', 'run', 'bundle:spyglass'
             } else {
-                commandLine 'npx', '--yes', 'esbuild', 'mcs-spyglass-validate.mjs',
+                commandLine 'npx', '--no-install', 'esbuild', 'mcs-spyglass-validate.mjs',
                         '--bundle', '--platform=node', '--format=cjs', '--packages=bundle',
-                        '--outfile=../common/src/main/resources/scripts/mcs-spyglass-validate.js',
+                        "--outfile=${spyglassBundledScript.get().asFile}",
                         '--banner:js=#!/usr/bin/env node'
             }
         }

@@ -14,6 +14,7 @@ dist/
 *.egg-info/
 build_test/
 mod/.gradle/
+mod/**/.gradle/architectury-cache/
 mod/build/
 mod/out/
 mod/run/

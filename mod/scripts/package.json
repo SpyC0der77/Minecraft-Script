@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bundle:spyglass": "esbuild mcs-spyglass-validate.mjs --bundle --platform=node --format=cjs --packages=bundle --outfile=../common/src/main/resources/scripts/mcs-spyglass-validate.js --banner:js=\"#!/usr/bin/env node\""
+    "bundle:spyglass": "esbuild mcs-spyglass-validate.mjs --bundle --platform=node --format=cjs --packages=bundle --outfile=../common/build/generated/resources/main/scripts/mcs-spyglass-validate.js --banner:js=\"#!/usr/bin/env node\""
   },
   "dependencies": {
     "@spyglassmc/core": "^0.4.47",

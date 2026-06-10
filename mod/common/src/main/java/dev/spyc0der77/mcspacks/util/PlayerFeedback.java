@@ -10,8 +10,10 @@ public final class PlayerFeedback {
     }
 
     public static void broadcast(MinecraftServer server, String message) {
-        Component component = Component.literal(message);
-        server.getPlayerList().broadcastSystemMessage(component, false);
+        server.submit(() -> {
+            Component component = Component.literal(message);
+            server.getPlayerList().broadcastSystemMessage(component, false);
+        });
     }
 
     public static void diagnostics(MinecraftServer server, String prefix, List<Diagnostic> diagnostics) {
