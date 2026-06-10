@@ -6,7 +6,7 @@ from .compiler import build_datapack
 from .common import COMMON_CONFIG, version
 from .config_utils import update_config, reset_config
 from .lint import lint_code
-from .version_config import breaking_changes_between
+from .version_config import breaking_changes_between, load_version_profile
 from pathlib import Path
 
 
@@ -80,6 +80,16 @@ def sh_debug(*args) -> None:
 
 def sh_compile(*args) -> None:
     # Manage args & parameters:
+    args = list(args)
+    minecraft_version = None
+    if "--minecraft-version" in args:
+        version_index = args.index("--minecraft-version")
+        if version_index + 1 >= len(args):
+            print("No version specified after --minecraft-version.")
+            exit(1)
+        minecraft_version = args[version_index + 1]
+        del args[version_index:version_index + 2]
+
     arg_count = len(args)
     if arg_count < 1:
         print("No path specified to compile.")
@@ -114,7 +124,19 @@ def sh_compile(*args) -> None:
     with open(source_path, 'rt', encoding='utf-8') as mcs_file:
         code = mcs_file.read()
 
-    build_datapack(code, datapack_name, str(output_path), verbose, source_path=source_path)
+    previous_version = COMMON_CONFIG["minecraft_version"]
+    if minecraft_version is not None:
+        try:
+            load_version_profile(minecraft_version)
+        except FileNotFoundError as error:
+            print(f"Error: {error}")
+            exit(1)
+        COMMON_CONFIG["minecraft_version"] = minecraft_version
+
+    try:
+        build_datapack(code, datapack_name, str(output_path), verbose, source_path=source_path)
+    finally:
+        COMMON_CONFIG["minecraft_version"] = previous_version
 
 
 def sh_config(*args) -> None:

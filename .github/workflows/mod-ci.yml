@@ -1,0 +1,109 @@
+name: Mod CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mod
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Validate matrix and run common tests
+        run: gradle validateModMatrix :common:test --stacktrace --info
+
+      - name: Upload Gradle reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-validate-gradle-reports
+          path: |
+            mod/**/build/reports/**
+            mod/**/build/test-results/**
+
+  build:
+    runs-on: ubuntu-latest
+    needs: validate
+    continue-on-error: ${{ matrix.allow-failure == true }}
+    strategy:
+      fail-fast: false
+      matrix:
+        minecraft-version:
+          - "1.21.2"
+          - "1.21.4"
+          - "1.21.5"
+          - "1.21.6"
+          - "1.21.7"
+          - "1.21.8"
+          - "1.21.9"
+          - "1.21.10"
+          - "1.21.11"
+        loader:
+          - fabric
+          - forge
+          - neoforge
+        allow-failure:
+          - false
+        include:
+          - minecraft-version: "1.21.2"
+            loader: forge
+            allow-failure: true
+
+    defaults:
+      run:
+        working-directory: mod
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Build matrix project
+        env:
+          MINECRAFT_VERSION: ${{ matrix.minecraft-version }}
+          LOADER: ${{ matrix.loader }}
+        run: |
+          VERSION_KEY="${MINECRAFT_VERSION//./_}"
+          TASK=":versions:mc_${VERSION_KEY}:${LOADER}:build"
+          echo "Building ${TASK}"
+          gradle "${TASK}" --stacktrace --info
+
+      - name: Upload Gradle reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-${{ matrix.minecraft-version }}-${{ matrix.loader }}-gradle-reports
+          path: |
+            mod/**/build/reports/**
+            mod/**/build/test-results/**
+            mod/**/build/tmp/**

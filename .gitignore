@@ -18,3 +18,4 @@ highlighter/dist/
 highlighter/*.vsix
 npm/node_modules/
 npm/*.tgz
+mod/.gradle/

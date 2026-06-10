@@ -1,0 +1,223 @@
+plugins {
+    id "java"
+    id "dev.architectury.loom" version "${architectury_loom_version}" apply false
+    id "architectury-plugin" version "${architectury_plugin_version}" apply false
+}
+
+ext.modSupportedMinecraftVersions = [
+    "1.21.2",
+    "1.21.4",
+    "1.21.5",
+    "1.21.6",
+    "1.21.7",
+    "1.21.8",
+    "1.21.9",
+    "1.21.10",
+    "1.21.11",
+]
+
+ext.modLoaders = ["fabric", "forge", "neoforge"]
+
+ext.fabricApiVersions = [
+    "1.21.2": "0.106.1+1.21.2",
+    "1.21.4": "0.119.4+1.21.4",
+    "1.21.5": "0.128.2+1.21.5",
+    "1.21.6": "0.128.2+1.21.6",
+    "1.21.7": "0.129.0+1.21.7",
+    "1.21.8": "0.136.1+1.21.8",
+    "1.21.9": "0.134.1+1.21.9",
+    "1.21.10": "0.138.4+1.21.10",
+    "1.21.11": "0.141.4+1.21.11",
+]
+
+ext.forgeVersions = [
+    "1.21.2": null,
+    "1.21.4": "1.21.4-54.1.16",
+    "1.21.5": "1.21.5-55.1.10",
+    "1.21.6": "1.21.6-56.0.4",
+    "1.21.7": "1.21.7-57.0.3",
+    "1.21.8": "1.21.8-58.1.18",
+    "1.21.9": "1.21.9-59.0.5",
+    "1.21.10": "1.21.10-60.1.9",
+    "1.21.11": "1.21.11-61.1.8",
+]
+
+ext.neoForgeVersions = [
+    "1.21.2": "21.2.1-beta",
+    "1.21.4": "21.4.157",
+    "1.21.5": "21.5.97",
+    "1.21.6": "21.6.20-beta",
+    "1.21.7": "21.7.25-beta",
+    "1.21.8": "21.8.53",
+    "1.21.9": "21.9.16-beta",
+    "1.21.10": "21.10.64",
+    "1.21.11": "21.11.42",
+]
+
+allprojects {
+    group = mod_group
+    version = mod_version
+}
+
+subprojects { project ->
+    apply plugin: "java"
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = 21
+    }
+
+    repositories {
+        maven { url = "https://maven.fabricmc.net/" }
+        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://maven.neoforged.net/releases/" }
+        maven { url = "https://maven.architectury.dev/" }
+        mavenCentral()
+    }
+}
+
+project(":common") {
+    dependencies {
+        testImplementation platform("org.junit:junit-bom:5.10.3")
+        testImplementation "org.junit.jupiter:junit-jupiter"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+configure(subprojects.findAll { it.path.startsWith(":versions:") }) { project ->
+    apply plugin: "dev.architectury.loom"
+
+    def pathParts = project.path.split(":")
+    def minecraftVersion = pathParts[2].substring(3).replace("_", ".")
+    def loader = pathParts[3]
+    def generatedBuildInfoDir = layout.buildDirectory.dir("generated/sources/mcsBuildInfo/java")
+
+    sourceSets {
+        main {
+            java {
+                srcDir rootProject.file("common/src/main/java")
+                srcDir rootProject.file("platform/${loader}/src/main/java")
+                srcDir generatedBuildInfoDir
+            }
+            resources {
+                srcDir rootProject.file("platform/${loader}/src/main/resources")
+            }
+        }
+    }
+
+    base {
+        archivesName = "${mod_id}-${loader}-${minecraftVersion}"
+    }
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${minecraftVersion}"
+        mappings loom.officialMojangMappings()
+    }
+
+    if (loader == "fabric") {
+        dependencies {
+            modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+            modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersions[minecraftVersion]}"
+        }
+    } else if (loader == "forge") {
+        dependencies {
+            def forgeVersion = forgeVersions[minecraftVersion]
+            if (forgeVersion == null) {
+                throw new GradleException("Forge does not publish a ${minecraftVersion} artifact. This requested matrix pair cannot be compiled without an upstream Forge artifact.")
+            }
+            forge "net.minecraftforge:forge:${forgeVersion}"
+        }
+    } else if (loader == "neoforge") {
+        dependencies {
+            neoForge "net.neoforged:neoforge:${neoForgeVersions[minecraftVersion]}"
+        }
+    }
+
+    tasks.register("generateMcsBuildInfo") {
+        def outputDir = generatedBuildInfoDir
+        outputs.dir(outputDir)
+        doLast {
+            def packageDir = outputDir.get().asFile.toPath().resolve("dev/spyc0der/minecraftscript")
+            java.nio.file.Files.createDirectories(packageDir)
+            packageDir.resolve("McsBuildInfo.java").toFile().text = """package dev.spyc0der.minecraftscript;
+
+public final class McsBuildInfo {
+    public static final String MINECRAFT_VERSION = "${minecraftVersion}";
+    public static final String LOADER = "${loader}";
+
+    private McsBuildInfo() {
+    }
+}
+"""
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        dependsOn tasks.named("generateMcsBuildInfo")
+    }
+
+    processResources {
+        inputs.property("mod_id", mod_id)
+        inputs.property("mod_name", mod_name)
+        inputs.property("mod_version", mod_version)
+        inputs.property("mod_description", mod_description)
+        inputs.property("minecraft_version", minecraftVersion)
+        inputs.property("loader", loader)
+
+        filesMatching(["fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml"]) {
+            expand(
+                mod_id: mod_id,
+                mod_name: mod_name,
+                mod_version: mod_version,
+                mod_description: mod_description,
+                minecraft_version: minecraftVersion,
+                loader: loader,
+            )
+        }
+    }
+
+    tasks.register("printMatrixContext") {
+        doLast {
+            println("loader=${loader}")
+            println("minecraftVersion=${minecraftVersion}")
+            println("project=${project.path}")
+        }
+    }
+}
+
+tasks.register("validateModMatrix") {
+    inputs.file(rootProject.file("../minecraft_script/versions/index.json"))
+    doLast {
+        def index = new groovy.json.JsonSlurper().parse(rootProject.file("../minecraft_script/versions/index.json"))
+        def expectedVersions = index.supported.findAll { it != "26.1" }
+        if (expectedVersions != modSupportedMinecraftVersions) {
+            throw new GradleException("modSupportedMinecraftVersions must equal versions/index.json supported minus 26.1. expected=${expectedVersions}, actual=${modSupportedMinecraftVersions}")
+        }
+
+        def missingProjects = []
+        expectedVersions.each { mcVersion ->
+            modLoaders.each { loader ->
+                def projectPath = ":versions:mc_${mcVersion.replace(".", "_")}:${loader}"
+                if (findProject(projectPath) == null) {
+                    missingProjects.add(projectPath)
+                }
+            }
+        }
+        if (!missingProjects.isEmpty()) {
+            throw new GradleException("Missing mod matrix projects: ${missingProjects.join(", ")}")
+        }
+    }
+}

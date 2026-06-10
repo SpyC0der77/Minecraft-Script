@@ -4,7 +4,7 @@ requires-python = ">=3.10"
 
 [[package]]
 name = "minecraft-script"
-version = "0.3.5"
+version = "0.3.7"
 source = { editable = "." }
 dependencies = [
     { name = "pybars3" },
