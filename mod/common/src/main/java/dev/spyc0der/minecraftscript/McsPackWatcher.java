@@ -32,6 +32,7 @@ public final class McsPackWatcher implements Closeable {
 
     private final McsWorldPackManager packManager;
     private final McsServerAccess serverAccess;
+    private final List<Path> watchedRoots;
     private final WatchService watchService;
     private final Map<WatchKey, Path> keys = new ConcurrentHashMap<>();
     private final Map<Path, ScheduledFuture<?>> pendingCompiles = new ConcurrentHashMap<>();
@@ -54,8 +55,11 @@ public final class McsPackWatcher implements Closeable {
     public McsPackWatcher(McsWorldPackManager packManager, McsServerAccess serverAccess) throws IOException {
         this.packManager = packManager;
         this.serverAccess = serverAccess;
-        this.watchService = packManager.mcsRoot().getFileSystem().newWatchService();
-        registerRecursively(packManager.mcsRoot());
+        this.watchedRoots = packManager.watchedMcsRoots();
+        this.watchService = packManager.worldMcsRoot().getFileSystem().newWatchService();
+        for (Path root : watchedRoots) {
+            registerRecursively(root);
+        }
         seedPackMtines();
         scheduler.scheduleAtFixedRate(
                 this::pollPackMtines,
@@ -116,7 +120,7 @@ public final class McsPackWatcher implements Closeable {
                     }
                 }
 
-                Optional<Path> packFolder = McsPaths.packFolderForChangedPath(packManager.mcsRoot(), changed);
+                Optional<Path> packFolder = McsPaths.packFolderForChangedPath(watchedRoots, changed);
                 packFolder.ifPresent(this::schedulePackRefresh);
             }
 
@@ -136,6 +140,18 @@ public final class McsPackWatcher implements Closeable {
 
     private void schedulePackRefresh(Path packFolder) {
         Path normalized = packFolder.toAbsolutePath().normalize();
+        try {
+            Optional<McsPackEntry> entry = packManager.findPackEntry(packFolder.getFileName().toString());
+            if (entry.isEmpty()
+                    || !packManager.isPackEnabled(entry.get())
+                    || !packManager.isHotReloadEnabledForPack(entry.get())) {
+                return;
+            }
+        } catch (IOException error) {
+            System.out.println("[Minecraft Script] Could not resolve pack for " + packFolder + ": " + error.getMessage());
+            return;
+        }
+
         long now = System.currentTimeMillis();
         if (firstChangeAt.putIfAbsent(normalized, now) == null) {
             packManager.notifyPackChangePending(packFolder);
@@ -169,8 +185,10 @@ public final class McsPackWatcher implements Closeable {
 
     private void seedPackMtines() {
         try {
-            for (Path packFolder : packManager.discoverPackFolders()) {
-                rememberPackMtime(packFolder);
+            for (McsPackEntry entry : packManager.discoverPackEntries()) {
+                if (packManager.isPackEnabled(entry) && packManager.isHotReloadEnabledForPack(entry)) {
+                    rememberPackMtime(entry.packFolder());
+                }
             }
         } catch (IOException error) {
             System.out.println("[Minecraft Script] Could not seed pack mtimes: " + error.getMessage());
@@ -182,8 +200,11 @@ public final class McsPackWatcher implements Closeable {
             return;
         }
         try {
-            List<Path> packFolders = packManager.discoverPackFolders();
-            for (Path packFolder : packFolders) {
+            for (McsPackEntry entry : packManager.discoverPackEntries()) {
+                if (!packManager.isPackEnabled(entry) || !packManager.isHotReloadEnabledForPack(entry)) {
+                    continue;
+                }
+                Path packFolder = entry.packFolder();
                 Path packFile = packFolder.resolve(McsPaths.PACK_FILE);
                 if (!Files.isRegularFile(packFile)) {
                     continue;
@@ -217,7 +238,8 @@ public final class McsPackWatcher implements Closeable {
         return fileName.endsWith("~")
                 || fileName.endsWith(".swp")
                 || fileName.endsWith(".tmp")
-                || fileName.startsWith(".#");
+                || fileName.startsWith(".#")
+                || fileName.equals(McsModConfig.CONFIG_FILE);
     }
 
     private void registerRecursively(Path root) throws IOException {

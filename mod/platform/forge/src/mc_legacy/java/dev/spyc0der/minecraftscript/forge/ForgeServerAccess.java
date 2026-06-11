@@ -23,18 +23,38 @@ final class ForgeServerAccess implements McsServerAccess {
     }
 
     @Override
+    public Path serverDirectory() {
+        return server.getServerDirectory();
+    }
+
+    @Override
     public String minecraftVersion() {
         return McsBuildInfo.MINECRAFT_VERSION;
     }
 
     @Override
     public void executeReload() {
-        server.execute(() -> {
-            CommandSourceStack source = server.createCommandSourceStack()
-                    .withPermission(4)
-                    .withSuppressedOutput();
-            server.getCommands().performPrefixedCommand(source, "reload");
-        });
+        runOnServerThread(this::performReload);
+    }
+
+    @Override
+    public void executeStartupReload() {
+        runOnServerThread(this::performReload);
+    }
+
+    private void performReload() {
+        CommandSourceStack source = server.createCommandSourceStack()
+                .withPermission(4)
+                .withSuppressedOutput();
+        server.getCommands().performPrefixedCommand(source, "reload");
+    }
+
+    private void runOnServerThread(Runnable action) {
+        if (server.isSameThread()) {
+            action.run();
+        } else {
+            server.execute(action);
+        }
     }
 
     @Override

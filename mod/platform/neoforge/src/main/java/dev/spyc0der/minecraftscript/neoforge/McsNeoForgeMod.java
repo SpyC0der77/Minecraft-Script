@@ -4,6 +4,7 @@ import dev.spyc0der.minecraftscript.McsModRuntime;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 
@@ -11,6 +12,11 @@ import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 public final class McsNeoForgeMod {
     public McsNeoForgeMod() {
         NeoForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void onRegisterCommands(RegisterCommandsEvent event) {
+        McsNeoForgeCommands.register(event.getDispatcher());
     }
 
     @SubscribeEvent

@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 public final class ProcessMcsCompiler implements McsCompiler {
     private static final long COMPILE_TIMEOUT_SECONDS = 60;
 
-    private final McsCompilerConfig config;
+    private final McsModConfig config;
 
-    public ProcessMcsCompiler(McsCompilerConfig config) {
+    public ProcessMcsCompiler(McsModConfig config) {
         this.config = config;
     }
 

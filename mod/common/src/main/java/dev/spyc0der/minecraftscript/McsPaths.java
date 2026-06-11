@@ -1,6 +1,7 @@
 package dev.spyc0der.minecraftscript;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -13,12 +14,34 @@ public final class McsPaths {
     private McsPaths() {
     }
 
-    public static Path mcsPacksRoot(Path saveRoot) {
+    public static Path worldMcsPacksRoot(Path saveRoot) {
         return saveRoot.resolve(SOURCE_ROOT);
+    }
+
+    public static Path mcsPacksRoot(Path saveRoot) {
+        return worldMcsPacksRoot(saveRoot);
+    }
+
+    public static Path globalMcsPacksRoot(Path serverDirectory) {
+        return serverDirectory.resolve(SOURCE_ROOT);
+    }
+
+    public static Path configDirectory(Path serverDirectory) {
+        return serverDirectory;
     }
 
     public static Path datapacksRoot(Path saveRoot) {
         return saveRoot.resolve(DATAPACK_ROOT);
+    }
+
+    public static Optional<Path> packFolderForChangedPath(List<Path> mcsRoots, Path changedPath) {
+        for (Path mcsRoot : mcsRoots) {
+            Optional<Path> packFolder = packFolderForChangedPath(mcsRoot, changedPath);
+            if (packFolder.isPresent()) {
+                return packFolder;
+            }
+        }
+        return Optional.empty();
     }
 
     public static Optional<Path> packFolderForChangedPath(Path mcsRoot, Path changedPath) {
@@ -42,6 +65,18 @@ public final class McsPaths {
     }
 
     public static String generatedDatapackName(Path packFolder) {
-        return GENERATED_PREFIX + sanitizePackFolderName(packFolder.getFileName().toString());
+        return generatedDatapackName(packFolder, McsPackSource.WORLD);
+    }
+
+    public static String generatedDatapackName(Path packFolder, McsPackSource source) {
+        String sanitized = sanitizePackFolderName(packFolder.getFileName().toString());
+        if (source == McsPackSource.GLOBAL) {
+            return GENERATED_PREFIX + "global_" + sanitized;
+        }
+        return GENERATED_PREFIX + sanitized;
+    }
+
+    public static String packKey(String packName) {
+        return McsModConfig.normalizePackName(packName);
     }
 }
