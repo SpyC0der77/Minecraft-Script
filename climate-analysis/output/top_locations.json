@@ -1,0 +1,362 @@
+[
+  {
+    "latitude": 22.0,
+    "longitude": -10.0,
+    "livability": 0.5234,
+    "temp_score": 0.7015,
+    "mosquito_suitability": 0.2539,
+    "avg_temp_f": 69.2,
+    "nearest_reference": "~Las Palmas, Canary Islands (871 km)"
+  },
+  {
+    "latitude": 10.0,
+    "longitude": -72.0,
+    "livability": 0.4833,
+    "temp_score": 0.9344,
+    "mosquito_suitability": 0.4828,
+    "avg_temp_f": 66.7,
+    "nearest_reference": "~Medell\u00edn, Colombia (572 km)"
+  },
+  {
+    "latitude": 18.0,
+    "longitude": -94.0,
+    "livability": 0.4789,
+    "temp_score": 0.7892,
+    "mosquito_suitability": 0.3931,
+    "avg_temp_f": 67.6,
+    "nearest_reference": "~Oaxaca, Mexico (306 km)"
+  },
+  {
+    "latitude": 18.0,
+    "longitude": -92.0,
+    "livability": 0.4779,
+    "temp_score": 0.7898,
+    "mosquito_suitability": 0.395,
+    "avg_temp_f": 67.7,
+    "nearest_reference": "~Oaxaca, Mexico (511 km)"
+  },
+  {
+    "latitude": 18.0,
+    "longitude": -96.0,
+    "livability": 0.4762,
+    "temp_score": 0.7908,
+    "mosquito_suitability": 0.3978,
+    "avg_temp_f": 67.8,
+    "nearest_reference": "~Oaxaca, Mexico (129 km)"
+  },
+  {
+    "latitude": 16.0,
+    "longitude": -94.0,
+    "livability": 0.4761,
+    "temp_score": 0.7908,
+    "mosquito_suitability": 0.3979,
+    "avg_temp_f": 67.8,
+    "nearest_reference": "~Oaxaca, Mexico (313 km)"
+  },
+  {
+    "latitude": 16.0,
+    "longitude": -96.0,
+    "livability": 0.4752,
+    "temp_score": 0.7913,
+    "mosquito_suitability": 0.3995,
+    "avg_temp_f": 67.8,
+    "nearest_reference": "~Oaxaca, Mexico (142 km)"
+  },
+  {
+    "latitude": 16.0,
+    "longitude": -92.0,
+    "livability": 0.4752,
+    "temp_score": 0.7913,
+    "mosquito_suitability": 0.3994,
+    "avg_temp_f": 67.8,
+    "nearest_reference": "~Oaxaca, Mexico (517 km)"
+  },
+  {
+    "latitude": 14.0,
+    "longitude": -90.0,
+    "livability": 0.4748,
+    "temp_score": 0.7915,
+    "mosquito_suitability": 0.4001,
+    "avg_temp_f": 67.9,
+    "nearest_reference": "~Oaxaca, Mexico (797 km)"
+  },
+  {
+    "latitude": 16.0,
+    "longitude": -90.0,
+    "livability": 0.4748,
+    "temp_score": 0.7915,
+    "mosquito_suitability": 0.4001,
+    "avg_temp_f": 67.9,
+    "nearest_reference": "~Oaxaca, Mexico (726 km)"
+  },
+  {
+    "latitude": 18.0,
+    "longitude": -90.0,
+    "livability": 0.4748,
+    "temp_score": 0.7915,
+    "mosquito_suitability": 0.4001,
+    "avg_temp_f": 67.9,
+    "nearest_reference": "~Oaxaca, Mexico (720 km)"
+  },
+  {
+    "latitude": 20.0,
+    "longitude": -90.0,
+    "livability": 0.4748,
+    "temp_score": 0.7915,
+    "mosquito_suitability": 0.4001,
+    "avg_temp_f": 67.9,
+    "nearest_reference": "~Oaxaca, Mexico (780 km)"
+  },
+  {
+    "latitude": 22.0,
+    "longitude": -16.0,
+    "livability": 0.47,
+    "temp_score": 0.6256,
+    "mosquito_suitability": 0.2488,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (681 km)"
+  },
+  {
+    "latitude": 28.0,
+    "longitude": -16.0,
+    "livability": 0.47,
+    "temp_score": 0.6266,
+    "mosquito_suitability": 0.25,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (57 km)"
+  },
+  {
+    "latitude": 22.0,
+    "longitude": -14.0,
+    "livability": 0.4699,
+    "temp_score": 0.6269,
+    "mosquito_suitability": 0.2503,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (693 km)"
+  },
+  {
+    "latitude": 24.0,
+    "longitude": -14.0,
+    "livability": 0.4699,
+    "temp_score": 0.6267,
+    "mosquito_suitability": 0.2501,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (478 km)"
+  },
+  {
+    "latitude": 24.0,
+    "longitude": -12.0,
+    "livability": 0.4699,
+    "temp_score": 0.6275,
+    "mosquito_suitability": 0.2511,
+    "avg_temp_f": 69.2,
+    "nearest_reference": "~Las Palmas, Canary Islands (570 km)"
+  },
+  {
+    "latitude": 22.0,
+    "longitude": -12.0,
+    "livability": 0.4698,
+    "temp_score": 0.6285,
+    "mosquito_suitability": 0.2525,
+    "avg_temp_f": 69.2,
+    "nearest_reference": "~Las Palmas, Canary Islands (761 km)"
+  },
+  {
+    "latitude": 26.0,
+    "longitude": -14.0,
+    "livability": 0.4698,
+    "temp_score": 0.6276,
+    "mosquito_suitability": 0.2514,
+    "avg_temp_f": 69.2,
+    "nearest_reference": "~Las Palmas, Canary Islands (273 km)"
+  },
+  {
+    "latitude": 26.0,
+    "longitude": -12.0,
+    "livability": 0.4698,
+    "temp_score": 0.6264,
+    "mosquito_suitability": 0.2501,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (412 km)"
+  },
+  {
+    "latitude": 24.0,
+    "longitude": -10.0,
+    "livability": 0.4697,
+    "temp_score": 0.6275,
+    "mosquito_suitability": 0.2514,
+    "avg_temp_f": 69.2,
+    "nearest_reference": "~Las Palmas, Canary Islands (708 km)"
+  },
+  {
+    "latitude": 8.0,
+    "longitude": -74.0,
+    "livability": 0.43,
+    "temp_score": 0.9913,
+    "mosquito_suitability": 0.5662,
+    "avg_temp_f": 68.7,
+    "nearest_reference": "~Medell\u00edn, Colombia (260 km)"
+  },
+  {
+    "latitude": -6.0,
+    "longitude": 32.0,
+    "livability": 0.4253,
+    "temp_score": 0.8913,
+    "mosquito_suitability": 0.5229,
+    "avg_temp_f": 68.3,
+    "nearest_reference": "~Nairobi, Kenya (748 km)"
+  },
+  {
+    "latitude": 10.0,
+    "longitude": -74.0,
+    "livability": 0.4234,
+    "temp_score": 0.9936,
+    "mosquito_suitability": 0.5738,
+    "avg_temp_f": 68.9,
+    "nearest_reference": "~Medell\u00edn, Colombia (451 km)"
+  },
+  {
+    "latitude": 28.0,
+    "longitude": -12.0,
+    "livability": 0.4152,
+    "temp_score": 0.5513,
+    "mosquito_suitability": 0.2468,
+    "avg_temp_f": 69.1,
+    "nearest_reference": "~Las Palmas, Canary Islands (337 km)"
+  },
+  {
+    "latitude": -4.0,
+    "longitude": 34.0,
+    "livability": 0.4014,
+    "temp_score": 0.7031,
+    "mosquito_suitability": 0.4291,
+    "avg_temp_f": 66.0,
+    "nearest_reference": "~Nairobi, Kenya (435 km)"
+  },
+  {
+    "latitude": -2.0,
+    "longitude": 40.0,
+    "livability": 0.3938,
+    "temp_score": 0.7169,
+    "mosquito_suitability": 0.4507,
+    "avg_temp_f": 66.6,
+    "nearest_reference": "~Nairobi, Kenya (362 km)"
+  },
+  {
+    "latitude": -4.0,
+    "longitude": 36.0,
+    "livability": 0.3912,
+    "temp_score": 0.7204,
+    "mosquito_suitability": 0.4569,
+    "avg_temp_f": 66.7,
+    "nearest_reference": "~Nairobi, Kenya (315 km)"
+  },
+  {
+    "latitude": 12.0,
+    "longitude": -72.0,
+    "livability": 0.3864,
+    "temp_score": 0.996,
+    "mosquito_suitability": 0.6121,
+    "avg_temp_f": 69.8,
+    "nearest_reference": "~Medell\u00edn, Colombia (749 km)"
+  },
+  {
+    "latitude": -4.0,
+    "longitude": 30.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (815 km)"
+  },
+  {
+    "latitude": -2.0,
+    "longitude": 30.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (762 km)"
+  },
+  {
+    "latitude": -2.0,
+    "longitude": 32.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (542 km)"
+  },
+  {
+    "latitude": 0.0,
+    "longitude": 30.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (772 km)"
+  },
+  {
+    "latitude": 0.0,
+    "longitude": 32.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (555 km)"
+  },
+  {
+    "latitude": 0.0,
+    "longitude": 34.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (345 km)"
+  },
+  {
+    "latitude": 0.0,
+    "longitude": 36.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (170 km)"
+  },
+  {
+    "latitude": 2.0,
+    "longitude": 30.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (842 km)"
+  },
+  {
+    "latitude": 2.0,
+    "longitude": 32.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (649 km)"
+  },
+  {
+    "latitude": 2.0,
+    "longitude": 34.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (482 km)"
+  },
+  {
+    "latitude": 2.0,
+    "longitude": 36.0,
+    "livability": 0.3674,
+    "temp_score": 0.6102,
+    "mosquito_suitability": 0.398,
+    "avg_temp_f": 65.2,
+    "nearest_reference": "~Nairobi, Kenya (377 km)"
+  }
+]
