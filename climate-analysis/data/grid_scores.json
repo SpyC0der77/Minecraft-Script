@@ -1,0 +1,6308 @@
+{
+  "metadata": {
+    "temp_range_f": [
+      65.0,
+      74.0
+    ],
+    "grid_step_deg": 2.0,
+    "source": "IDW interpolation from 48 reference climate stations"
+  },
+  "points": [
+    {
+      "latitude": -46.0,
+      "longitude": 168.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1895,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -46.0,
+      "longitude": 170.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1895,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -44.0,
+      "longitude": 170.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1895,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -44.0,
+      "longitude": 172.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1897,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -42.0,
+      "longitude": 172.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1904,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -42.0,
+      "longitude": 174.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1896,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": -40.0,
+      "longitude": -72.0,
+      "livability": 0.1356,
+      "temp_score": 0.1491,
+      "mosquito_suitability": 0.0909,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -40.0,
+      "longitude": -70.0,
+      "livability": 0.138,
+      "temp_score": 0.1513,
+      "mosquito_suitability": 0.0881,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -40.0,
+      "longitude": -68.0,
+      "livability": 0.1416,
+      "temp_score": 0.1545,
+      "mosquito_suitability": 0.0834,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -40.0,
+      "longitude": -66.0,
+      "livability": 0.2122,
+      "temp_score": 0.2305,
+      "mosquito_suitability": 0.0795,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -40.0,
+      "longitude": 176.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1944,
+      "avg_temp_f": 55.8
+    },
+    {
+      "latitude": -38.0,
+      "longitude": -72.0,
+      "livability": 0.1332,
+      "temp_score": 0.147,
+      "mosquito_suitability": 0.0935,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -38.0,
+      "longitude": -70.0,
+      "livability": 0.1356,
+      "temp_score": 0.1492,
+      "mosquito_suitability": 0.0909,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -38.0,
+      "longitude": -68.0,
+      "livability": 0.1374,
+      "temp_score": 0.1508,
+      "mosquito_suitability": 0.0888,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -38.0,
+      "longitude": -66.0,
+      "livability": 0.1395,
+      "temp_score": 0.1526,
+      "mosquito_suitability": 0.0862,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -38.0,
+      "longitude": -64.0,
+      "livability": 0.2112,
+      "temp_score": 0.2296,
+      "mosquito_suitability": 0.0801,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -38.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -38.0,
+      "longitude": 144.0,
+      "livability": 0.3198,
+      "temp_score": 0.3936,
+      "mosquito_suitability": 0.1876,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -38.0,
+      "longitude": 146.0,
+      "livability": 0.2624,
+      "temp_score": 0.4714,
+      "mosquito_suitability": 0.4434,
+      "avg_temp_f": 64.0
+    },
+    {
+      "latitude": -38.0,
+      "longitude": 176.0,
+      "livability": 0.1559,
+      "temp_score": 0.2333,
+      "mosquito_suitability": 0.3317,
+      "avg_temp_f": 60.3
+    },
+    {
+      "latitude": -38.0,
+      "longitude": 178.0,
+      "livability": 0.1557,
+      "temp_score": 0.2276,
+      "mosquito_suitability": 0.3158,
+      "avg_temp_f": 59.8
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -72.0,
+      "livability": 0.1328,
+      "temp_score": 0.1465,
+      "mosquito_suitability": 0.094,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -70.0,
+      "livability": 0.1374,
+      "temp_score": 0.1508,
+      "mosquito_suitability": 0.0888,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -68.0,
+      "livability": 0.1382,
+      "temp_score": 0.1515,
+      "mosquito_suitability": 0.0879,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -66.0,
+      "livability": 0.1383,
+      "temp_score": 0.1516,
+      "mosquito_suitability": 0.0877,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -64.0,
+      "livability": 0.1403,
+      "temp_score": 0.1534,
+      "mosquito_suitability": 0.0851,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": -62.0,
+      "livability": 0.2122,
+      "temp_score": 0.2305,
+      "mosquito_suitability": 0.0795,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 140.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 144.0,
+      "livability": 0.3157,
+      "temp_score": 0.3939,
+      "mosquito_suitability": 0.1986,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 146.0,
+      "livability": 0.2501,
+      "temp_score": 0.4722,
+      "mosquito_suitability": 0.4703,
+      "avg_temp_f": 64.1
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 148.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.512,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -36.0,
+      "longitude": 174.0,
+      "livability": 0.1559,
+      "temp_score": 0.2347,
+      "mosquito_suitability": 0.336,
+      "avg_temp_f": 60.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": -70.0,
+      "livability": 0.2097,
+      "temp_score": 0.2282,
+      "mosquito_suitability": 0.0812,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -34.0,
+      "longitude": -68.0,
+      "livability": 0.1396,
+      "temp_score": 0.1528,
+      "mosquito_suitability": 0.086,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": -66.0,
+      "livability": 0.1379,
+      "temp_score": 0.1512,
+      "mosquito_suitability": 0.0882,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": -64.0,
+      "livability": 0.1387,
+      "temp_score": 0.152,
+      "mosquito_suitability": 0.0872,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": -62.0,
+      "livability": 0.212,
+      "temp_score": 0.2303,
+      "mosquito_suitability": 0.0796,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 18.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 20.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 22.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 118.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 136.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 138.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 140.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1756,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 144.0,
+      "livability": 0.3107,
+      "temp_score": 0.3943,
+      "mosquito_suitability": 0.2121,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 146.0,
+      "livability": 0.2412,
+      "temp_score": 0.4728,
+      "mosquito_suitability": 0.4898,
+      "avg_temp_f": 64.1
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 148.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -34.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -32.0,
+      "longitude": -70.0,
+      "livability": 0.1319,
+      "temp_score": 0.1457,
+      "mosquito_suitability": 0.095,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": -68.0,
+      "livability": 0.1359,
+      "temp_score": 0.1494,
+      "mosquito_suitability": 0.0906,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": -66.0,
+      "livability": 0.1361,
+      "temp_score": 0.1496,
+      "mosquito_suitability": 0.0904,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": -64.0,
+      "livability": 0.1376,
+      "temp_score": 0.151,
+      "mosquito_suitability": 0.0885,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": -62.0,
+      "livability": 0.2122,
+      "temp_score": 0.2305,
+      "mosquito_suitability": 0.0795,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 20.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 22.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 24.0,
+      "livability": 0.3084,
+      "temp_score": 0.402,
+      "mosquito_suitability": 0.2329,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 26.0,
+      "livability": 0.271,
+      "temp_score": 0.4099,
+      "mosquito_suitability": 0.3389,
+      "avg_temp_f": 63.1
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 118.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 120.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 122.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 124.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 134.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 136.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 138.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 140.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 144.0,
+      "livability": 0.3018,
+      "temp_score": 0.3949,
+      "mosquito_suitability": 0.2358,
+      "avg_temp_f": 63.5
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 146.0,
+      "livability": 0.2366,
+      "temp_score": 0.4731,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.1
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 148.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -32.0,
+      "longitude": 152.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1008,
+      "avg_temp_f": 57.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": -68.0,
+      "livability": 0.0667,
+      "temp_score": 0.0737,
+      "mosquito_suitability": 0.0955,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": -66.0,
+      "livability": 0.1338,
+      "temp_score": 0.1475,
+      "mosquito_suitability": 0.093,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": -64.0,
+      "livability": 0.1375,
+      "temp_score": 0.1509,
+      "mosquito_suitability": 0.0887,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 18.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 20.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 22.0,
+      "livability": 0.3079,
+      "temp_score": 0.4023,
+      "mosquito_suitability": 0.2348,
+      "avg_temp_f": 62.6
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 24.0,
+      "livability": 0.304,
+      "temp_score": 0.4839,
+      "mosquito_suitability": 0.3719,
+      "avg_temp_f": 63.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4898,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 118.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 120.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 122.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 124.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 132.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 134.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 136.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 138.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 140.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 144.0,
+      "livability": 0.2969,
+      "temp_score": 0.3952,
+      "mosquito_suitability": 0.2486,
+      "avg_temp_f": 63.5
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 146.0,
+      "livability": 0.2312,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5117,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 148.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -30.0,
+      "longitude": 152.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1015,
+      "avg_temp_f": 57.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": -68.0,
+      "livability": 0.0653,
+      "temp_score": 0.0725,
+      "mosquito_suitability": 0.0989,
+      "avg_temp_f": 57.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": -66.0,
+      "livability": 0.1326,
+      "temp_score": 0.1464,
+      "mosquito_suitability": 0.0942,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": -64.0,
+      "livability": 0.2122,
+      "temp_score": 0.2305,
+      "mosquito_suitability": 0.0795,
+      "avg_temp_f": 57.5
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 16.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 18.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 20.0,
+      "livability": 0.3083,
+      "temp_score": 0.402,
+      "mosquito_suitability": 0.2329,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 22.0,
+      "livability": 0.2952,
+      "temp_score": 0.4859,
+      "mosquito_suitability": 0.3925,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 24.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 32.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 118.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 120.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 122.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 124.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 134.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 136.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 138.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 140.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.3
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 142.0,
+      "livability": 0.3242,
+      "temp_score": 0.3933,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 146.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 148.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -28.0,
+      "longitude": 152.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -26.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1053,
+      "avg_temp_f": 57.1
+    },
+    {
+      "latitude": -26.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1043,
+      "avg_temp_f": 57.1
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 18.0,
+      "livability": 0.3089,
+      "temp_score": 0.4015,
+      "mosquito_suitability": 0.2307,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 20.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 22.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 24.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 32.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 114.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 118.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 120.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 122.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 150.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -26.0,
+      "longitude": 152.0,
+      "livability": 0.231,
+      "temp_score": 0.4734,
+      "mosquito_suitability": 0.5121,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": -24.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -24.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -24.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 20.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 22.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 24.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 32.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 34.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 44.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 46.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -24.0,
+      "longitude": 116.0,
+      "livability": 0.2469,
+      "temp_score": 0.3182,
+      "mosquito_suitability": 0.224,
+      "avg_temp_f": 66.4
+    },
+    {
+      "latitude": -22.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -22.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -22.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -22.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -22.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 22.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 24.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 32.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 34.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 44.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 46.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -22.0,
+      "longitude": 48.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -20.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -20.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -20.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -20.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -20.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 24.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 32.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 34.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 46.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -20.0,
+      "longitude": 48.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": -60.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -18.0,
+      "longitude": 26.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -18.0,
+      "longitude": 28.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -18.0,
+      "longitude": 30.0,
+      "livability": 0.2846,
+      "temp_score": 0.4899,
+      "mosquito_suitability": 0.419,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": -18.0,
+      "longitude": 46.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -18.0,
+      "longitude": 48.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": -60.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -16.0,
+      "longitude": 40.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -16.0,
+      "longitude": 46.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -16.0,
+      "longitude": 48.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -14.0,
+      "longitude": 36.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -14.0,
+      "longitude": 38.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -14.0,
+      "longitude": 40.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -14.0,
+      "longitude": 48.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -14.0,
+      "longitude": 50.0,
+      "livability": 0.2825,
+      "temp_score": 0.5647,
+      "mosquito_suitability": 0.4998,
+      "avg_temp_f": 64.9
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": -62.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -12.0,
+      "longitude": 34.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -12.0,
+      "longitude": 36.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -12.0,
+      "longitude": 38.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -12.0,
+      "longitude": 40.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1749,
+      "avg_temp_f": 58.9
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1749,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -10.0,
+      "longitude": -64.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.0064,
+      "avg_temp_f": 50.1
+    },
+    {
+      "latitude": -10.0,
+      "longitude": 32.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -10.0,
+      "longitude": 34.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -10.0,
+      "longitude": 36.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -10.0,
+      "longitude": 38.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -8.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.175,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -8.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1749,
+      "avg_temp_f": 58.9
+    },
+    {
+      "latitude": -8.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1749,
+      "avg_temp_f": 58.9
+    },
+    {
+      "latitude": -8.0,
+      "longitude": 32.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8402,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -8.0,
+      "longitude": 34.0,
+      "livability": 0.0119,
+      "temp_score": 0.0719,
+      "mosquito_suitability": 0.8348,
+      "avg_temp_f": 78.1
+    },
+    {
+      "latitude": -8.0,
+      "longitude": 36.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8388,
+      "avg_temp_f": 78.4
+    },
+    {
+      "latitude": -8.0,
+      "longitude": 38.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8401,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -6.0,
+      "longitude": -80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1752,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -6.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1753,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -6.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1756,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -6.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1755,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -6.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1749,
+      "avg_temp_f": 58.9
+    },
+    {
+      "latitude": -6.0,
+      "longitude": 32.0,
+      "livability": 0.4253,
+      "temp_score": 0.8913,
+      "mosquito_suitability": 0.5229,
+      "avg_temp_f": 68.3
+    },
+    {
+      "latitude": -6.0,
+      "longitude": 34.0,
+      "livability": 0.1882,
+      "temp_score": 0.6266,
+      "mosquito_suitability": 0.6997,
+      "avg_temp_f": 72.9
+    },
+    {
+      "latitude": -6.0,
+      "longitude": 36.0,
+      "livability": 0.0411,
+      "temp_score": 0.221,
+      "mosquito_suitability": 0.8143,
+      "avg_temp_f": 76.9
+    },
+    {
+      "latitude": -6.0,
+      "longitude": 38.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8395,
+      "avg_temp_f": 78.5
+    },
+    {
+      "latitude": -6.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": -4.0,
+      "longitude": -80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1751,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -4.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1751,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -4.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1764,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": -4.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1775,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": -4.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1771,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 30.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 32.0,
+      "livability": 0.3667,
+      "temp_score": 0.6124,
+      "mosquito_suitability": 0.4012,
+      "avg_temp_f": 65.3
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 34.0,
+      "livability": 0.4014,
+      "temp_score": 0.7031,
+      "mosquito_suitability": 0.4291,
+      "avg_temp_f": 66.0
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 36.0,
+      "livability": 0.3912,
+      "temp_score": 0.7204,
+      "mosquito_suitability": 0.4569,
+      "avg_temp_f": 66.7
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 38.0,
+      "livability": 0.2842,
+      "temp_score": 0.7988,
+      "mosquito_suitability": 0.6442,
+      "avg_temp_f": 71.4
+    },
+    {
+      "latitude": -4.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1759,
+      "avg_temp_f": 58.8
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1771,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1819,
+      "avg_temp_f": 58.4
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1806,
+      "avg_temp_f": 58.4
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1771,
+      "avg_temp_f": 58.2
+    },
+    {
+      "latitude": -2.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 30.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 32.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 34.0,
+      "livability": 0.3672,
+      "temp_score": 0.6108,
+      "mosquito_suitability": 0.3988,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 36.0,
+      "livability": 0.3673,
+      "temp_score": 0.6103,
+      "mosquito_suitability": 0.3982,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 38.0,
+      "livability": 0.3671,
+      "temp_score": 0.6111,
+      "mosquito_suitability": 0.3993,
+      "avg_temp_f": 65.3
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 40.0,
+      "livability": 0.3938,
+      "temp_score": 0.7169,
+      "mosquito_suitability": 0.4507,
+      "avg_temp_f": 66.6
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": -2.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.6
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1747,
+      "avg_temp_f": 58.1
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1737,
+      "avg_temp_f": 58.1
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1763,
+      "avg_temp_f": 58.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1844,
+      "avg_temp_f": 58.4
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1792,
+      "avg_temp_f": 58.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": 0.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 30.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 32.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 34.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 36.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 38.0,
+      "livability": 0.3673,
+      "temp_score": 0.6103,
+      "mosquito_suitability": 0.3981,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 40.0,
+      "livability": 0.3667,
+      "temp_score": 0.6125,
+      "mosquito_suitability": 0.4014,
+      "avg_temp_f": 65.3
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 42.0,
+      "livability": 0.3646,
+      "temp_score": 0.6189,
+      "mosquito_suitability": 0.4109,
+      "avg_temp_f": 65.6
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 0.0,
+      "longitude": 110.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.6
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.18,
+      "avg_temp_f": 58.3
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.2131,
+      "avg_temp_f": 59.4
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1929,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1876,
+      "avg_temp_f": 58.5
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1812,
+      "avg_temp_f": 58.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 30.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 32.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 34.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 36.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 38.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 40.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 42.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 44.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 2.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.3265,
+      "avg_temp_f": 62.8
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1717,
+      "avg_temp_f": 57.9
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1844,
+      "avg_temp_f": 58.4
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1948,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.172,
+      "avg_temp_f": 57.9
+    },
+    {
+      "latitude": 4.0,
+      "longitude": -66.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 32.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 34.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 36.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 38.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 40.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 42.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 98.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 4.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9794,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 6.0,
+      "longitude": -76.0,
+      "livability": 0.3343,
+      "temp_score": 0.978,
+      "mosquito_suitability": 0.6581,
+      "avg_temp_f": 70.9
+    },
+    {
+      "latitude": 6.0,
+      "longitude": -74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.2958,
+      "avg_temp_f": 62.0
+    },
+    {
+      "latitude": 6.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.2229,
+      "avg_temp_f": 59.7
+    },
+    {
+      "latitude": 6.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.2244,
+      "avg_temp_f": 59.8
+    },
+    {
+      "latitude": 6.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1848,
+      "avg_temp_f": 58.4
+    },
+    {
+      "latitude": 6.0,
+      "longitude": 34.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 6.0,
+      "longitude": 36.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 6.0,
+      "longitude": 38.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 6.0,
+      "longitude": 40.0,
+      "livability": 0.3674,
+      "temp_score": 0.6102,
+      "mosquito_suitability": 0.398,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 6.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.9793,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -78.0,
+      "livability": 0.363,
+      "temp_score": 0.9904,
+      "mosquito_suitability": 0.6335,
+      "avg_temp_f": 70.3
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -76.0,
+      "livability": 0.3528,
+      "temp_score": 0.9866,
+      "mosquito_suitability": 0.6425,
+      "avg_temp_f": 70.5
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -74.0,
+      "livability": 0.43,
+      "temp_score": 0.9913,
+      "mosquito_suitability": 0.5662,
+      "avg_temp_f": 68.7
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.3756,
+      "avg_temp_f": 64.1
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.2917,
+      "avg_temp_f": 61.9
+    },
+    {
+      "latitude": 8.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1922,
+      "avg_temp_f": 58.6
+    },
+    {
+      "latitude": 8.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8214,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 10.0,
+      "longitude": -74.0,
+      "livability": 0.4234,
+      "temp_score": 0.9936,
+      "mosquito_suitability": 0.5738,
+      "avg_temp_f": 68.9
+    },
+    {
+      "latitude": 10.0,
+      "longitude": -72.0,
+      "livability": 0.4833,
+      "temp_score": 0.9344,
+      "mosquito_suitability": 0.4828,
+      "avg_temp_f": 66.7
+    },
+    {
+      "latitude": 10.0,
+      "longitude": -70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.3851,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 10.0,
+      "longitude": -68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 57.8
+    },
+    {
+      "latitude": 10.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 12.0,
+      "longitude": -72.0,
+      "livability": 0.3864,
+      "temp_score": 0.996,
+      "mosquito_suitability": 0.6121,
+      "avg_temp_f": 69.8
+    },
+    {
+      "latitude": 12.0,
+      "longitude": -70.0,
+      "livability": 0.3326,
+      "temp_score": 0.977,
+      "mosquito_suitability": 0.6596,
+      "avg_temp_f": 71.0
+    },
+    {
+      "latitude": 12.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 12.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 12.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 12.0,
+      "longitude": 108.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 14.0,
+      "longitude": -90.0,
+      "livability": 0.4748,
+      "temp_score": 0.7915,
+      "mosquito_suitability": 0.4001,
+      "avg_temp_f": 67.9
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 14.0,
+      "longitude": 108.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": -96.0,
+      "livability": 0.4752,
+      "temp_score": 0.7913,
+      "mosquito_suitability": 0.3995,
+      "avg_temp_f": 67.8
+    },
+    {
+      "latitude": 16.0,
+      "longitude": -94.0,
+      "livability": 0.4761,
+      "temp_score": 0.7908,
+      "mosquito_suitability": 0.3979,
+      "avg_temp_f": 67.8
+    },
+    {
+      "latitude": 16.0,
+      "longitude": -92.0,
+      "livability": 0.4752,
+      "temp_score": 0.7913,
+      "mosquito_suitability": 0.3994,
+      "avg_temp_f": 67.8
+    },
+    {
+      "latitude": 16.0,
+      "longitude": -90.0,
+      "livability": 0.4748,
+      "temp_score": 0.7915,
+      "mosquito_suitability": 0.4001,
+      "avg_temp_f": 67.9
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 98.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 16.0,
+      "longitude": 108.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -102.0,
+      "livability": 0.1148,
+      "temp_score": 0.1485,
+      "mosquito_suitability": 0.2267,
+      "avg_temp_f": 61.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -100.0,
+      "livability": 0.1147,
+      "temp_score": 0.1482,
+      "mosquito_suitability": 0.2257,
+      "avg_temp_f": 61.4
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -98.0,
+      "livability": 0.3657,
+      "temp_score": 0.5482,
+      "mosquito_suitability": 0.3328,
+      "avg_temp_f": 65.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -96.0,
+      "livability": 0.4762,
+      "temp_score": 0.7908,
+      "mosquito_suitability": 0.3978,
+      "avg_temp_f": 67.8
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -94.0,
+      "livability": 0.4789,
+      "temp_score": 0.7892,
+      "mosquito_suitability": 0.3931,
+      "avg_temp_f": 67.6
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -92.0,
+      "livability": 0.4779,
+      "temp_score": 0.7898,
+      "mosquito_suitability": 0.395,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": -90.0,
+      "livability": 0.4748,
+      "temp_score": 0.7915,
+      "mosquito_suitability": 0.4001,
+      "avg_temp_f": 67.9
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 96.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 98.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 18.0,
+      "longitude": 106.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -104.0,
+      "livability": 0.1139,
+      "temp_score": 0.1458,
+      "mosquito_suitability": 0.2185,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -102.0,
+      "livability": 0.1141,
+      "temp_score": 0.1462,
+      "mosquito_suitability": 0.2199,
+      "avg_temp_f": 61.2
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -100.0,
+      "livability": 0.1138,
+      "temp_score": 0.1456,
+      "mosquito_suitability": 0.218,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -98.0,
+      "livability": 0.1141,
+      "temp_score": 0.1464,
+      "mosquito_suitability": 0.2204,
+      "avg_temp_f": 61.2
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -90.0,
+      "livability": 0.4748,
+      "temp_score": 0.7915,
+      "mosquito_suitability": 0.4001,
+      "avg_temp_f": 67.9
+    },
+    {
+      "latitude": 20.0,
+      "longitude": -76.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 50.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 96.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 98.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 100.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 102.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 20.0,
+      "longitude": 104.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.8185,
+      "avg_temp_f": 83.5
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -104.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -102.0,
+      "livability": 0.1139,
+      "temp_score": 0.1458,
+      "mosquito_suitability": 0.2188,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -100.0,
+      "livability": 0.114,
+      "temp_score": 0.1461,
+      "mosquito_suitability": 0.2196,
+      "avg_temp_f": 61.2
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -98.0,
+      "livability": 0.1145,
+      "temp_score": 0.1475,
+      "mosquito_suitability": 0.2238,
+      "avg_temp_f": 61.4
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -84.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -80.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -78.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -16.0,
+      "livability": 0.47,
+      "temp_score": 0.6256,
+      "mosquito_suitability": 0.2488,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -14.0,
+      "livability": 0.4699,
+      "temp_score": 0.6269,
+      "mosquito_suitability": 0.2503,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -12.0,
+      "livability": 0.4698,
+      "temp_score": 0.6285,
+      "mosquito_suitability": 0.2525,
+      "avg_temp_f": 69.2
+    },
+    {
+      "latitude": 22.0,
+      "longitude": -10.0,
+      "livability": 0.5234,
+      "temp_score": 0.7015,
+      "mosquito_suitability": 0.2539,
+      "avg_temp_f": 69.2
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 48.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 50.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 58.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 22.0,
+      "longitude": 80.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -106.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -104.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -102.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -100.0,
+      "livability": 0.1139,
+      "temp_score": 0.1457,
+      "mosquito_suitability": 0.2183,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -98.0,
+      "livability": 0.1142,
+      "temp_score": 0.1467,
+      "mosquito_suitability": 0.2214,
+      "avg_temp_f": 61.3
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -14.0,
+      "livability": 0.4699,
+      "temp_score": 0.6267,
+      "mosquito_suitability": 0.2501,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -12.0,
+      "livability": 0.4699,
+      "temp_score": 0.6275,
+      "mosquito_suitability": 0.2511,
+      "avg_temp_f": 69.2
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -10.0,
+      "livability": 0.4697,
+      "temp_score": 0.6275,
+      "mosquito_suitability": 0.2514,
+      "avg_temp_f": 69.2
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -8.0,
+      "livability": 0.1994,
+      "temp_score": 0.238,
+      "mosquito_suitability": 0.1622,
+      "avg_temp_f": 68.0
+    },
+    {
+      "latitude": 24.0,
+      "longitude": -6.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 48.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 50.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 68.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 24.0,
+      "longitude": 78.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -112.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -104.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -102.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -100.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -98.0,
+      "livability": 0.1138,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.2177,
+      "avg_temp_f": 61.1
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -80.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -14.0,
+      "livability": 0.4698,
+      "temp_score": 0.6276,
+      "mosquito_suitability": 0.2514,
+      "avg_temp_f": 69.2
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -12.0,
+      "livability": 0.4698,
+      "temp_score": 0.6264,
+      "mosquito_suitability": 0.2501,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -10.0,
+      "livability": 0.3089,
+      "temp_score": 0.3968,
+      "mosquito_suitability": 0.2216,
+      "avg_temp_f": 68.8
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -8.0,
+      "livability": 0.1419,
+      "temp_score": 0.1664,
+      "mosquito_suitability": 0.1476,
+      "avg_temp_f": 67.8
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -6.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -4.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": -2.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 48.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 50.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 58.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 60.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 62.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 64.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 70.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 72.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 74.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 26.0,
+      "longitude": 76.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.7918,
+      "avg_temp_f": 80.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -114.0,
+      "livability": 0.1956,
+      "temp_score": 0.2388,
+      "mosquito_suitability": 0.1807,
+      "avg_temp_f": 67.1
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -110.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -82.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -16.0,
+      "livability": 0.47,
+      "temp_score": 0.6266,
+      "mosquito_suitability": 0.25,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -12.0,
+      "livability": 0.4152,
+      "temp_score": 0.5513,
+      "mosquito_suitability": 0.2468,
+      "avg_temp_f": 69.1
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -10.0,
+      "livability": 0.1977,
+      "temp_score": 0.2383,
+      "mosquito_suitability": 0.1706,
+      "avg_temp_f": 68.1
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -8.0,
+      "livability": 0.1434,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1389,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -6.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -4.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": -2.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 0.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 48.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 58.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 60.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 28.0,
+      "longitude": 62.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -112.0,
+      "livability": 0.1448,
+      "temp_score": 0.1566,
+      "mosquito_suitability": 0.0752,
+      "avg_temp_f": 71.6
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -110.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0738,
+      "avg_temp_f": 72.3
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -104.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -82.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -8.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -6.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1374,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -4.0,
+      "livability": 0.1434,
+      "temp_score": 0.1666,
+      "mosquito_suitability": 0.1389,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": -2.0,
+      "livability": 0.1426,
+      "temp_score": 0.1666,
+      "mosquito_suitability": 0.1445,
+      "avg_temp_f": 67.6
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 0.0,
+      "livability": 0.1415,
+      "temp_score": 0.1667,
+      "mosquito_suitability": 0.1508,
+      "avg_temp_f": 67.4
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 48.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 58.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 60.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 30.0,
+      "longitude": 62.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -116.0,
+      "livability": 0.3129,
+      "temp_score": 0.4022,
+      "mosquito_suitability": 0.2221,
+      "avg_temp_f": 63.6
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -114.0,
+      "livability": 0.2119,
+      "temp_score": 0.2318,
+      "mosquito_suitability": 0.0855,
+      "avg_temp_f": 69.8
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -112.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -110.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -104.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -86.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -84.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -82.0,
+      "livability": 0.0584,
+      "temp_score": 0.3258,
+      "mosquito_suitability": 0.8208,
+      "avg_temp_f": 77.0
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -8.0,
+      "livability": 0.1437,
+      "temp_score": 0.1665,
+      "mosquito_suitability": 0.1372,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -6.0,
+      "livability": 0.1435,
+      "temp_score": 0.1666,
+      "mosquito_suitability": 0.1387,
+      "avg_temp_f": 67.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -4.0,
+      "livability": 0.1404,
+      "temp_score": 0.1666,
+      "mosquito_suitability": 0.157,
+      "avg_temp_f": 67.3
+    },
+    {
+      "latitude": 32.0,
+      "longitude": -2.0,
+      "livability": 0.1323,
+      "temp_score": 0.1639,
+      "mosquito_suitability": 0.193,
+      "avg_temp_f": 66.5
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 0.0,
+      "livability": 0.1824,
+      "temp_score": 0.2338,
+      "mosquito_suitability": 0.2197,
+      "avg_temp_f": 65.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 2.0,
+      "livability": 0.1782,
+      "temp_score": 0.2323,
+      "mosquito_suitability": 0.2328,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 20.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 22.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 52.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 54.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 56.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 58.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 60.0,
+      "livability": 0.2611,
+      "temp_score": 0.3147,
+      "mosquito_suitability": 0.1703,
+      "avg_temp_f": 81.7
+    },
+    {
+      "latitude": 32.0,
+      "longitude": 120.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -120.0,
+      "livability": 0.1826,
+      "temp_score": 0.2213,
+      "mosquito_suitability": 0.1751,
+      "avg_temp_f": 60.8
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -118.0,
+      "livability": 0.3275,
+      "temp_score": 0.403,
+      "mosquito_suitability": 0.1874,
+      "avg_temp_f": 63.9
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -116.0,
+      "livability": 0.3187,
+      "temp_score": 0.4041,
+      "mosquito_suitability": 0.2114,
+      "avg_temp_f": 63.8
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -114.0,
+      "livability": 0.1455,
+      "temp_score": 0.1573,
+      "mosquito_suitability": 0.0753,
+      "avg_temp_f": 71.3
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -112.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -110.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -104.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -6.0,
+      "livability": 0.187,
+      "temp_score": 0.2353,
+      "mosquito_suitability": 0.205,
+      "avg_temp_f": 66.0
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -4.0,
+      "livability": 0.1804,
+      "temp_score": 0.2334,
+      "mosquito_suitability": 0.2272,
+      "avg_temp_f": 65.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": -2.0,
+      "livability": 0.1791,
+      "temp_score": 0.2328,
+      "mosquito_suitability": 0.2308,
+      "avg_temp_f": 65.3
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 0.0,
+      "livability": 0.1784,
+      "temp_score": 0.232,
+      "mosquito_suitability": 0.2313,
+      "avg_temp_f": 65.1
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 2.0,
+      "livability": 0.2317,
+      "temp_score": 0.3031,
+      "mosquito_suitability": 0.2354,
+      "avg_temp_f": 64.8
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 4.0,
+      "livability": 0.2281,
+      "temp_score": 0.3029,
+      "mosquito_suitability": 0.2469,
+      "avg_temp_f": 64.4
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 6.0,
+      "livability": 0.227,
+      "temp_score": 0.3029,
+      "mosquito_suitability": 0.2505,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 120.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 132.0,
+      "livability": 0.0537,
+      "temp_score": 0.1595,
+      "mosquito_suitability": 0.6637,
+      "avg_temp_f": 55.6
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 134.0,
+      "livability": 0.075,
+      "temp_score": 0.2291,
+      "mosquito_suitability": 0.6728,
+      "avg_temp_f": 59.6
+    },
+    {
+      "latitude": 34.0,
+      "longitude": 136.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -120.0,
+      "livability": 0.1852,
+      "temp_score": 0.2241,
+      "mosquito_suitability": 0.1737,
+      "avg_temp_f": 60.8
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -118.0,
+      "livability": 0.319,
+      "temp_score": 0.3934,
+      "mosquito_suitability": 0.189,
+      "avg_temp_f": 62.5
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -116.0,
+      "livability": 0.3238,
+      "temp_score": 0.4032,
+      "mosquito_suitability": 0.1969,
+      "avg_temp_f": 63.8
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -114.0,
+      "livability": 0.2128,
+      "temp_score": 0.2338,
+      "mosquito_suitability": 0.09,
+      "avg_temp_f": 69.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -112.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0742,
+      "avg_temp_f": 72.1
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -110.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": -104.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 2.0,
+      "livability": 0.2286,
+      "temp_score": 0.303,
+      "mosquito_suitability": 0.2455,
+      "avg_temp_f": 64.4
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 4.0,
+      "livability": 0.2275,
+      "temp_score": 0.3029,
+      "mosquito_suitability": 0.249,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 6.0,
+      "livability": 0.2265,
+      "temp_score": 0.3028,
+      "mosquito_suitability": 0.2519,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 8.0,
+      "livability": 0.1753,
+      "temp_score": 0.2378,
+      "mosquito_suitability": 0.2629,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 10.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 118.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 120.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 128.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 136.0,
+      "livability": 0.0746,
+      "temp_score": 0.2289,
+      "mosquito_suitability": 0.674,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 138.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 36.0,
+      "longitude": 140.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -122.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1146,
+      "avg_temp_f": 56.5
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -120.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1193,
+      "avg_temp_f": 57.0
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -118.0,
+      "livability": 0.1219,
+      "temp_score": 0.1447,
+      "mosquito_suitability": 0.1576,
+      "avg_temp_f": 59.8
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -116.0,
+      "livability": 0.3232,
+      "temp_score": 0.3986,
+      "mosquito_suitability": 0.1892,
+      "avg_temp_f": 62.6
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -114.0,
+      "livability": 0.2041,
+      "temp_score": 0.2385,
+      "mosquito_suitability": 0.1443,
+      "avg_temp_f": 67.3
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -112.0,
+      "livability": 0.145,
+      "temp_score": 0.1568,
+      "mosquito_suitability": 0.075,
+      "avg_temp_f": 71.5
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -110.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -106.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -104.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -8.0,
+      "livability": 0.2304,
+      "temp_score": 0.3119,
+      "mosquito_suitability": 0.2612,
+      "avg_temp_f": 63.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -6.0,
+      "livability": 0.2313,
+      "temp_score": 0.3073,
+      "mosquito_suitability": 0.2473,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -4.0,
+      "livability": 0.178,
+      "temp_score": 0.2324,
+      "mosquito_suitability": 0.2344,
+      "avg_temp_f": 65.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": -2.0,
+      "livability": 0.2304,
+      "temp_score": 0.3031,
+      "mosquito_suitability": 0.24,
+      "avg_temp_f": 64.6
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 14.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 16.0,
+      "livability": 0.1246,
+      "temp_score": 0.1664,
+      "mosquito_suitability": 0.2513,
+      "avg_temp_f": 59.8
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 22.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 28.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 30.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 32.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 34.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 118.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 126.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 128.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 38.0,
+      "longitude": 140.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -124.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1148,
+      "avg_temp_f": 56.5
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -122.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.115,
+      "avg_temp_f": 56.6
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -120.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1166,
+      "avg_temp_f": 56.7
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -118.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1244,
+      "avg_temp_f": 57.4
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -116.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1457,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -114.0,
+      "livability": 0.2604,
+      "temp_score": 0.3156,
+      "mosquito_suitability": 0.175,
+      "avg_temp_f": 64.8
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -112.0,
+      "livability": 0.0772,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0739,
+      "avg_temp_f": 72.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -110.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -108.0,
+      "livability": 0.0771,
+      "temp_score": 0.0833,
+      "mosquito_suitability": 0.0736,
+      "avg_temp_f": 72.4
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -8.0,
+      "livability": 0.2339,
+      "temp_score": 0.3233,
+      "mosquito_suitability": 0.2765,
+      "avg_temp_f": 62.1
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -6.0,
+      "livability": 0.2832,
+      "temp_score": 0.3869,
+      "mosquito_suitability": 0.2678,
+      "avg_temp_f": 62.9
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -4.0,
+      "livability": 0.2312,
+      "temp_score": 0.305,
+      "mosquito_suitability": 0.2421,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": -2.0,
+      "livability": 0.2271,
+      "temp_score": 0.3029,
+      "mosquito_suitability": 0.2501,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 0.0,
+      "livability": 0.227,
+      "temp_score": 0.3029,
+      "mosquito_suitability": 0.2505,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 16.0,
+      "livability": 0.1767,
+      "temp_score": 0.2385,
+      "mosquito_suitability": 0.2592,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 20.0,
+      "livability": 0.1276,
+      "temp_score": 0.1542,
+      "mosquito_suitability": 0.1724,
+      "avg_temp_f": 64.1
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 22.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 28.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 30.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 32.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 118.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 122.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 124.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 126.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 40.0,
+      "longitude": 140.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -124.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1148,
+      "avg_temp_f": 56.0
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -122.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1147,
+      "avg_temp_f": 56.0
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -120.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1151,
+      "avg_temp_f": 56.0
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -118.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1158,
+      "avg_temp_f": 55.9
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -116.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1155,
+      "avg_temp_f": 55.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -114.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1146,
+      "avg_temp_f": 56.5
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -8.0,
+      "livability": 0.2342,
+      "temp_score": 0.3226,
+      "mosquito_suitability": 0.2742,
+      "avg_temp_f": 62.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -6.0,
+      "livability": 0.2839,
+      "temp_score": 0.3877,
+      "mosquito_suitability": 0.2677,
+      "avg_temp_f": 62.7
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -4.0,
+      "livability": 0.1757,
+      "temp_score": 0.2337,
+      "mosquito_suitability": 0.248,
+      "avg_temp_f": 63.9
+    },
+    {
+      "latitude": 42.0,
+      "longitude": -2.0,
+      "livability": 0.2272,
+      "temp_score": 0.303,
+      "mosquito_suitability": 0.2501,
+      "avg_temp_f": 64.3
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 0.0,
+      "livability": 0.2267,
+      "temp_score": 0.3028,
+      "mosquito_suitability": 0.2514,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 2.0,
+      "livability": 0.1711,
+      "temp_score": 0.2317,
+      "mosquito_suitability": 0.2614,
+      "avg_temp_f": 63.4
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 12.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 14.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 20.0,
+      "livability": 0.1831,
+      "temp_score": 0.225,
+      "mosquito_suitability": 0.1862,
+      "avg_temp_f": 62.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 22.0,
+      "livability": 0.1285,
+      "temp_score": 0.1549,
+      "mosquito_suitability": 0.1709,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 26.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 120.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 122.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 124.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 126.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 128.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 130.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 42.0,
+      "longitude": 140.0,
+      "livability": 0.0742,
+      "temp_score": 0.2288,
+      "mosquito_suitability": 0.6755,
+      "avg_temp_f": 59.9
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -124.0,
+      "livability": 0.1247,
+      "temp_score": 0.1445,
+      "mosquito_suitability": 0.1367,
+      "avg_temp_f": 52.9
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -122.0,
+      "livability": 0.1248,
+      "temp_score": 0.1445,
+      "mosquito_suitability": 0.1367,
+      "avg_temp_f": 52.9
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -120.0,
+      "livability": 0.1248,
+      "temp_score": 0.1445,
+      "mosquito_suitability": 0.1367,
+      "avg_temp_f": 52.9
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -118.0,
+      "livability": 0.1249,
+      "temp_score": 0.1447,
+      "mosquito_suitability": 0.1369,
+      "avg_temp_f": 52.9
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -116.0,
+      "livability": 0.1254,
+      "temp_score": 0.1454,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -114.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": -112.0,
+      "livability": 0.1257,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1357,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 0.0,
+      "livability": 0.179,
+      "temp_score": 0.2385,
+      "mosquito_suitability": 0.2495,
+      "avg_temp_f": 60.5
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 2.0,
+      "livability": 0.2295,
+      "temp_score": 0.3117,
+      "mosquito_suitability": 0.2637,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 4.0,
+      "livability": 0.1711,
+      "temp_score": 0.2387,
+      "mosquito_suitability": 0.2831,
+      "avg_temp_f": 59.4
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 6.0,
+      "livability": 0.1704,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2859,
+      "avg_temp_f": 59.4
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 8.0,
+      "livability": 0.1703,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2859,
+      "avg_temp_f": 59.4
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 10.0,
+      "livability": 0.1716,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2808,
+      "avg_temp_f": 59.4
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 12.0,
+      "livability": 0.1759,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2629,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 16.0,
+      "livability": 0.1765,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2603,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 18.0,
+      "livability": 0.1766,
+      "temp_score": 0.2385,
+      "mosquito_suitability": 0.2595,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 20.0,
+      "livability": 0.1258,
+      "temp_score": 0.1664,
+      "mosquito_suitability": 0.2439,
+      "avg_temp_f": 60.3
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 22.0,
+      "livability": 0.1848,
+      "temp_score": 0.2244,
+      "mosquito_suitability": 0.1765,
+      "avg_temp_f": 63.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 26.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 28.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 122.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 124.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 126.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 128.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 130.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 44.0,
+      "longitude": 132.0,
+      "livability": 0.0539,
+      "temp_score": 0.1594,
+      "mosquito_suitability": 0.6622,
+      "avg_temp_f": 54.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -122.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -120.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -118.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -116.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -114.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": -112.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 0.0,
+      "livability": 0.1241,
+      "temp_score": 0.1595,
+      "mosquito_suitability": 0.2221,
+      "avg_temp_f": 53.4
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 2.0,
+      "livability": 0.1256,
+      "temp_score": 0.1621,
+      "mosquito_suitability": 0.2251,
+      "avg_temp_f": 53.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 4.0,
+      "livability": 0.128,
+      "temp_score": 0.1663,
+      "mosquito_suitability": 0.2306,
+      "avg_temp_f": 55.8
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 6.0,
+      "livability": 0.2278,
+      "temp_score": 0.3121,
+      "mosquito_suitability": 0.2701,
+      "avg_temp_f": 58.7
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 8.0,
+      "livability": 0.1714,
+      "temp_score": 0.2387,
+      "mosquito_suitability": 0.2819,
+      "avg_temp_f": 59.3
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 10.0,
+      "livability": 0.1716,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.281,
+      "avg_temp_f": 59.3
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 12.0,
+      "livability": 0.1737,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2721,
+      "avg_temp_f": 59.3
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 14.0,
+      "livability": 0.1752,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2654,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 16.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2596,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 18.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 20.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 22.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 46.0,
+      "longitude": 24.0,
+      "livability": 0.1289,
+      "temp_score": 0.1553,
+      "mosquito_suitability": 0.1701,
+      "avg_temp_f": 64.2
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -124.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -122.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -120.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -118.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -116.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -114.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -112.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -4.0,
+      "livability": 0.1177,
+      "temp_score": 0.1456,
+      "mosquito_suitability": 0.1913,
+      "avg_temp_f": 52.6
+    },
+    {
+      "latitude": 48.0,
+      "longitude": -2.0,
+      "livability": 0.1206,
+      "temp_score": 0.1519,
+      "mosquito_suitability": 0.2057,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 0.0,
+      "livability": 0.1226,
+      "temp_score": 0.1574,
+      "mosquito_suitability": 0.221,
+      "avg_temp_f": 53.1
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 2.0,
+      "livability": 0.1228,
+      "temp_score": 0.1584,
+      "mosquito_suitability": 0.2245,
+      "avg_temp_f": 53.1
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 4.0,
+      "livability": 0.1229,
+      "temp_score": 0.1584,
+      "mosquito_suitability": 0.2243,
+      "avg_temp_f": 53.2
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 6.0,
+      "livability": 0.1246,
+      "temp_score": 0.1606,
+      "mosquito_suitability": 0.2239,
+      "avg_temp_f": 53.5
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 8.0,
+      "livability": 0.1283,
+      "temp_score": 0.1666,
+      "mosquito_suitability": 0.2298,
+      "avg_temp_f": 55.3
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 10.0,
+      "livability": 0.2387,
+      "temp_score": 0.3134,
+      "mosquito_suitability": 0.2386,
+      "avg_temp_f": 57.3
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 12.0,
+      "livability": 0.2303,
+      "temp_score": 0.3123,
+      "mosquito_suitability": 0.2627,
+      "avg_temp_f": 58.6
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 14.0,
+      "livability": 0.1743,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2694,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 16.0,
+      "livability": 0.1758,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.263,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 18.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 48.0,
+      "longitude": 20.0,
+      "livability": 0.1766,
+      "temp_score": 0.2386,
+      "mosquito_suitability": 0.2599,
+      "avg_temp_f": 59.2
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -128.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -126.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -124.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -122.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -120.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -118.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -116.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -114.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": -112.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 2.0,
+      "livability": 0.1222,
+      "temp_score": 0.1561,
+      "mosquito_suitability": 0.2169,
+      "avg_temp_f": 53.0
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 4.0,
+      "livability": 0.1225,
+      "temp_score": 0.1571,
+      "mosquito_suitability": 0.2202,
+      "avg_temp_f": 53.1
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 6.0,
+      "livability": 0.1224,
+      "temp_score": 0.1564,
+      "mosquito_suitability": 0.2174,
+      "avg_temp_f": 53.1
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 8.0,
+      "livability": 0.123,
+      "temp_score": 0.157,
+      "mosquito_suitability": 0.2163,
+      "avg_temp_f": 53.2
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 10.0,
+      "livability": 0.1248,
+      "temp_score": 0.1601,
+      "mosquito_suitability": 0.2204,
+      "avg_temp_f": 53.6
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 12.0,
+      "livability": 0.1271,
+      "temp_score": 0.1647,
+      "mosquito_suitability": 0.2281,
+      "avg_temp_f": 54.4
+    },
+    {
+      "latitude": 50.0,
+      "longitude": 14.0,
+      "livability": 0.1281,
+      "temp_score": 0.1664,
+      "mosquito_suitability": 0.2305,
+      "avg_temp_f": 55.1
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -126.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -124.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -122.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -120.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -118.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -116.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -114.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -112.0,
+      "livability": 0.1257,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1357,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -8.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1622,
+      "avg_temp_f": 52.0
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -4.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1625,
+      "avg_temp_f": 52.0
+    },
+    {
+      "latitude": 52.0,
+      "longitude": -2.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1616,
+      "avg_temp_f": 52.0
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 0.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1614,
+      "avg_temp_f": 52.0
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 6.0,
+      "livability": 0.1173,
+      "temp_score": 0.1447,
+      "mosquito_suitability": 0.1895,
+      "avg_temp_f": 52.5
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 8.0,
+      "livability": 0.1189,
+      "temp_score": 0.148,
+      "mosquito_suitability": 0.1968,
+      "avg_temp_f": 52.7
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 10.0,
+      "livability": 0.12,
+      "temp_score": 0.1504,
+      "mosquito_suitability": 0.2024,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 12.0,
+      "livability": 0.1219,
+      "temp_score": 0.1549,
+      "mosquito_suitability": 0.2132,
+      "avg_temp_f": 53.0
+    },
+    {
+      "latitude": 52.0,
+      "longitude": 14.0,
+      "livability": 0.1228,
+      "temp_score": 0.1584,
+      "mosquito_suitability": 0.2247,
+      "avg_temp_f": 53.1
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -130.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -128.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -126.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -124.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -122.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -120.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -118.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -116.0,
+      "livability": 0.1255,
+      "temp_score": 0.1455,
+      "mosquito_suitability": 0.1376,
+      "avg_temp_f": 52.8
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -8.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1613,
+      "avg_temp_f": 51.9
+    },
+    {
+      "latitude": 54.0,
+      "longitude": -2.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1621,
+      "avg_temp_f": 52.0
+    },
+    {
+      "latitude": 54.0,
+      "longitude": 10.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1794,
+      "avg_temp_f": 52.3
+    },
+    {
+      "latitude": 54.0,
+      "longitude": 12.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1741,
+      "avg_temp_f": 52.2
+    },
+    {
+      "latitude": 56.0,
+      "longitude": -4.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1613,
+      "avg_temp_f": 51.9
+    },
+    {
+      "latitude": 56.0,
+      "longitude": 10.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1613,
+      "avg_temp_f": 51.9
+    },
+    {
+      "latitude": 58.0,
+      "longitude": -4.0,
+      "livability": 0.0,
+      "temp_score": 0.0,
+      "mosquito_suitability": 0.1613,
+      "avg_temp_f": 51.9
+    }
+  ]
+}
